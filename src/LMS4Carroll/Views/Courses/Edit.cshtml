@@ -1,0 +1,62 @@
+@model LMS4Carroll.Models.Course
+
+@{
+    ViewData["Title"] = "Edit | Course";
+}
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Edit Course</div>
+    <div class="panel-body">
+        <br /><form asp-action="Edit">
+            <div class="form-horizontal">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="CourseID" />
+                <div class="form-group">
+                    <label asp-for="Department" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Department" name="DeptString" class="form-control" />
+                        <span asp-validation-for="Department" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Handler" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Handler" name="HandlerString" class="form-control" />
+                        <span asp-validation-for="Handler" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Name" class="form-control" name="NameString" />
+                        <span asp-validation-for="Name" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Number" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Number" name="NumberString" class="form-control" />
+                        <span asp-validation-for="Number" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LocationID" class="col-md-2 control-label required">Location</label>
+                    <div class="col-md-10">
+                        <select asp-for="LocationID" class="form-control" name="LocationInput" asp-items="ViewBag.LocationName"></select>
+                    </div>
+                </div>
+                <div id="editbtn" class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                    <div class="col-md-offset-2 col-md-10">
+                        <a asp-action="Index" class="btn btn-danger">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+ </div>
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

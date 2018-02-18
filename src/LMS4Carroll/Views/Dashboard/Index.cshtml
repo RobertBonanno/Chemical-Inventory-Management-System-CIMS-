@@ -1,0 +1,107 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+<!--
+<div class="top-buffer"></div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading panel-head">Search Database</div>
+            <div class="panel-body">
+                <br />
+                <form asp-controller="Dashboard" asp-action="Search" method="post">
+                    <div class="form-actions no-color">
+                        <p>
+                            <input id="dashboard" type="text" name="CageString" placeholder="Search for ID" value="@**@ViewData["Search"]" />
+                            <input id="dashboardBtn" type="submit" value="Search" class="btn btn-danger" />
+                        </p>
+                        <p>
+                            <select id="entity" name="EntityString" class="form-control" value="@**@ViewData["Entity"]">
+                                <option value="Chemical" selected="selected">chemical</option>
+                                <option value="ChemEqpmt">chemical equipment</option>
+                                <option value="BioEqpmt">biological equipment</option>
+                                <option value="Animal">animal</option>
+                                <option value="Order">orders</option>
+                                <option value="Vendor">vendors</option>
+                                <option value="Location">location</option>
+                                <option value="Courses">courses</option>
+                            </select>
+                        </p>
+                        <hr/>
+                        <p>
+                            Search Feature [under contruction]
+                            <img class="img-responsive" src="~/images/soon.png" height="70" width="100">
+                        </p>                   
+                    </div>
+                </form>
+                <form asp-controller="Dashboard" asp-action="Search" method="get">
+                    <div>
+                        <br />                       
+                        <h2>
+                            @{
+                                /*
+                                var type = ViewBag.Type;
+                                var models = new object();
+
+                                if (type.Equals("Chemical"))
+                                {
+                                    models = (Chemical)ViewBag.Result;
+                                }
+                                else if (type.Equals("ChemEqpmt"))
+                                {
+                                    models = (ChemEquipment)ViewBag.Result;
+                                }
+                                else if (type.Equals("BioEqpmt"))
+                                {
+                                    models = (BioEquipment)ViewBag.Result;
+                                }
+                                else if (type.Equals("Animal"))
+                                {
+                                    models = (Animal)ViewBag.Result;
+                                }
+                                else if (type.Equals("Order"))
+                                {
+                                    models = (Order)ViewBag.Result;
+                                }
+                                else if (type.Equals("Vendor"))
+                                {
+                                    models = (Vendor)ViewBag.Result;
+                                }
+                                else if (type.Equals("Location"))
+                                {
+                                    models = (Location)ViewBag.Result;
+                                }
+                                else if (type.Equals("Courses"))
+                                {
+                                    models = (Course)ViewBag.Result;
+                                }
+                                }
+                                @Html.DisplayForModel(models);
+                                */
+                            }
+                        </h2>
+                    </div>
+                    </form>
+</div>
+        </div>
+        </div>
+    </div>
+        <br />-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading panel-head"><i class="glyphicon glyphicon-barcode"></i> Tableau Dashboard</div>
+                        <div class="panel-body">
+                            <div id="morris-area-chart">
+                                <!---<script type='text/javascript' src='https://us-east-1.online.tableau.com/javascripts/api/viz_v1.js'></script><div class='tableauPlaceholder' style='width: inherit; height: inherit;'><object class='tableauViz' width='1075' height='862' style='display:none;'><param name='host_url' value='https%3A%2F%2Fus-east-1.online.tableau.com%2F' /> <param name='site_root' value='&#47;t&#47;carrolllms' /><param name='name' value='Carroll_BI&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='showShareOptions' value='true' /></object></div>-->
+                                <script type='text/javascript' src='https://us-east-1.online.tableau.com/javascripts/api/viz_v1.js'></script><div class='tableauPlaceholder'  style='width: inherit; height: inherit;'><object class='tableauViz' width='1075' height='862' style='display:none;'><param name='host_url' value='https%3A%2F%2Fus-east-1.online.tableau.com%2F' /> <param name='site_root' value='&#47;t&#47;carrolllims' /><param name='name' value='Carroll_BI&#47;LIMSDashboard' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='showShareOptions' value='true' /></object></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }
+

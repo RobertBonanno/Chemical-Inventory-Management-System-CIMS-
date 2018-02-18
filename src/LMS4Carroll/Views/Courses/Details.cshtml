@@ -1,0 +1,51 @@
+@model LMS4Carroll.Models.Course
+
+@{
+    ViewData["Title"] = "Details | Course";
+}
+
+<<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Course Details</div>
+    <div class="panel-body">
+        <br />
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.NormalizedStr)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.NormalizedStr)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Handler)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Handler)
+                </dd>
+                <dt>
+                    Location
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Location.NormalizedStr)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.LocationID)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.LocationID)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.CourseID">Edit</a><br />
+            <a asp-action="Index" class="btn btn-default">Back to List</a>
+        </div>
+        </div>
+    </div>

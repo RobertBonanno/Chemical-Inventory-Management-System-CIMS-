@@ -1,0 +1,76 @@
+@model LMS4Carroll.Models.CageLog
+
+@{
+    ViewData["Title"] = "Details | Cage Log";
+}
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Cage Log Details</div>
+    <div class="panel-body">
+        <br />
+        <div>
+            <h4>CageLog</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Clean)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Clean)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DatetimeCreated)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DatetimeCreated)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.AnimalID)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.AnimalID)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Food)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Food)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.FoodComments)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.FoodComments)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Social)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Social)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.SocialComments)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.SocialComments)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.WashComments)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.WashComments)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Washed)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Washed)
+                </dd>
+            </dl>
+        </div>
+        <div id="detailsbtn">
+            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.CageLogId">Edit</a><br />
+            <a asp-action="Index" class="btn btn-default">Back to List</a>
+        </div>
+        </div>
+    </div>

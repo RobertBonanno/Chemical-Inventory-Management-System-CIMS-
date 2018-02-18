@@ -1,0 +1,20 @@
+{
+  "name": "asp.net",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.6",
+    "jquery": "3.2.1",
+    "jquery-validation": "1.16.0",
+    "jquery-validation-unobtrusive": "3.2.6",
+    "angular": "bower-angular#v1.6.5-build.5353+sha.136a42a",
+    "angular-bootstrap": "boostrap-bower#v1.1.0",
+    "angular-mocks": "bower-angular-mocks#v1.6.5-build.5353+sha.136a42a",
+    "angular-route": "bower-angular-route#v1.6.5-build.5353+sha.136a42a"
+  },
+  "resolutions": {
+    "bootstrap": "v4.0.0-alpha.6",
+    "jquery-validation": "1.16.0",
+    "angular": "v1.6.5-build.5353+sha.136a42a",
+    "jquery": "3.2.1"
+  }
+}

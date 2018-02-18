@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LMS4Carroll</title>
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />  
+        <link href="~/css/font-awesome.css" rel="stylesheet" type="text/css" />    
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />    
+        <link href="~/css/font-awesome.min.css" rel="stylesheet" type="text/css" />    
+    </environment>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><img id="logo" class="img-responsive"
+     src="~/images/CarrollLogo.PNG"></a>
+            </div>
+            <div class="navbar-collapse collapse" id="topNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>  
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-area="" asp-controller="ApplicationRole" asp-action="Index">Role</a></li>
+                                <li><a asp-area="" asp-controller="User" asp-action="Index">Edit User</a></li>
+                            </ul>
+                        </li>
+                    }
+                    @*  dashboard is for future implmentation, buisiness intelligence layer
+                    @if (User.IsInRole("Admin")|| User.IsInRole("BiologyUser") || User.IsInRole("ChemUser") || User.IsInRole("AnimalUser"))
+                    {
+                        <li><a asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+                    }
+                     *@
+                    @if (User.IsInRole("Admin") || User.IsInRole("Student") || User.IsInRole("ChemUser") || User.IsInRole("AnimalUser"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chemistry<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                            @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser") || User.IsInRole("ChemUser") || User.IsInRole("Student"))
+                            {
+                                <li><a asp-area="" asp-controller="Chemicals" asp-action="Index">Chemicals</a></li>
+                            }
+                            @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("Student"))
+                            {
+                                <li><a asp-area="" asp-controller="ChemEquipments" asp-action="Index">Chemical Equipment</a></li>                         
+                            }
+
+                            </ul>
+                        </li>
+                    }
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Student") || User.IsInRole("BiologyUser") || User.IsInRole("AnimalUser"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Biology<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser") || User.IsInRole("ChemUser") || User.IsInRole("Student"))
+                                {
+                                    <li><a asp-area="" asp-controller="Chemicals" asp-action="Index">Chemicals</a></li>
+                                }
+                                @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser") || User.IsInRole("Student"))
+                                {
+                                    <li><a asp-area="" asp-controller="Animals" asp-action="Index">Animals</a></li>
+                                }
+                                @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser") || User.IsInRole("Student"))
+                                {
+                                    <li><a asp-area="" asp-controller="BioEquipments" asp-action="Index">Biological Equipment</a></li>
+                                }
+
+                            </ul>
+                        </li>
+                    }
+                    
+                    @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser") || User.IsInRole("BiologyUser") || User.IsInRole("ChemUser")|| User.IsInRole("Student"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Management<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-area="" asp-controller="Locations" asp-action="Index">Locations</a></li>
+                                @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser") || User.IsInRole("BiologyUser") || User.IsInRole("ChemUser"))
+                                {
+                                    <li><a asp-area="" asp-controller="Orders" asp-action="Index">Orders</a></li>
+                                    <li><a asp-area="" asp-controller="Vendors" asp-action="Index">Vendors</a></li>
+                                }
+                                <li><a asp-area="" asp-controller="Courses" asp-action="Index">Courses</a></li>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li><a asp-area="" asp-controller="FileDetails" asp-action="Index">Invoice Upload</a></li>
+                                }
+                            </ul>
+                        </li>
+                }
+                @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser") || User.IsInRole("Student"))
+                {
+                    <li><a asp-area="" asp-controller="ChemInventories" asp-action="Index">Chemical Inventory</a></li>
+                }
+                @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser") || User.IsInRole("AnimalUser") || User.IsInRole("Student"))
+                {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Log<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser") || User.IsInRole("Student"))
+                        {
+                            <li><a asp-area="" asp-controller="ChemLogs" asp-action="Index">Log Chemicals</a></li>
+                        }
+                        @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser"))
+                        {
+                            <li><a asp-area="" asp-controller="CageLogs" asp-action="Index">Log Cage</a></li>
+                        }
+                        </ul>
+                    </li>
+                }
+                </ul>
+                @await Html.PartialAsync("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+          
+        </footer>
+    </div>
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>           
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>      
+    </environment>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,127 @@
+@model IEnumerable<LMS4Carroll.Models.ChemLog>
+
+@{
+    ViewData["Title"] = "List | Chem Logs";
+}
+
+  <div class="top-buffer"></div>
+        <div class="panel panel-primary">
+            <div class="panel-heading panel-head">Chemicals Log</div>
+            <div class="panel-body">
+                <div class="btn-group">
+                    @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser"))
+                    {
+                        <a id="createRoleModal" asp-action="Create" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-plus"></i>  Add Log Entry
+                        </a>
+                    }
+                </div><br />
+                <form asp-controller="ChemLogs" asp-action="Index">
+                    <div class="form-actions no-color">
+                        <p>
+                            <input type="text" name="CageString" value="@ViewData["currentFilter"]" />
+                            <input type="submit" value="Search" class="btn btn-default" />  
+                            <a asp-action="Index" class="btn btn-default">Back to Full List</a>
+                        </p>
+                    </div>
+                </form>
+                <table class="table table-bordered table-striped table-condensed">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ChemLogId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ChemInventoryId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Course.Department)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Course.Number)
+                            </th>
+                            <th>
+                                Stored Location
+                            </th>
+                            <th>
+                                Lab Location
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.QtyUsed)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ChemInventory.QtyLeft)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ChemInventory.Units)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DatetimeCreated)
+                            </th>
+                            @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser"))
+                            {
+                                <th>
+                                    Actions
+                                </th>
+                            }
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChemLogId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChemInventoryId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Course.Department)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Course.Number)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChemInventory.NormalizedLocation)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Course.NormalizedLocation)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.QtyUsed)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChemInventory.QtyLeft)
+                                </td>
+                                <!--QtyLeftText is a fiedl used to track measurement unit -->
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChemInventory.Units)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DatetimeCreated)
+                                </td>
+                                @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser"))
+                                { 
+                                    <td>    
+                                                                        
+                                        <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.ChemLogId" class="btn btn-info">
+                                            <i class="glyphicon glyphicon-pencil"></i>Edit
+                                        </a>
+                                        <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.ChemLogId" class="btn btn-danger loc2">
+                                            <i class="glyphicon glyphicon-trash"></i>  Delete
+                                        </a>
+                                        <!--
+                                        <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.ChemLogId" class="btn btn-info">
+                                            <i class="glyphicon glyphicon-pencil"></i>Details
+                                        </a>-->
+                                    </td>
+                                }
+                                <td></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>

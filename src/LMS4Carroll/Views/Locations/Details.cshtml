@@ -1,0 +1,53 @@
+@model LMS4Carroll.Models.Location
+
+@{
+    ViewData["Title"] = "Details | Location";
+}
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Location Details</div>
+    <div class="panel-body">
+        <br />
+        <div>
+            <h4>Location</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.StorageCode)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.StorageCode)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Address)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Address)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Room)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Room)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Type)
+                </dd>
+            </dl>
+        </div>
+        <div id="detailsbtn">
+            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.LocationID">Edit</a><br />
+            <a asp-action="Index" class="btn btn-default">Back to List</a>
+        </div>
+        </div>
+    </div>

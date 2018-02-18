@@ -1,0 +1,144 @@
+@model IEnumerable<LMS4Carroll.Models.CageLog>
+
+@{
+    ViewData["Title"] = "List | Cage Logs";
+}
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Cage Log</div>
+    <div class="panel-body">
+        <div class="btn-group">
+            @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser"))
+            {
+                <a id="createRoleModal" asp-action="Create" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-plus"></i>  Add Log
+                </a>
+            }
+        </div><br />
+            <form asp-controller="CageLogs" asp-action="Index">
+                <div class="form-actions no-color">
+                    <p>
+                        <input type="text" name="CagelogString" value="@ViewData["currentFilter"]" />
+                        <input type="submit" value="Search" class="btn btn-default" />  
+                        <a asp-action="Index" class="btn btn-default">Back to Full List</a>
+                    </p>
+                </div>
+            </form>
+            <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CageLogId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Animal.AnimalID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Animal.NormalizedLocation)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Animal.Designation)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Animal.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Clean)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DatetimeCreated)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Food)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FoodComments)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Social)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SocialComments)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Washed)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.WashComments)
+                        </th>
+                        @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser"))
+                        {
+                            <th>
+                                Actions
+                            </th>
+                        }
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CageLogId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AnimalID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Animal.NormalizedLocation)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Animal.Designation)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Animal.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Clean)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DatetimeCreated)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Food)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FoodComments)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Social)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SocialComments)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Washed)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.WashComments)
+                            </td>
+                    @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser"))
+                    {
+                        <td>                            
+                            <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.CageLogId" class="btn btn-info">
+                                <i class="glyphicon glyphicon-pencil"></i>Edit
+                            </a>
+                            <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.CageLogId" class="btn btn-danger loc2">
+                                <i class="glyphicon glyphicon-trash"></i>  Delete
+                            </a>
+                            <!--
+                            <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.CageLogId" class="btn btn-info">
+                                <i class="glyphicon glyphicon-pencil"></i>Details
+                            </a>-->
+                        </td>
+                    }
+                            <td></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+        </div>
+

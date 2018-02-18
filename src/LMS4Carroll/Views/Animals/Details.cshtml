@@ -1,0 +1,57 @@
+@model LMS4Carroll.Models.Animal
+
+@{
+    ViewData["Title"] = "Details | Animals";
+}
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Animal Details</div>
+    <div class="panel-body">
+        <br />
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.DOB)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DOB)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DOR)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DOR)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Designation)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Designation)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Gender)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Gender)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Species)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Species)
+                </dd>
+            </dl>
+        </div>
+        <div id="detailsbtn">
+            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.AnimalID">Edit</a><br />
+            <a asp-action="Index" class="btn btn-default">Back to List</a>
+        </div>
+        </div>
+    </div>

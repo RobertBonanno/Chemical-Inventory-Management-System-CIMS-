@@ -1,0 +1,65 @@
+@model LMS4Carroll.Models.Location
+
+@{
+    ViewData["Title"] = "Add | Location";
+}
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Create Locations</div>
+    <div class="panel-body">
+        <br />
+        <form asp-action="Create">
+            <div class="form-horizontal">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="StorageCode" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="StorageCode" name="StorageString" class="form-control" value="@ViewData["StorageCode"]" />
+                        <span asp-validation-for="StorageCode" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Address" name="AddressString" class="form-control" value="@ViewData["Address"]"/>
+                        <span asp-validation-for="Address" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Name" name="NameString" class="form-control" value="@ViewData["Name"]"/>
+                        <span asp-validation-for="Name" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Room" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Room" name="RoomString" class="form-control" value="@ViewData["Room"]"/>
+                        <span asp-validation-for="Room" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Type" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Type" name="TypeString" class="form-control" value="@ViewData["Type"]"/>
+                        <span asp-validation-for="Type" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group" id="createbtn">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                    <div class="col-md-offset-2 col-md-10">
+                        <a asp-action="Index" class="btn btn-danger">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

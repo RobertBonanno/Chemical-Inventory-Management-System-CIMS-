@@ -1,0 +1,71 @@
+@model LMS4Carroll.Models.ChemEquipment
+
+@{
+    ViewData["Title"] = "Details | Chem Equipment";
+}
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Chemical Equipment Details</div>
+    <div class="panel-body">
+        <br />
+        <div>
+            <h4>ChemEquipment</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.SerialNumber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.SerialNumber)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.InstalledDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.InstalledDate)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.InspectionDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.InspectionDate)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.EquipmentModel)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EquipmentModel)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.EquipmentName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EquipmentName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.LocationID)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.LocationID)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.OrderID)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.OrderID)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Type)
+                </dd>
+            </dl>
+        </div>
+        <div id="detailsbtn">
+            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.ChemEquipmentID">Edit</a><br />
+            <a asp-action="Index" class="btn btn-default">Back to List</a>
+        </div>
+        </div>
+    </div>

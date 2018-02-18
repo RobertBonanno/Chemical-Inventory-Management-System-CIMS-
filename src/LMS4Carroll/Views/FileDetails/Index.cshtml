@@ -1,0 +1,77 @@
+@model IEnumerable<LMS4Carroll.Models.FileDetail>
+
+@{
+    ViewData["Title"] = "List | Files";
+}
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Biological Equipments</div>
+    <div class="panel-body">
+        <div class="btn-group">
+            @if (User.IsInRole("Admin") || User.IsInRole("Handler"))
+            {
+                <a id="createRoleModal" asp-action="Create" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-circle-arrow-up"></i>  Add Invoices
+                </a>
+            }
+        </div><br /><table class="table table-bordered table-striped table-condensed">
+            <thead>
+                <tr>               
+                    <th>
+                        @Html.DisplayNameFor(model => model.ContentType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FileName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FileType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.OrderID)
+                    </th>                
+                    @if (User.IsInRole("Admin") || User.IsInRole("Handler"))
+                    {
+                        <th>
+                            Actions
+                        </th>
+                    }
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>                      
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ContentType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FileName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FileType)
+                        </td>
+                        <td>
+                            @{string orderLink = "http://lms4carroll.azurewebsites.net/Orders/Details/";}
+                            @{var orderint = item.OrderID;}
+                            @{string link = orderLink + orderint;}
+
+                            <a target="_blank" href="@link">@Html.DisplayFor(modelItem => item.OrderID)</a>
+                        </td>                      
+                        @if (User.IsInRole("Admin") || User.IsInRole("Handler"))
+                        {
+                            <td>
+                                <a id="addEditApplicationRoleModal" asp-action="Download" asp-route-id="@item.FileDetailID" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-circle-arrow-down"></i>  Download
+                                </a>
+                                <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.FileDetailID" class="btn btn-danger">
+                                    <i class="glyphicon glyphicon-trash"></i>  Delete
+                                </a>
+                            </td>
+                        }
+                        <td></td>
+                    </tr>
+                }
+            </tbody>
+        </table>

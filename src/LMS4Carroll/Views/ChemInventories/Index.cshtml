@@ -1,0 +1,144 @@
+@model IEnumerable<LMS4Carroll.Models.ChemInventory>
+
+@{
+    ViewData["Title"] = "List | Chemical Inventory";
+}
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Chemical Inventory</div>
+    <div class="panel-body">
+        <div class="btn-group">
+            @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser"))
+            {
+                <a id="createRoleModal" asp-action="Create" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-plus"></i>  Add Inventory
+                </a>
+            }
+        </div><br />
+            <form asp-controller="ChemInventories" asp-action="Index" method="get" >
+                <div class="form-actions no-color">
+                    <p>
+                        <input type="text" placeholder="Chem Name" name="CheminventoryString" value="@ViewData["currentFilter"]" />
+                        <input type="submit" value="Search" class="btn btn-default" />  
+                        <a class="btn btn-default" asp-action="Index">Back to Full List</a>
+                    </p>
+                </div>
+            </form>
+            <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ChemInventoryId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Order.PO)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Chemical.CAS)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Chemical.FormulaName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.OrderID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Location.StorageCode)
+                        </th>
+                        <th>
+                            CAT#
+                        </th>
+                        <th>
+                            LOT#
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Chemical.SDS)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ExpiryDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.QtyLeft)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Units)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Department)
+                        </th>
+                        @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser"))
+                        {
+                            <th>
+                                Actions
+                            </th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ChemInventoryId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Order.PO)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Chemical.CAS)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Chemical.FormulaName)
+                            </td>
+                            <td>
+                                @{string orderLink = "http://lms4carroll.azurewebsites.net/Orders/Details/";}
+                                @{var orderint = item.OrderID;}
+                                @{string link = orderLink + orderint;}
+                                
+                                <a target="_blank" href="@link">@Html.DisplayFor(modelItem => item.OrderID)</a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Location.StorageCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CAT)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LOT)
+                            </td>
+                            <td>
+                                <a target="_blank" href="@Html.DisplayFor(modelItem => item.Chemical.SDS)">SDS</a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExpiryDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.QtyLeft)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Units)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Department)
+                            </td>
+                            @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser"))
+                            {
+                                <td>
+                                    <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.ChemInventoryId" class="btn btn-info">
+                                        <i class="glyphicon glyphicon-pencil"></i>  Edit
+                                    </a>
+                                    <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.ChemInventoryId" class="btn btn-info loc2">
+                                        <i class="glyphicon glyphicon-search"></i>  Details
+                                    </a>
+                                    <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.ChemInventoryId" class="btn btn-danger loc3">
+                                        <i class="glyphicon glyphicon-trash"></i>  Delete
+                                    </a>                 
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+        </div>

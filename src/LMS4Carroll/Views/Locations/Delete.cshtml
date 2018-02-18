@@ -1,0 +1,54 @@
+@model LMS4Carroll.Models.Location
+
+@{
+    ViewData["Title"] = "Delete | Location";
+}
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Are you sure you want to delete this?</div>
+    <div class="panel-body">
+        <br />
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.StorageCode)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.StorageCode)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Address)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Address)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Room)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Room)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Type)
+                </dd>
+            </dl>
+
+            <form asp-action="Delete" id="deletebtn">
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                    <a asp-action="Index" class="btn btn-default">Back to List</a>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>

@@ -1,0 +1,91 @@
+@model LMS4Carroll.Models.CageLog
+
+@{
+    ViewData["Title"] = "Edit | Cage Log";
+}
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Edit Log</div>
+    <div class="panel-body">
+        <br />
+        <form asp-action="Edit">
+            <div class="form-horizontal">
+                <h4>CageLog</h4>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="CageLogId" />
+                <div class="form-group">
+                    <label asp-for="AnimalID" class="control-label col-md-2 required">Animal</label>
+                    <div class="col-md-10">
+                        <select asp-for="AnimalID" class="form-control" asp-items="ViewBag.Animals"></select>
+                        <span asp-validation-for="AnimalID" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            <input asp-for="Clean" />
+                            <label asp-for="Clean"></label>
+                        </div>
+                    </div>
+                </div>               
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            <input asp-for="Food" />
+                            <label asp-for="Food"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FoodComments" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="FoodComments" class="form-control" />
+                        <span asp-validation-for="FoodComments" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            <input asp-for="Social" />
+                            <label asp-for="Social"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SocialComments" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="SocialComments" class="form-control" />
+                        <span asp-validation-for="SocialComments" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            <input asp-for="Washed" />
+                            <label asp-for="Washed"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="WashComments" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="WashComments" class="form-control" />
+                        <span asp-validation-for="WashComments" class="text-danger" />
+                    </div>
+                </div>             
+                <div class="form-group" id="editbtn">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                    <div class="col-md-offset-2 col-md-10">
+                        <a asp-action="Index" class="btn btn-danger">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

@@ -1,0 +1,101 @@
+@model LMS4Carroll.Models.Animal
+
+@{
+    ViewData["Title"] = "Edit | Animals";
+}
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Edit Animal</div>
+    <div class="panel-body">
+        <br />
+        <form asp-action="Edit">
+            <div class="form-horizontal">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="AnimalID" />
+                <div class="form-group">
+                    <label asp-for="DOB" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="DOB" name="DOBinput" class="form-control" />
+                        <span asp-validation-for="DOB" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DOR" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="DOR" name="DORinput" class="form-control" />
+                        <span asp-validation-for="DOR" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Designation" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Designation" name="DesignationString" class="form-control" />
+                        <span asp-validation-for="Designation" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Name" name="NameString" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Gender" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <select asp-for="Gender" name="GenderString" class="form-control" >
+                            <option value="Male">male</option>
+                            <option value="Female">female</option>
+                            <option value="N/A">not applicable</option>
+                        </select>
+                        <span asp-validation-for="Gender" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LocationID" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <select asp-for="LocationID" name="LocationInput" class="form-control" asp-items="ViewBag.LocationName" ></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OrderID" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <select asp-for="OrderID" name="OrderInput" class="form-control" asp-items="ViewBag.OrderID" ></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CAT" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="CAT" name="Cat" class="form-control"></input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LOT" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="LOT" name="Lot" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Species" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Species" name="SpeciesString" class="form-control" />
+                        <span asp-validation-for="Species" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group" id="editbtn">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                    <div class="col-md-offset-2 col-md-10">
+                        <a asp-action="Index" class="btn btn-danger">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

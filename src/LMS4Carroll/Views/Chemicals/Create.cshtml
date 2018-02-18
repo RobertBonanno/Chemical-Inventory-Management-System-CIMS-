@@ -1,0 +1,87 @@
+@model LMS4Carroll.Models.Chemical
+
+@{
+    ViewData["Title"] = "Add | Chemical";
+}
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Create Chemical Equipment</div>
+    <div class="panel-body">
+        <br />
+        <form asp-action="Create">
+            <div class="form-horizontal">
+                <h4>Chemical</h4>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="CAS" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="CAS" class="form-control" />
+                        <span asp-validation-for="CAS" class="text-danger" />
+                    </div>
+                </div>
+                <!--<div class="form-group">
+                    <label asp-for="CAT" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="CAT" class="form-control" />
+                        <span asp-validation-for="CAT" class="text-danger" />
+                    </div>
+                </div>-->
+                <div class="form-group">
+                    <label asp-for="Formula" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Formula" class="form-control" />
+                        <span asp-validation-for="Formula" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FormulaName" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="FormulaName" class="form-control" />
+                        <span asp-validation-for="FormulaName" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FormulaWeight" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="FormulaWeight" class="form-control" />
+                        <span asp-validation-for="FormulaWeight" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Hazard" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Hazard" class="form-control" />
+                        <span asp-validation-for="Hazard" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SDS" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="SDS" class="form-control" />
+                        <span asp-validation-for="SDS" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="State" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="State" class="form-control" />
+                        <span asp-validation-for="State" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group" id="createbtn">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                    <div class="col-md-offset-2 col-md-10">
+                        <a asp-action="Index" class="btn btn-danger">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

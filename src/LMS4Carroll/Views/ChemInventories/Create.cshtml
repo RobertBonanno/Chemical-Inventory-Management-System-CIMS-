@@ -1,0 +1,92 @@
+@model LMS4Carroll.Models.ChemInventory
+
+@{
+    ViewData["Title"] = "Add | Chemical Inventory";
+}
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Create Inventory Item</div>
+    <div class="panel-body">
+        <br />
+        <form asp-action="Create">
+            <div class="form-horizontal">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="ChemID" class="col-md-2 control-label required">Chemical</label>
+                    <div class="col-md-10">
+                        <select asp-for="ChemID" name="FormulaInput" class="form-control" asp-items="ViewBag.ChemID" value="@ViewData["Formula"]"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ExpiryDate" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="ExpiryDate" name="DateInput" class="form-control" value="@ViewData["ExpiryDate"]"/>
+                        <span asp-validation-for="ExpiryDate" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LocationID" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <select asp-for="LocationID" name="StorageInput" class="form-control" asp-items="ViewBag.LocationName" value="@ViewData["StorageCode"]"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OrderID" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <select asp-for="OrderID" name="OrderInput" class="form-control" asp-items="ViewBag.OrderID" value="@ViewData["Order"]"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CAT" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="CAT" name="Cat" class="form-control" value="@ViewData["CAT"]"></input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LOT" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="LOT" name="Lot" class="form-control" value="@ViewData["LOT"]"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="QtyLeft" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="QtyLeft" name="QtyInput" class="form-control" />
+                        <span asp-validation-for="QtyLeft" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Units" class="col-md-2 control-label required">Units</label>
+                    <div class="col-md-10">
+                        <input asp-for="Units" name="UnitString" class="form-control" value="@ViewData["Unit"]"/>
+                        <span asp-validation-for="Units" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Department" class="col-md-2 control-label required">Department</label>
+                    <div class="col-md-10">
+                        <select asp-for="Department" name="DeptString" class="form-control" value="@ViewData["Department"]">
+                            <option value="Chemistry">chemistry</option>
+                            <option value="Biology">biology</option>
+                            <option value="N/A">not applicable</option>
+                        </select>
+                        <span asp-validation-for="Department" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group" id="createbtn">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                    <div class="col-md-offset-2 col-md-10">
+                        <a asp-action="Index" class="btn btn-danger">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>    
+</div>
+       
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

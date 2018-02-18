@@ -1,0 +1,51 @@
+@model LMS4Carroll.Models.ChemLog
+
+@{
+    ViewData["Title"] = "Details | Chem Log";
+}
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Log Details</div>
+    <div class="panel-body">
+        <br />
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.ChemLogId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ChemLogId)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ChemInventory.LocationID)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ChemInventory.LocationID)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CourseID)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CourseID)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ChemInventory.Chemical.FormulaName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ChemInventory.Chemical.FormulaName)
+                </dd>               
+                <dt>
+                    @Html.DisplayNameFor(model => model.QtyUsed)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.QtyUsed)
+                </dd>
+            </dl>
+        </div>
+        <div id="detailsbtn">
+            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.ChemLogId">Edit</a><br />
+            <a asp-action="Index" class="btn btn-default">Back to List</a>
+        </div>
+    </div>
+</div>
