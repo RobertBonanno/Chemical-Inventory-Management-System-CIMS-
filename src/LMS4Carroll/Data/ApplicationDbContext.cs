@@ -28,6 +28,7 @@ namespace LMS4Carroll.Data
         public DbSet<ChemInventory> ChemInventory { get; set; }
         public DbSet<Course> Course { get; set; }
         public DbSet<ChemLog> ChemLog { get; set; }
+        public DbSet<PhyEquipment> PhyEquipments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

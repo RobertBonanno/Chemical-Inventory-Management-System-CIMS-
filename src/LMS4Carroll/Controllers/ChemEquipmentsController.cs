@@ -56,7 +56,7 @@ namespace LMS4Carroll.Controllers
 
             else
             {
-                var equipments = from m in _context.ChemicalEquipments.Include(c => c.Location).Include(c => c.Order).Take(40)
+                var equipments = from m in _context.ChemicalEquipments.Include(c => c.Location).Include(c => c.Order).Take(300)
                                  select m;
                 return View(await equipments.OrderByDescending(s => s.ChemEquipmentID).ToListAsync());
             }
