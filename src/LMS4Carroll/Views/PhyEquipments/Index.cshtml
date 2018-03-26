@@ -1,22 +1,22 @@
-@model IEnumerable<LMS4Carroll.Models.ChemEquipment>
+@model IEnumerable<LMS4Carroll.Models.PhyEquipment>
 
 @{
-    ViewData["Title"] = "List | Chem Equipments";
+    ViewData["Title"] = "List | Phy Equipments";
 }
 
 <div class="top-buffer"></div>
 <div class="panel panel-primary">
-    <div class="panel-heading panel-head">Chemical Equipment</div>
+    <div class="panel-heading panel-head">Physics Equipment</div>
     <div class="panel-body">
         <div class="btn-group">
-    @if (User.IsInRole("Admin") || User.IsInRole("ChemUser"))
-    {
+        @if (User.IsInRole("Admin") || User.IsInRole("PhysicsUser"))
+        {
             <a id="createRoleModal" asp-action="Create" class="btn btn-primary">
                 <i class="glyphicon glyphicon-plus"></i>  Add Equipment
             </a>
-    }
-        </div><br />       
-            <form asp-controller="ChemEquipments" asp-action="Index" method="get" >
+        }
+        </div><br />
+            <form asp-controller="PhyEquipments" asp-action="Index" method="get" >
                 <div class="form-actions no-color">
                     <p>
                         <input type="text" name="EquipmentString" value="@ViewData["currentFilter"]" />
@@ -29,7 +29,7 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.ChemEquipmentID)
+                            @Html.DisplayNameFor(model => model.PhyEquipmentID)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.EquipmentName)
@@ -55,14 +55,13 @@
                         <th>
                             @Html.DisplayNameFor(model => model.OrderID)
                         </th>
-                        <th>
+                        <td>
                             CAT#
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             LOT#
-                        </th>
-
-                        @if (User.IsInRole("Admin") || User.IsInRole("ChemUser"))
+                        </td>
+                        @if (User.IsInRole("Admin") || User.IsInRole("PhysicsUser"))
     {
                     <th>
                         Actions
@@ -76,7 +75,7 @@
                     {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ChemEquipmentID)
+                            @Html.DisplayFor(modelItem => item.PhyEquipmentID)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.EquipmentName)
@@ -103,9 +102,7 @@
                             @{string orderLink = "http://lms4carroll.azurewebsites.net/Orders/Details/";}
                             @{var orderint = item.OrderID;}
                             @{string link = orderLink + orderint;}
-
                             <a target="_blank" href="@link">@Html.DisplayFor(modelItem => item.OrderID)</a>
-
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CAT)
@@ -113,16 +110,16 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.LOT)
                         </td>
-                        @if (User.IsInRole("Admin") || User.IsInRole("ChemUser"))
+                        @if (User.IsInRole("Admin") || User.IsInRole("PhysicsUser"))
     {
                     <td>
-                        <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.ChemEquipmentID" class="btn btn-info">
+                        <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.PhyEquipmentID" class="btn btn-info">
                             <i class="glyphicon glyphicon-pencil"></i>  Edit
                         </a>
-                        <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.ChemEquipmentID" class="btn btn-danger loc2">
+                        <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.PhyEquipmentID" class="btn btn-danger loc2">
                             <i class="glyphicon glyphicon-trash"></i>  Delete
                         </a>
-                        <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.ChemEquipmentID" class="btn btn-info  loc3">
+                        <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.PhyEquipmentID" class="btn btn-info loc3">
                             <i class="glyphicon glyphicon-search"></i>  Details
                         </a>
                     </td>
@@ -132,5 +129,5 @@
                     }
                 </tbody>
             </table>
-      </div>
+        </div>
     </div>

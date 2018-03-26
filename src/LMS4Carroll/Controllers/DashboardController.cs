@@ -118,6 +118,25 @@ namespace LMS4Carroll.Controllers
                     //@ViewData["Result"] = tempbeqpmt;
                     //@ViewData["Type"] = "BioEqpmt";
                     break;
+                case "PhyEqpmt":
+                    PhyEquipment phyModel = new PhyEquipment();
+                    int PhyEqpmtInt = 0;
+                    //Int32.TryParse(searchstring, out ChemInt);
+
+                    if (!String.IsNullOrEmpty(searchstring))
+                    {
+                        if (Int32.TryParse(searchstring, out PhyEqpmtInt))
+                        {
+                            var temp = await _context.PhyEquipments.Where(s => s.PhyEquipmentID.Equals(PhyEqpmtInt)).SingleAsync();
+                            phyModel = temp;
+                            ViewData["Result"] = phyModel;
+                            ViewData["Type"] = "phyEqpmt";
+                            return View();
+                        }
+                    }
+                    //@ViewData["Result"] = tempbeqpmt;
+                    //@ViewData["Type"] = "PhyEqpmt";
+                    break;
                 case "Animal":
                     Animal animalModel = new Animal();
                     int AnimalInt = 0;
