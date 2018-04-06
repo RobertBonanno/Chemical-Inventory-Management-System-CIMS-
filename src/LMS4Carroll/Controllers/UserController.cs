@@ -38,7 +38,7 @@ namespace LMS4Carroll.Controllers
                 List<UserListViewModel> model = new List<UserListViewModel>();
                 model = userManager.Users.Select(u => new UserListViewModel
                 {
-                    //Id = u.Id,
+                    Id = u.Id,
                     FirstName = u.FirstName,
                     LastName = u.LastName,
                     //RoleName = await u.returnRoleName(u.Id),
@@ -79,7 +79,7 @@ namespace LMS4Carroll.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUser(string id, EditUserViewModel model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && model.FirstName != string.Empty && model.LastName != string.Empty && model.Email != string.Empty)
             {
                 ApplicationUser user = await userManager.FindByIdAsync(id);
                 if (user != null)
@@ -113,7 +113,8 @@ namespace LMS4Carroll.Controllers
                     }
                 }
             }
-            return PartialView("EditUser", model); ;
+            //ModelState.AddModelError(string.Empty, "All fields must be entered");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
