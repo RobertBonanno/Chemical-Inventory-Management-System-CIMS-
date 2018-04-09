@@ -8,32 +8,20 @@ using System.Threading.Tasks;
 
 namespace LMS4Carroll.Models
 {
-    public class BioEquipment
+    public class PhyArchive
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Display(Name = "BioEquipment ID")]
-        public int BioEquipmentID { get; set; }
+        [Display(Name = "PhyArchive ID")]
+        public int PhyArchiveID { get; set; }
 
         [ForeignKey("Order")]
         public int? OrderID { get; set; }
         public virtual Order Order { get; set; }
 
-        [ForeignKey("Location")]
-        public int? LocationID { get; set; }
-        public virtual Location Location { get; set; }
-
         [StringLength(50)]
         [Display(Name = "Equipment Type")]
         public string Type { get; set; }
-
-        [StringLength(50, MinimumLength = 3)]
-        [Display(Name = "CAT Number")]
-        public string CAT { get; set; }
-
-        [StringLength(50)]
-        [Display(Name = "Lot #")]
-        public string LOT { get; set; }
 
         [StringLength(50)]
         [Display(Name = "S/N")]
@@ -48,8 +36,8 @@ namespace LMS4Carroll.Models
         [DataType(DataType.Date)]
         [DefaultValue("01/01/1900")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Next Inspection")]
-        public DateTime InspectionDate { get; set; }
+        [Display(Name = "Archived Date")]
+        public DateTime ArchiveDate { get; set; }
 
         [StringLength(50)]
         [Display(Name = "Manufacturer Name")]
@@ -58,5 +46,8 @@ namespace LMS4Carroll.Models
         [StringLength(50)]
         [Display(Name = "Equipment Model")]
         public string EquipmentModel { get; set; }
+
+        [Display(Name = "Comments")]
+        public string Comments { get; set; }
     }
 }

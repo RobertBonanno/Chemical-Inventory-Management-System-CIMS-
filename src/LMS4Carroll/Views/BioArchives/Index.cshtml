@@ -1,0 +1,121 @@
+@model IEnumerable<LMS4Carroll.Models.BioArchive>
+
+@{
+    ViewData["Title"] = "List | Bio Archive";
+}
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Biology Archive</div>
+    <div class="panel-body">
+        <div class="btn-group">
+        @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
+        {
+            <a id="createRoleModal" asp-action="Create" class="btn btn-primary">
+                <i class="glyphicon glyphicon-plus"></i>  Add Archive
+            </a>
+        }
+        </div><br />
+            <form asp-controller="BioArchives" asp-action="Index" method="get" >
+                <div class="form-actions no-color">
+                    <p>
+                        <input type="text" name="EquipmentString" value="@ViewData["currentFilter"]" />
+                        <input type="submit" value="Search" class="btn btn-default" />  
+                        <a asp-action="Index" class="btn btn-default">Back to Full List</a>
+                    </p>
+                </div>
+            </form>
+            <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BioArchiveID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EquipmentName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EquipmentModel)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Type)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SerialNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.InstalledDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ArchiveDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.OrderID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Comments)
+                        </th>
+                        @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
+                        {
+                            <th>
+                                Actions
+                            </th>
+                        }
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BioArchiveID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EquipmentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EquipmentModel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SerialNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InstalledDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ArchiveDate)
+                        </td>
+                        <td>
+                            @{string orderLink = "http://lms4carroll.azurewebsites.net/Orders/Details/";}
+                            @{var orderint = item.OrderID;}
+                            @{string link = orderLink + orderint;}
+                            <a target="_blank" href="@link">@Html.DisplayFor(modelItem => item.OrderID)</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comments)
+                        </td>
+                        @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
+                        {
+                            <td>
+                                <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.BioArchiveID" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-pencil"></i>  Edit
+                                </a>
+                                <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.BioArchiveID" class="btn btn-danger loc2">
+                                    <i class="glyphicon glyphicon-trash"></i>  Delete
+                                </a>
+                                <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.BioArchiveID" class="btn btn-info loc3">
+                                    <i class="glyphicon glyphicon-search"></i>  Details
+                                </a>
+                            </td>
+                        }
+                        <td></td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
