@@ -1,0 +1,39 @@
+@model LMS4Carroll.Models.Cage
+
+@{
+    ViewData["Title"] = "Details | Cage";
+}
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Cage Details</div>
+    <div class="panel-body">
+        <br />
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.CageDesignation)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CageDesignation)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.LocationID)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.LocationID)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Species)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Species)
+                </dd>
+            </dl>
+        </div>
+        <div id="detailsbtn">
+            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.CageID">Edit</a><br />
+            <a asp-action="Index" class="btn btn-default">Back to List</a>
+        </div>
+    </div>
+</div>
