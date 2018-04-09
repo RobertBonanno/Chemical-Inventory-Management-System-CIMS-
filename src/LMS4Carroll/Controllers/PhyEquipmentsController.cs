@@ -194,6 +194,51 @@ namespace LMS4Carroll.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: PhyEquipments/Archive/5
+        public async Task<IActionResult> Archive(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var phyEquipment = await _context.PhyEquipments.SingleOrDefaultAsync(m => m.PhyEquipmentID == id);
+            if (phyEquipment == null)
+            {
+                return NotFound();
+            }
+
+            return View(phyEquipment);
+        }
+
+        // POST: PhyEquipments/Archive/5
+        [HttpPost, ActionName("Archive")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ArchiveConfirm(int id)
+        {
+            var phyEquipment = await _context.PhyEquipments.SingleOrDefaultAsync(m => m.PhyEquipmentID == id);
+            PhyArchive phyArchive = new PhyArchive();
+            
+            if(phyArchive != null)
+            {
+
+                phyArchive.OrderID = phyEquipment.OrderID;
+                phyArchive.Type = phyEquipment.Type;
+                phyArchive.SerialNumber = phyEquipment.SerialNumber;
+                phyArchive.InstalledDate = phyEquipment.InstalledDate;
+                phyArchive.ArchiveDate = DateTime.Today;
+                phyArchive.EquipmentName = phyEquipment.EquipmentName;
+                phyArchive.EquipmentModel = phyEquipment.EquipmentModel;
+                phyArchive.Comments = phyEquipment.Comments;
+                _context.PhyArchives.Add(phyArchive);
+                await _context.SaveChangesAsync();
+            }
+            _context.PhyEquipments.Remove(phyEquipment);
+            sp_Logging("3-Remove", "Delete", "User deleted a Physics Equipment where ID=" + id.ToString(), "Success");
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
         private bool PhyEquipmentExists(int id)
         {
             return _context.PhyEquipments.Any(e => e.PhyEquipmentID == id);

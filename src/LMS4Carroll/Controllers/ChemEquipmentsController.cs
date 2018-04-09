@@ -190,6 +190,51 @@ namespace LMS4Carroll.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: ChemEquipments/Archive/5
+        public async Task<IActionResult> Archive(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var chemEquipment = await _context.ChemicalEquipments.SingleOrDefaultAsync(m => m.ChemEquipmentID == id);
+            if (chemEquipment == null)
+            {
+                return NotFound();
+            }
+
+            return View(chemEquipment);
+        }
+
+        // POST: ChemEquipments/Archive/5
+        [HttpPost, ActionName("Archive")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ArchiveConfirm(int id)
+        {
+            var chemEquipment = await _context.ChemicalEquipments.SingleOrDefaultAsync(m => m.ChemEquipmentID == id);
+            ChemArchive chemArchive = new ChemArchive();
+
+            if (chemArchive != null)
+            {
+
+                chemArchive.OrderID = chemEquipment.OrderID;
+                chemArchive.Type = chemEquipment.Type;
+                chemArchive.SerialNumber = chemEquipment.SerialNumber;
+                chemArchive.InstalledDate = chemEquipment.InstalledDate;
+                chemArchive.ArchiveDate = DateTime.Today;
+                chemArchive.EquipmentName = chemEquipment.EquipmentName;
+                chemArchive.EquipmentModel = chemEquipment.EquipmentModel;
+                chemArchive.Comments = chemEquipment.Comments;
+                _context.ChemArchives.Add(chemArchive);
+                await _context.SaveChangesAsync();
+            }
+            _context.ChemicalEquipments.Remove(chemEquipment);
+            sp_Logging("3-Remove", "Delete", "User deleted a Chemistry Equipment where ID=" + id.ToString(), "Success");
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
         private bool ChemEquipmentExists(int id)
         {
             return _context.ChemicalEquipments.Any(e => e.ChemEquipmentID == id);

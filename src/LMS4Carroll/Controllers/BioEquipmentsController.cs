@@ -194,6 +194,51 @@ namespace LMS4Carroll.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: BioEquipments/Archive/5
+        public async Task<IActionResult> Archive(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var bioEquipment = await _context.BioEquipments.SingleOrDefaultAsync(m => m.BioEquipmentID == id);
+            if (bioEquipment == null)
+            {
+                return NotFound();
+            }
+
+            return View(bioEquipment);
+        }
+
+        // POST: BioEquipments/Archive/5
+        [HttpPost, ActionName("Archive")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ArchiveConfirm(int id)
+        {
+            var bioEquipment = await _context.BioEquipments.SingleOrDefaultAsync(m => m.BioEquipmentID == id);
+            BioArchive bioArchive = new BioArchive();
+
+            if (bioArchive != null)
+            {
+
+                bioArchive.OrderID = bioEquipment.OrderID;
+                bioArchive.Type = bioEquipment.Type;
+                bioArchive.SerialNumber = bioEquipment.SerialNumber;
+                bioArchive.InstalledDate = bioEquipment.InstalledDate;
+                bioArchive.ArchiveDate = DateTime.Today;
+                bioArchive.EquipmentName = bioEquipment.EquipmentName;
+                bioArchive.EquipmentModel = bioEquipment.EquipmentModel;
+                bioArchive.Comments = bioEquipment.Comments;
+                _context.BioArchives.Add(bioArchive);
+                await _context.SaveChangesAsync();
+            }
+            _context.BioEquipments.Remove(bioEquipment);
+            sp_Logging("3-Remove", "Delete", "User deleted a Biology Equipment where ID=" + id.ToString(), "Success");
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
         private bool BioEquipmentExists(int id)
         {
             return _context.BioEquipments.Any(e => e.BioEquipmentID == id);
