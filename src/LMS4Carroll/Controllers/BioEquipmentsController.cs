@@ -52,7 +52,8 @@ namespace LMS4Carroll.Controllers
                                             || s.SerialNumber.Equals(equipmentString)
                                             || s.LOT.Equals(equipmentString)
                                             || s.CAT.Equals(equipmentString)
-                                            || s.Type.Contains(equipmentString));
+                                            || s.Type.Contains(equipmentString)
+                                            || s.Comments.Contains(equipmentString));
                     return View(await equipments.OrderByDescending(s => s.BioEquipmentID).ToListAsync());
                 }
             }
@@ -95,7 +96,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BioEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type")] BioEquipment bioEquipment)
+        public async Task<IActionResult> Create([Bind("BioEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type,Comments")] BioEquipment bioEquipment)
         {
             if (ModelState.IsValid)
             {
@@ -131,7 +132,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BioEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type")] BioEquipment bioEquipment)
+        public async Task<IActionResult> Edit(int id, [Bind("BioEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type,Comments")] BioEquipment bioEquipment)
         {
             if (id != bioEquipment.BioEquipmentID)
             {

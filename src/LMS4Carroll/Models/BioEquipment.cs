@@ -58,5 +58,8 @@ namespace LMS4Carroll.Models
         [StringLength(50)]
         [Display(Name = "Equipment Model")]
         public string EquipmentModel { get; set; }
+
+        [Display(Name = "Comments")]
+        public string Comments { get; set; }
     }
 }

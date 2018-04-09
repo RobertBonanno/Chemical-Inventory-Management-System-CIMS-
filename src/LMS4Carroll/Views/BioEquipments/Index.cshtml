@@ -61,12 +61,15 @@
                         <td>
                             LOT#
                         </td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Comments)
+                        </th>
                         @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
-    {
-                    <th>
-                        Actions
-                    </th>
-}
+                        {
+                            <th>
+                                Actions
+                            </th>
+                        }
                         <th></th>
                     </tr>
                 </thead>
@@ -110,20 +113,23 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.LOT)
                         </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comments)
+                        </td>
                         @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
-    {
-                    <td>
-                        <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.BioEquipmentID" class="btn btn-info">
-                            <i class="glyphicon glyphicon-pencil"></i>  Edit
-                        </a>
-                        <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.BioEquipmentID" class="btn btn-danger loc2">
-                            <i class="glyphicon glyphicon-trash"></i>  Delete
-                        </a>
-                        <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.BioEquipmentID" class="btn btn-info loc3">
-                            <i class="glyphicon glyphicon-search"></i>  Details
-                        </a>
-                    </td>
-}
+                        {
+                            <td>
+                                <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.BioEquipmentID" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-pencil"></i>  Edit
+                                </a>
+                                <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.BioEquipmentID" class="btn btn-danger loc2">
+                                    <i class="glyphicon glyphicon-trash"></i>  Delete
+                                </a>
+                                <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.BioEquipmentID" class="btn btn-info loc3">
+                                    <i class="glyphicon glyphicon-search"></i>  Details
+                                </a>
+                            </td>
+                        }
                         <td></td>
                     </tr>
                     }

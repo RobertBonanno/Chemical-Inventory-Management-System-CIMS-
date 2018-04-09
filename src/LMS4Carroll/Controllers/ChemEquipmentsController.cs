@@ -50,7 +50,8 @@ namespace LMS4Carroll.Controllers
                                     || s.SerialNumber.Contains(equipmentString)
                                     || s.Location.NormalizedStr.Contains(equipmentString)
                                     || s.LOT.Contains(equipmentString)
-                                    || s.CAT.Contains(equipmentString));
+                                    || s.CAT.Contains(equipmentString)
+                                    || s.Comments.Contains(equipmentString));
                 return View(await equipments.OrderByDescending(s => s.ChemEquipmentID).ToListAsync());
             }
 
@@ -91,7 +92,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ChemEquipmentID,SerialNumber,InstalledDate,InspectionDate,LOT,CAT,EquipmentModel,EquipmentName,LocationID,OrderID,Type")] ChemEquipment chemEquipment)
+        public async Task<IActionResult> Create([Bind("ChemEquipmentID,SerialNumber,InstalledDate,InspectionDate,LOT,CAT,EquipmentModel,EquipmentName,LocationID,OrderID,Type,Comments")] ChemEquipment chemEquipment)
         {
             if (ModelState.IsValid)
             {
@@ -127,7 +128,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ChemEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type")] ChemEquipment chemEquipment)
+        public async Task<IActionResult> Edit(int id, [Bind("ChemEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type,Comments")] ChemEquipment chemEquipment)
         {
             if (id != chemEquipment.ChemEquipmentID)
             {

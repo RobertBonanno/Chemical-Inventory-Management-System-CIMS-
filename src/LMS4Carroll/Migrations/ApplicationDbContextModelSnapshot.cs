@@ -174,6 +174,9 @@ namespace LMS4Carroll.Migrations
                     b.Property<string>("Type")
                         .HasAnnotation("MaxLength", 50);
 
+                    b.Property<string>("Comments")
+                        .HasAnnotation("MaxLength", 150);
+
                     b.HasKey("BioEquipmentID");
 
                     b.HasIndex("LocationID");
@@ -213,6 +216,9 @@ namespace LMS4Carroll.Migrations
 
                 b.Property<string>("Type")
                     .HasAnnotation("MaxLength", 50);
+
+                b.Property<string>("Comments")
+                    .HasAnnotation("MaxLength", 150);
 
                 b.HasKey("PhyEquipmentID");
 
@@ -386,6 +392,9 @@ namespace LMS4Carroll.Migrations
 
                     b.Property<string>("Type")
                         .HasAnnotation("MaxLength", 50);
+
+                    b.Property<string>("Comments")
+                        .HasAnnotation("MaxLength", 150);
 
                     b.HasKey("ChemEquipmentID");
 
