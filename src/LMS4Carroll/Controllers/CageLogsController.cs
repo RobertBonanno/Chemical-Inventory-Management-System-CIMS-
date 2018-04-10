@@ -35,7 +35,7 @@ namespace LMS4Carroll.Controllers
             //Search Feature
             if (!String.IsNullOrEmpty(cagelogstring))
             {
-                var logs = from m in _context.CageLog.Include(c => c.Animal)
+                var logs = from m in _context.CageLog.Include(c => c.CageDesignation)
                            select m;
                 int forID;
                 if (Int32.TryParse(cagelogstring, out forID))
@@ -86,7 +86,7 @@ namespace LMS4Carroll.Controllers
         // GET: CageLogs/Create
         public IActionResult Create()
         {
-            ViewData["Animals"] = new SelectList(_context.Animal, "AnimalID", "Name");
+            ViewData["Cages"] = new SelectList(_context.Cage, "CageDesignation", "Name");
             return View();
         }
 
@@ -94,13 +94,13 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled binding of properties
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CageLogId,AnimalID,Clean,Food,FoodComments,Social,SocialComments,WashComments,Washed")] CageLog cageLog)
+        public async Task<IActionResult> Create([Bind("CageLogId,AnimalID,Clean,Food,,Social,,NoteworthyComments,Washed")] CageLog cageLog)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(cageLog);
                 await _context.SaveChangesAsync();
-                sp_Logging("2-Change", "Create", "User created a Cage Log entry where AnimalID=" + cageLog.AnimalID, "Success");
+                sp_Logging("2-Change", "Create", "User created a Cage Log entry where CageID=" + cageLog.Cage, "Success");
                 return RedirectToAction("Index");
             }
             ViewData["Animals"] = new SelectList(_context.Animal, "AnimalID", "Name", cageLog.AnimalID);

@@ -32,16 +32,10 @@
                             @Html.DisplayNameFor(model => model.CageLogId)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Animal.AnimalID)
+                            @Html.DisplayNameFor(model => model.Cage.CageDesignation)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Animal.NormalizedLocation)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Animal.Designation)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Animal.Name)
+                            @Html.DisplayNameFor(model => model.Cage.NormalizedLocation)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Clean)
@@ -53,19 +47,13 @@
                             @Html.DisplayNameFor(model => model.Food)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.FoodComments)
-                        </th>
-                        <th>
                             @Html.DisplayNameFor(model => model.Social)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.SocialComments)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Washed)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.WashComments)
+                            @Html.DisplayNameFor(model => model.NoteworthyComments)
                         </th>
                         @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser"))
                         {
@@ -77,23 +65,20 @@
                     </tr>
                 </thead>
                 <tbody>
+                    var count = 0;
                     @foreach (var item in Model)
                     {
+                        count++;
+                        if(item.DateTimeCreated == DateTime.Now.ToString("yyyy-MM-dd")){
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.CageLogId)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.AnimalID)
+                                @Html.DisplayFor(modelItem => item.Cage.CageDesignation)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Animal.NormalizedLocation)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Animal.Designation)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Animal.Name)
+                                @Html.DisplayFor(modelItem => item.Cage.NormalizedLocation)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Clean)
@@ -105,23 +90,17 @@
                                 @Html.DisplayFor(modelItem => item.Food)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.FoodComments)
-                            </td>
-                            <td>
                                 @Html.DisplayFor(modelItem => item.Social)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SocialComments)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Washed)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.WashComments)
+                                @Html.DisplayFor(modelItem => item.NoteworthyComments)
                             </td>
-                    @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser"))
-                    {
-                        <td>                            
+                            @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser"))
+                            {
+                            <td>
                             <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.CageLogId" class="btn btn-info">
                                 <i class="glyphicon glyphicon-pencil"></i>Edit
                             </a>
@@ -129,13 +108,15 @@
                                 <i class="glyphicon glyphicon-trash"></i>  Delete
                             </a>
                             <!--
-                            <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.CageLogId" class="btn btn-info">
-                                <i class="glyphicon glyphicon-pencil"></i>Details
-                            </a>-->
-                        </td>
-                    }
+    <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.CageLogId" class="btn btn-info">
+        <i class="glyphicon glyphicon-pencil"></i>Details
+    </a>-->
+                            </td>
+                            }
                             <td></td>
                         </tr>
+                        }
+                        
                     }
                 </tbody>
             </table>

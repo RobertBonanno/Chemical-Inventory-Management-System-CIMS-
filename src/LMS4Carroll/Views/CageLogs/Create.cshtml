@@ -14,9 +14,9 @@
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="AnimalID" class="col-md-2 control-label required">Animal</label>
+                    <label asp-for="CageID" class="col-md-2 control-label required">Cage</label>
                     <div class="col-md-10">
-                        <select asp-for="AnimalID" class="form-control" asp-items="ViewBag.Animals"></select>
+                        <select asp-for="CageDesignation" class="form-control" asp-items="ViewBag.Cages"></select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -36,25 +36,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="FoodComments" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input asp-for="FoodComments" class="form-control" />
-                        <span asp-validation-for="FoodComments" class="text-danger" />
-                    </div>
-                </div>
-                <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <div class="checkbox">
                             <input asp-for="Social" />
                             <label asp-for="Social"></label>
                         </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="SocialComments" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input asp-for="SocialComments" class="form-control" />
-                        <span asp-validation-for="SocialComments" class="text-danger" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -66,10 +52,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="WashComments" class="col-md-2 control-label"></label>
+                    <label asp-for="NoteworthyComments" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="WashComments" class="form-control" />
-                        <span asp-validation-for="WashComments" class="text-danger" />
+                        <input asp-for="NoteworthyComments" class="form-control" />
+                        <span asp-validation-for="NoteworthyComments" class="text-danger" />
                     </div>
                 </div>
                 <div class="form-group" id="createbtn">
