@@ -136,7 +136,7 @@ namespace LMS4Carroll.Controllers
         //[Bind("AnimalID,DOB,DOR,Designation,Name,LOT,CAT,Gender,LocationID,OrderID,Species")] Animal animal
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DateTime dobinput, DateTime dorinput, string designationstring, string cat, string lot, string genderstring, int locationinput, int orderinput, string speciesstring, string namestring)
+        public async Task<IActionResult> Create(DateTime dobinput, DateTime dorinput, string designationstring, string cat, string lot, string genderstring, double weightinput, int locationinput, int orderinput, string speciesstring, string namestring)
         {
             //_logger.Info("Attempted to add an animal - AnimalController");
             
@@ -144,6 +144,7 @@ namespace LMS4Carroll.Controllers
             ViewData["DOR"] = dorinput;
             ViewData["Designation"] = designationstring;
             ViewData["Gender"] = genderstring;
+			ViewData["Weight"] = weightinput;
             ViewData["Location"] = locationinput;
             ViewData["Order"] = orderinput;
             ViewData["Species"] = speciesstring;
@@ -160,6 +161,7 @@ namespace LMS4Carroll.Controllers
                 cage.DOR = dorinput;
                 cage.Designation = designationstring;
                 cage.Gender = genderstring;
+				cage.Weight = weightinput;
                 cage.LocationID = locationinput;
                 cage.OrderID = orderinput;
                 cage.Species = speciesstring;
@@ -199,7 +201,7 @@ namespace LMS4Carroll.Controllers
         //[Bind("CageID,DOB,Designation,Gender,LocationID,OrderID,Species")] Animal cage
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, DateTime dobinput, DateTime dorinput,string designationstring, string genderstring, string cat, string lot, int locationinput, int orderinput, string speciesstring, string namestring)
+        public async Task<IActionResult> Edit(int id, DateTime dobinput, DateTime dorinput,string designationstring, string genderstring, double weightinput, string cat, string lot, int locationinput, int orderinput, string speciesstring, string namestring)
         {
             Animal cage = await _context.Animal.FirstAsync(s => s.AnimalID == id);
             var temp = _context.Locations.First(m => m.LocationID == locationinput);
@@ -207,6 +209,7 @@ namespace LMS4Carroll.Controllers
             cage.DOR = dorinput;
             cage.Designation = designationstring;
             cage.Gender = genderstring;
+			cage.Weight = weightinput;
             cage.LocationID = locationinput;
             cage.OrderID = orderinput;
             cage.Species = speciesstring;

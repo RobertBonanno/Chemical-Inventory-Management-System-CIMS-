@@ -34,6 +34,9 @@ namespace LMS4Carroll.Models
         [StringLength(50)]
         [Display(Name = "Gender")]
         public string Gender { get; set; }
+		
+		[Display(Name = "Weight")]
+		public double Weight { get; set; }
 
         [StringLength(50, MinimumLength = 3)]
         [Display(Name = "CAT Number")]

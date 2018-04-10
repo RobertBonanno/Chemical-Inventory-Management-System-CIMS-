@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <label asp-for="DOB" class="col-md-2 control-label required"></label>
                     <div class="col-md-10">
-                        <input asp-for="DOB" name="DOBinput" class="form-control" value="@ViewData["DOB"]"/>
+                        <input asp-for="DOB" name="DOBinput" class="form-control" value="@ViewData["DOB"]" />
                         <span asp-validation-for="DOB" class="text-danger" />
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <label asp-for="Designation" class="col-md-2 control-label required"></label>
                     <div class="col-md-10">
-                        <input asp-for="Designation" name="DesignationString" class="form-control" value="@ViewData["Designation"]"/>
+                        <input asp-for="Designation" name="DesignationString" class="form-control" value="@ViewData["Designation"]" />
                         <span asp-validation-for="Designation" class="text-danger" />
                     </div>
                 </div>
@@ -49,6 +49,13 @@
                             <option value="N/A">not applicable</option>
                         </select>
                         <span asp-validation-for="Gender" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Weight" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Weight" name="Weight" class="form-control" value="@ViewData["Weight"]" />
+                        <span asp-validation-for="Weight" class="text-danger" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -78,7 +85,7 @@
                 <div class="form-group">
                     <label asp-for="Species" class="col-md-2 control-label required"></label>
                     <div class="col-md-10">
-                        <input asp-for="Species" name="SpeciesString" class="form-control" value="@ViewData["Species"]"/>
+                        <input asp-for="Species" name="SpeciesString" class="form-control" value="@ViewData["Species"]" />
                         <span asp-validation-for="Species" class="text-danger" />
                     </div>
                 </div>
