@@ -84,7 +84,7 @@ namespace LMS4Carroll.Controllers
                 }
                 else
                 {
-                    Animals = Animals.Where(s => s.Designation.Contains(Animalstring)
+                    Animals = Animals.Where(s => s.Name.Contains(Animalstring)
                                        || s.Gender.Contains(Animalstring)
                                        || s.Location.Name.Contains(Animalstring)
                                        || s.Location.Room.Contains(Animalstring)
@@ -136,13 +136,13 @@ namespace LMS4Carroll.Controllers
         //[Bind("AnimalID,DOB,DOR,Designation,Name,LOT,CAT,Gender,LocationID,OrderID,Species")] Animal animal
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DateTime dobinput, DateTime dorinput, string designationstring, string cat, string lot, string genderstring, double weightinput, int locationinput, int orderinput, string speciesstring, string namestring)
+        public async Task<IActionResult> Create(DateTime dobinput, DateTime dorinput, int cageid, string cat, string lot, string genderstring, string weightinput, int locationinput, int orderinput, string speciesstring, string namestring)
         {
             //_logger.Info("Attempted to add an animal - AnimalController");
             
             ViewData["DOB"] = dobinput;
             ViewData["DOR"] = dorinput;
-            ViewData["Designation"] = designationstring;
+            ViewData["CageID"] = cageid;
             ViewData["Gender"] = genderstring;
 			ViewData["Weight"] = weightinput;
             ViewData["Location"] = locationinput;
@@ -159,7 +159,7 @@ namespace LMS4Carroll.Controllers
             
                 cage.DOB = dobinput;
                 cage.DOR = dorinput;
-                cage.Designation = designationstring;
+                cage.CageID = cageid;
                 cage.Gender = genderstring;
 				cage.Weight = weightinput;
                 cage.LocationID = locationinput;
@@ -201,13 +201,13 @@ namespace LMS4Carroll.Controllers
         //[Bind("CageID,DOB,Designation,Gender,LocationID,OrderID,Species")] Animal cage
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, DateTime dobinput, DateTime dorinput,string designationstring, string genderstring, double weightinput, string cat, string lot, int locationinput, int orderinput, string speciesstring, string namestring)
+        public async Task<IActionResult> Edit(int id, DateTime dobinput, DateTime dorinput,int cageid, string genderstring, string weightinput, string cat, string lot, int locationinput, int orderinput, string speciesstring, string namestring)
         {
             Animal cage = await _context.Animal.FirstAsync(s => s.AnimalID == id);
             var temp = _context.Locations.First(m => m.LocationID == locationinput);
             cage.DOB = dobinput;
             cage.DOR = dorinput;
-            cage.Designation = designationstring;
+            cage.CageID = cageid;
             cage.Gender = genderstring;
 			cage.Weight = weightinput;
             cage.LocationID = locationinput;

@@ -65,11 +65,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    var count = 0;
                     @foreach (var item in Model)
-                    {
-                        count++;
-                        if(item.DateTimeCreated == DateTime.Now.ToString("yyyy-MM-dd")){
+                        {
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.CageLogId)
@@ -112,12 +109,10 @@
         <i class="glyphicon glyphicon-pencil"></i>Details
     </a>-->
                             </td>
-                            }
+                             }
                             <td></td>
                         </tr>
-                        }
-                        
-                    }
+                            }
                 </tbody>
             </table>
             </div>

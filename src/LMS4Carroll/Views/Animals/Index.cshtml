@@ -42,7 +42,7 @@
                         @Html.DisplayNameFor(model => model.DOR)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Designation)
+                        @Html.DisplayNameFor(model => model.CageID)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Name)
@@ -74,7 +74,7 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
+                    <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.AnimalID)
                     </td>
@@ -88,7 +88,7 @@
                         @Html.DisplayFor(modelItem => item.DOR)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Designation)
+                        @Html.DisplayFor(modelItem => item.CageID)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
@@ -109,22 +109,21 @@
                         @Html.DisplayFor(modelItem => item.Species)
                     </td>
                     @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser"))
-                        {
+                    {
                 <td>
                     <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.AnimalID" class="btn btn-info">
                         <i class="glyphicon glyphicon-pencil"></i>  Edit
                     </a>
                     @if (User.IsInRole("Admin"))
-                                {
+                    {
                 <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.AnimalID" class="btn btn-danger">
                     <i class="glyphicon glyphicon-trash"></i>  Delete
-                </a>
-                                }
+                </a>}
                     <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.AnimalID" class="btn btn-info loc3">
                         <i class="glyphicon glyphicon-search"></i>  Details
                     </a>
                 </td>
-                        }
+                      }
                     <td></td>
                 </tr>
                     }

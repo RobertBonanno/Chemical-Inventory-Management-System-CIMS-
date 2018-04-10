@@ -14,8 +14,9 @@ namespace LMS4Carroll.Models
         [Display(Name = "Log ID")]
         public int CageLogId { get; set; }
 
-        [ForeignKey("Cage")]
-        public int CageDesignation { get; set; }
+		[StringLength(50)]
+        [Display(Name = "Cage ID")]
+        public string CageID { get; set; }
         public virtual Cage Cage { get; set; }
 
         [Display(Name = "Food Served")]
