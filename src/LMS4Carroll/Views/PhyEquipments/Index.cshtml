@@ -70,7 +70,6 @@
                                 Actions
                             </th>
                         }
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -117,23 +116,22 @@
                             @Html.DisplayFor(modelItem => item.Comments)
                         </td>
                         @if (User.IsInRole("Admin") || User.IsInRole("PhysicsUser"))
-                         {
-                        <td>
-                            <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.PhyEquipmentID" class="btn btn-info">
-                                <i class="glyphicon glyphicon-pencil"></i>  Edit
-                            </a>
-                            <a id="archiveApplicationRoleModel" asp-action="Archive" asp-route-id="@item.PhyEquipmentID" class="btn btn-info">
-                                <i class="glyphicon glyphicon-plus"></i>  Archive
-                            </a>
-                            <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.PhyEquipmentID" class="btn btn-danger loc2">
-                                <i class="glyphicon glyphicon-trash"></i>  Delete
-                            </a>
-                            <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.PhyEquipmentID" class="btn btn-info loc3">
-                                <i class="glyphicon glyphicon-search"></i>  Details
-                            </a>
-                        </td>
-                         }
-                        <td></td>
+                        {
+                          <td>
+                              <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.PhyEquipmentID" class="btn btn-info">
+                                  <i class="glyphicon glyphicon-pencil"></i>  Edit
+                              </a>
+                              <a id="archiveApplicationRoleModel" asp-action="Archive" asp-route-id="@item.PhyEquipmentID" class="btn btn-info">
+                                  <i class="glyphicon glyphicon-plus"></i>  Archive
+                              </a>
+                              <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.PhyEquipmentID" class="btn btn-danger loc2">
+                                  <i class="glyphicon glyphicon-trash"></i>  Delete
+                              </a>
+                              <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.PhyEquipmentID" class="btn btn-info loc3">
+                                  <i class="glyphicon glyphicon-search"></i>  Details
+                              </a>
+                          </td>
+                        }
                     </tr>
                     }
                 </tbody>
