@@ -1,22 +1,22 @@
-@model IEnumerable<LMS4Carroll.Models.BioEquipment>
+@model IEnumerable<LMS4Carroll.Models.PhyArchive>
 
 @{
-    ViewData["Title"] = "List | Bio Equipments";
+    ViewData["Title"] = "List | Phy Archive";
 }
 
 <div class="top-buffer"></div>
 <div class="panel panel-primary">
-    <div class="panel-heading panel-head">Biological Equipment</div>
+    <div class="panel-heading panel-head">Physics Archive</div>
     <div class="panel-body">
         <div class="btn-group">
-        @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
+        @if (User.IsInRole("Admin") || User.IsInRole("PhysicsUser"))
         {
             <a id="createRoleModal" asp-action="Create" class="btn btn-primary">
-                <i class="glyphicon glyphicon-plus"></i>  Add Equipment
+                <i class="glyphicon glyphicon-plus"></i>  Add Archive
             </a>
         }
         </div><br />
-            <form asp-controller="BioEquipments" asp-action="Index" method="get" >
+            <form asp-controller="PhyArchives" asp-action="Index" method="get" >
                 <div class="form-actions no-color">
                     <p>
                         <input type="text" name="EquipmentString" value="@ViewData["currentFilter"]" />
@@ -29,7 +29,7 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.BioEquipmentID)
+                            @Html.DisplayNameFor(model => model.PhyArchiveID)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.EquipmentName)
@@ -44,32 +44,24 @@
                             @Html.DisplayNameFor(model => model.SerialNumber)
                         </th>
                         <th>
-                            Location
-                        </th>
-                        <th>
                             @Html.DisplayNameFor(model => model.InstalledDate)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.InspectionDate)
+                            @Html.DisplayNameFor(model => model.ArchiveDate)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.OrderID)
                         </th>
-                        <td>
-                            CAT#
-                        </td>
-                        <td>
-                            LOT#
-                        </td>
                         <th>
                             @Html.DisplayNameFor(model => model.Comments)
                         </th>
-                        @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
+                        @if (User.IsInRole("Admin") || User.IsInRole("PhysicsUser"))
                         {
                             <th>
                                 Actions
                             </th>
                         }
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -77,7 +69,7 @@
                     {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.BioEquipmentID)
+                            @Html.DisplayFor(modelItem => item.PhyArchiveID)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.EquipmentName)
@@ -92,13 +84,10 @@
                             @Html.DisplayFor(modelItem => item.SerialNumber)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Location.NormalizedStr)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.InstalledDate)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.InspectionDate)
+                            @Html.DisplayFor(modelItem => item.ArchiveDate)
                         </td>
                         <td>
                             @{string orderLink = "http://lms4carroll.azurewebsites.net/Orders/Details/";}
@@ -107,31 +96,23 @@
                             <a target="_blank" href="@link">@Html.DisplayFor(modelItem => item.OrderID)</a>
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CAT)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LOT)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.Comments)
                         </td>
-                        @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
+                        @if (User.IsInRole("Admin") || User.IsInRole("PhysicsUser"))
                         {
-                          <td>
-                              <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.BioEquipmentID" class="btn btn-info">
-                                  <i class="glyphicon glyphicon-pencil"></i>  Edit
-                              </a>
-                              <a id="archiveApplicationRoleModel" asp-action="Archive" asp-route-id="@item.BioEquipmentID" class="btn btn-info loc2">
-                                  <i class="glyphicon glyphicon-plus"></i>  Archive
-                              </a>
-                              <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.BioEquipmentID" class="btn btn-danger loc3">
-                                  <i class="glyphicon glyphicon-trash"></i>  Delete
-                              </a>
-                              <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.BioEquipmentID" class="btn btn-info loc3">
-                                  <i class="glyphicon glyphicon-search"></i>  Details
-                              </a>
-                          </td>
+                        <td>
+                            <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.PhyArchiveID" class="btn btn-info">
+                                <i class="glyphicon glyphicon-pencil"></i>  Edit
+                            </a>
+                            <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.PhyArchiveID" class="btn btn-danger loc2">
+                                <i class="glyphicon glyphicon-trash"></i>  Delete
+                            </a>
+                            <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.PhyArchiveID" class="btn btn-info loc3">
+                                <i class="glyphicon glyphicon-search"></i>  Details
+                            </a>
+                        </td>
                         }
+                        <td></td>
                     </tr>
                     }
                 </tbody>

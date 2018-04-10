@@ -1,7 +1,7 @@
 @model IEnumerable<LMS4Carroll.Models.PhyEquipment>
 
 @{
-    ViewData["Title"] = "List | Phy Equipments";
+    ViewData["Title"] = "List | Physics Equipments";
 }
 
 <div class="top-buffer"></div>
@@ -61,13 +61,15 @@
                         <td>
                             LOT#
                         </td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Comments)
+                        </th>
                         @if (User.IsInRole("Admin") || User.IsInRole("PhysicsUser"))
-    {
-                    <th>
-                        Actions
-                    </th>
-}
-                        <th></th>
+                        {
+                            <th>
+                                Actions
+                            </th>
+                        }
                     </tr>
                 </thead>
                 <tbody>
@@ -110,24 +112,26 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.LOT)
                         </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comments)
+                        </td>
                         @if (User.IsInRole("Admin") || User.IsInRole("PhysicsUser"))
-    {
-                    <td>
-                        <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.PhyEquipmentID" class="btn btn-info">
-                            <i class="glyphicon glyphicon-pencil"></i>  Edit
-                        </a>
-                        @if (User.IsInRole("Admin"))
-                        { 
-                            <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.PhyEquipmentID" class="btn btn-danger loc2">
-                                <i class="glyphicon glyphicon-trash"></i>  Delete
-                            </a>
+                        {
+                          <td>
+                              <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.PhyEquipmentID" class="btn btn-info">
+                                  <i class="glyphicon glyphicon-pencil"></i>  Edit
+                              </a>
+                              <a id="archiveApplicationRoleModel" asp-action="Archive" asp-route-id="@item.PhyEquipmentID" class="btn btn-info">
+                                  <i class="glyphicon glyphicon-plus"></i>  Archive
+                              </a>
+                              <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.PhyEquipmentID" class="btn btn-danger loc2">
+                                  <i class="glyphicon glyphicon-trash"></i>  Delete
+                              </a>
+                              <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.PhyEquipmentID" class="btn btn-info loc3">
+                                  <i class="glyphicon glyphicon-search"></i>  Details
+                              </a>
+                          </td>
                         }
-                        <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.PhyEquipmentID" class="btn btn-info loc3">
-                            <i class="glyphicon glyphicon-search"></i>  Details
-                        </a>
-                    </td>
-}
-                        <td></td>
                     </tr>
                     }
                 </tbody>

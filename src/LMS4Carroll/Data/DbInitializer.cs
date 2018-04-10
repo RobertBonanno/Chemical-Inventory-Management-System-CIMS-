@@ -20,7 +20,8 @@ namespace LMS4Carroll.Data
                 context.Database.ExecuteSqlCommand("DBCC CHECKIDENT('ChemicalEquipments', RESEED, 2000);");
                 context.Database.ExecuteSqlCommand("DBCC CHECKIDENT('BioEquipments', RESEED, 1000);");
                 context.Database.ExecuteSqlCommand("DBCC CHECKIDENT('ChemInventory', RESEED, 10000);");
-                */
+                context.Database.ExecuteSqlCommand("DBCC CHECKIDENT('PhyEquipments', RESEED, 10000);");
+                 */
             }
             catch (SqlException ex)
             {

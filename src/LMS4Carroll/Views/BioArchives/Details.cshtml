@@ -1,12 +1,12 @@
-@model LMS4Carroll.Models.PhyEquipment
+@model LMS4Carroll.Models.BioArchive
 
 @{
-    ViewData["Title"] = "Details | Phy Equipment";
+    ViewData["Title"] = "Details | Bio Archive";
 }
 
 <div class="top-buffer"></div>
 <div class="panel panel-primary">
-    <div class="panel-heading panel-head">Physics Equipment Details</div>
+    <div class="panel-heading panel-head">Biology Equipment Details</div>
     <div class="panel-body">
         <br />
         <div>
@@ -24,10 +24,10 @@
                     @Html.DisplayFor(model => model.InstalledDate)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.InspectionDate)
+                    @Html.DisplayNameFor(model => model.ArchiveDate)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.InspectionDate)
+                    @Html.DisplayFor(model => model.ArchiveDate)
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.EquipmentModel)
@@ -40,12 +40,6 @@
                 </dt>
                 <dd>
                     @Html.DisplayFor(model => model.EquipmentName)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.LocationID)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.LocationID)
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.OrderID)
@@ -68,7 +62,7 @@
             </dl>
         </div>
         <div id="detailsbtn">
-            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.PhyEquipmentID">Edit</a><br/>
+            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.BioArchiveID">Edit</a><br/>
             <a asp-action="Index" class="btn btn-default">Back to List</a>
         </div>
         </div>

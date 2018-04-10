@@ -35,7 +35,6 @@ namespace LMS4Carroll.Models
         [Display(Name = "Lot #")]
         public string LOT { get; set; }
 
-
         [StringLength(50)]
         [Display(Name = "S/N")]
         public string SerialNumber { get; set; }
@@ -59,5 +58,8 @@ namespace LMS4Carroll.Models
         [StringLength(50)]
         [Display(Name = "Equipment Model")]
         public string EquipmentModel { get; set; }
+
+        [Display(Name = "Comments")]
+        public string Comments { get; set; }
     }
 }

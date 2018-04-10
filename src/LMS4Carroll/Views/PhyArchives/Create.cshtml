@@ -1,16 +1,16 @@
-@model LMS4Carroll.Models.PhyEquipment
+@model LMS4Carroll.Models.PhyArchive
 
 @{
-    ViewData["Title"] = "Add | Phy Equipment";
+    ViewData["Title"] = "Add | Phy Archive";
 }
 <div class="top-buffer"></div>
 <div class="panel panel-primary">
-    <div class="panel-heading panel-head">Create Physics Equipment</div>
+    <div class="panel-heading panel-head">Archive Physics Equipment</div>
     <div class="panel-body">
         <br />
         <form asp-action="Create">
             <div class="form-horizontal">
-                <h4>Physics Equipment</h4>
+                <h4>Physics Archive</h4>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
@@ -28,10 +28,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="InspectionDate" class="col-md-2 control-label required"></label>
+                    <label asp-for="ArchiveDate" class="col-md-2 control-label required"></label>
                     <div class="col-md-10">
-                        <input asp-for="InspectionDate" class="form-control" />
-                        <span asp-validation-for="InspectionDate" class="text-danger" />
+                        <input asp-for="ArchiveDate" class="form-control" />
+                        <span asp-validation-for="ArchiveDate" class="text-danger" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -49,27 +49,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="LocationID" class="col-md-2 control-label required">Building Name</label>
-                    <div class="col-md-10">
-                        <select asp-for="LocationID" class="form-control" asp-items="ViewBag.LocationName"></select>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label asp-for="OrderID" class="col-md-2 control-label required"></label>
                     <div class="col-md-10">
                         <select asp-for="OrderID" class="form-control" asp-items="ViewBag.OrderID"></select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CAT" class="col-md-2 control-label required"></label>
-                    <div class="col-md-10">
-                        <input asp-for="CAT" name="Cat" class="form-control" value="@ViewData["CAT"]"></input>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="LOT" class="col-md-2 control-label required"></label>
-                    <div class="col-md-10">
-                        <input asp-for="LOT" name="Lot" class="form-control" value="@ViewData["LOT"]" />
                     </div>
                 </div>
                 <div class="form-group">
