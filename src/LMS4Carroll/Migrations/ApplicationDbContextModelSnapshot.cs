@@ -28,11 +28,13 @@ namespace LMS4Carroll.Migrations
 
                     b.Property<DateTime>("DOR");
 
-                    b.Property<string>("Designation")
-                        .HasAnnotation("MaxLength", 50);
+					b.Property<int>("CageID");
 
                     b.Property<string>("Gender")
                         .HasAnnotation("MaxLength", 50);
+
+					b.Property<string>("Weight")
+						.HasAnnotation("MaxLength", 50);
 
                     b.Property<string>("LOT")
                         .HasAnnotation("MaxLength", 50);
@@ -55,6 +57,8 @@ namespace LMS4Carroll.Migrations
                     b.HasIndex("LocationID");
 
                     b.HasIndex("OrderID");
+
+					b.HasIndex("CageID");
 
                     b.ToTable("Animal");
                 });
@@ -223,7 +227,28 @@ namespace LMS4Carroll.Migrations
                 b.ToTable("PhyEquipments");
             });
 
-            modelBuilder.Entity("LMS4Carroll.Models.CageLog", b =>
+			modelBuilder.Entity("LMS4Carroll.Models.Cage", b =>
+			{
+				b.Property<int>("CageID")
+					.ValueGeneratedOnAdd();
+
+				b.Property<string>("CageDesignation")
+					.HasAnnotation("MaxLength", 50);
+
+				b.Property<int?>("LocationID");
+
+				b.Property<string>("Species")
+					.HasAnnotation("MaxLength", 50);
+
+				b.Property<string>("NormalizedLocation")
+					.HasAnnotation("MaxLength", 50);
+
+				b.HasKey("CageID");
+
+				b.ToTable("Cage");
+			});
+
+			modelBuilder.Entity("LMS4Carroll.Models.CageLog", b =>
                 {
                     b.Property<int>("CageLogId")
                         .ValueGeneratedOnAdd();
@@ -252,7 +277,7 @@ namespace LMS4Carroll.Migrations
 
                     b.HasKey("CageLogId");
 
-                    b.HasIndex("AnimalID");
+                    b.HasIndex("CageID");
 
                     b.ToTable("CageLog");
                 });
