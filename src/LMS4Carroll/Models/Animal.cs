@@ -23,8 +23,9 @@ namespace LMS4Carroll.Models
         public int LocationID { get; set; }
         public virtual Location Location { get; set; }
 
-        [Display(Name = "Cage ID")]
+        [ForeignKey("Cage")]
         public int CageID { get; set; }
+		public virtual Cage Cage { get; set; }
 
         [StringLength(50)]
         [Display(Name = "Name")]

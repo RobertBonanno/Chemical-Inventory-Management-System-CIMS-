@@ -32,5 +32,6 @@ namespace LMS4Carroll.Models
 		public string NormalizedLocation { get; set; }
 
 		public virtual ICollection<CageLog> CageLogs { get; set; }
+		public virtual ICollection<Animal> Animals { get; set; } 
 	}
 }

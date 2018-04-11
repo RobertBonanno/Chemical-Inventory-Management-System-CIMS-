@@ -81,7 +81,7 @@ namespace LMS4Carroll.Controllers
         // GET: CageLogs/Create
         public IActionResult Create()
         {
-            ViewData["Cages"] = new SelectList(_context.Cage, "CageID", "Name");
+            ViewData["Cages"] = new SelectList(_context.Cage, "CageID", "CageDesignation");
             return View();
         }
 
@@ -98,7 +98,7 @@ namespace LMS4Carroll.Controllers
                 sp_Logging("2-Change", "Create", "User created a Cage Log entry where Cage ID=" + cageLog.CageID, "Success");
                 return RedirectToAction("Index");
             }
-            ViewData["Cages"] = new SelectList(_context.Cage, "CageID", "Name", cageLog.CageID);
+            ViewData["Cages"] = new SelectList(_context.Cage, "CageID", "CageDesignation", cageLog.CageID);
             return View(cageLog);
         }
 
@@ -115,7 +115,7 @@ namespace LMS4Carroll.Controllers
             {
                 return NotFound();
             }
-            ViewData["Cages"] = new SelectList(_context.Cage, "CageID", "Name", cageLog.CageID);
+            ViewData["Cages"] = new SelectList(_context.Cage, "CageID", "CageDesignation", cageLog.CageID);
             return View(cageLog);
         }
 
@@ -152,7 +152,7 @@ namespace LMS4Carroll.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["Cages"] = new SelectList(_context.Cage, "CageID", "Name", cageLog.CageID);
+            ViewData["Cages"] = new SelectList(_context.Cage, "CageID", "CageDesignation", cageLog.CageID);
             return View(cageLog);
         }
 

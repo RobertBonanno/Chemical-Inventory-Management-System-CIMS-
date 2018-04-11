@@ -41,7 +41,7 @@ namespace LMS4Carroll.Controllers
 			//Subtract 5 hours as the timestamp is in GMT timezone
 			DateTime logged = DateTime.Now.AddHours(-5);
 			//logged.AddHours(-5);
-			string site = "Animal";
+			string site = "Cage";
 			string query = "insert into dbo.Log([User], [Application], [Logged], [Level], [Message], [Logger], [CallSite]," +
 				"[Exception]) values(@User, @Application, @Logged, @Level, @Message,@Logger, @Callsite, @Exception)";
 			using (SqlConnection con = new SqlConnection(CS))
@@ -64,12 +64,12 @@ namespace LMS4Carroll.Controllers
 		// GET: Cages
 		public async Task<IActionResult> Index(string Cagestring)
 		{
-			//_logger.Info("Viewed an animal list - CageController");
-			sp_Logging("1-Info", "View", "Viewed list of animals", "Success");
+			//_logger.Info("Viewed an cage list - CageController");
+			sp_Logging("1-Info", "View", "Viewed list of cages", "Success");
 			ViewData["CurrentFilter"] = Cagestring;
 
-			//Getting all animal records from the DB including 
-			//related Location and Order records as LocationID and OrderID are foreign keys
+			//Getting all cage records from the DB including 
+			//related Location records as LocationID is a foreign key
 			//Search Feature
 			if (!String.IsNullOrEmpty(Cagestring))
 			{
@@ -147,7 +147,7 @@ namespace LMS4Carroll.Controllers
 				cage.Species = speciesstring;
 				cage.NormalizedLocation = temp.NormalizedStr;
 				_context.Add(cage);
-				sp_Logging("2-Change", "Create", "User created an Animal where name=" + cagedesignationstring, "Success");
+				sp_Logging("2-Change", "Create", "User created an cage where name=" + cagedesignationstring, "Success");
 				await _context.SaveChangesAsync();
 				return RedirectToAction("Index");
 			}
