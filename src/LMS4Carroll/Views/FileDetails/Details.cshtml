@@ -1,0 +1,51 @@
+@model LMS4Carroll.Models.FileDetail
+
+@{
+    ViewData["Title"] = "Details | Invoice";
+}
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Invoice Details</div>
+    <div class="panel-body">
+        <br />
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.FileName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.FileName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.FileType)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.FileType)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ContentType)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ContentType)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DatetimeCreated)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DatetimeCreated)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.OrderID)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.OrderID)
+                </dd>
+            </dl>
+        </div>
+        <div id="backbtn">
+            @*<a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.OrderID">Edit</a><br />*@
+            <a asp-action="Index" class="btn btn-default">Back to List</a>
+        </div>
+    </div>
+</div>

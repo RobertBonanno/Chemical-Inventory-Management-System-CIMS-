@@ -24,7 +24,7 @@ namespace LMS4Carroll.Models
         public string Type { get; set; }
         */
         
-        [Required]
+        //[Required]
         [StringLength(50, MinimumLength = 3)]
         [Display(Name = "Invoice #")]
         public string Invoice { get; set; }

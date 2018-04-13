@@ -77,9 +77,10 @@ namespace LMS4Carroll.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditUser(string id, EditUserViewModel model)
         {
-            if (ModelState.IsValid && model.FirstName != string.Empty && model.LastName != string.Empty && model.Email != string.Empty)
+            if (ModelState.IsValid)
             {
                 ApplicationUser user = await userManager.FindByIdAsync(id);
                 if (user != null)
@@ -113,8 +114,9 @@ namespace LMS4Carroll.Controllers
                     }
                 }
             }
-            //ModelState.AddModelError(string.Empty, "All fields must be entered");
+            //return PartialView("EditUser", model);
             return RedirectToAction("Index");
+            //return View("EditUser", model);
         }
 
         [HttpGet]

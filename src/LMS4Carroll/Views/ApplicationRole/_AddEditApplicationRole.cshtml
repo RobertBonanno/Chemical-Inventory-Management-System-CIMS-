@@ -9,16 +9,19 @@
     @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = $"{(String.IsNullOrEmpty(Model.Id) ? "Add" : "Edit")} Application Role" })
     <div class="modal-body form-horizontal">
         <div class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="RoleName" class="col-lg-3 col-sm-3 control-label"></label>
+                <label asp-for="RoleName" class="col-lg-3 col-sm-3 control-label required"></label>
                 <div class="col-lg-6">
                     <input asp-for="RoleName" class="form-control" />
+                    <span asp-validation-for="RoleName" class="text-danger" />
                 </div>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="col-lg-3 col-sm-3 control-label"></label>
                 <div class="col-lg-6">
                     <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger" />
                 </div>
             </div>
         </div>

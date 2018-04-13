@@ -46,9 +46,9 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Hazard)
                     </th>
-                    <th>
+                    @*<th>
                         @Html.DisplayNameFor(model => model.SDS)
-                    </th>
+                    </th>*@
                     <th>
                         @Html.DisplayNameFor(model => model.State)
                     </th>
@@ -58,7 +58,6 @@
                             Actions
                         </th>
                     }
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -83,30 +82,31 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Hazard)
                         </td>
-                        <td>
-                            <a target="_blank" href="@Html.DisplayFor(modelItem => item.SDS)">SDS</a>
-                        </td>
+                        @*<td>
+                            <a id="viewbtn" asp-action="Details" asp-route-id="@item.ChemInventoryId" class="btn btn-info loc2">
+                                <i class="glyphicon glyphicon-eye-open"></i>  Veiw
+                            </a>
+                        </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => item.State)
                         </td>
                         @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser"))
                         {
                         <td>
-                            <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.ChemID" class="btn btn-info">
+                            <a id="editbtn" asp-action="Edit" asp-route-id="@item.ChemID" class="btn btn-info">
                                 <i class="glyphicon glyphicon-pencil"></i>  Edit
                             </a>
                             @if (User.IsInRole("Admin"))
                             {
-                                <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.ChemID" class="btn btn-danger">
+                                <a id="deletebtn" asp-action="Delete" asp-route-id="@item.ChemID" class="btn btn-danger">
                                     <i class="glyphicon glyphicon-trash"></i>  Delete
                                 </a>
                             }
-                            <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.ChemID" class="btn btn-info loc3">
+                            <a id="detailsbtn" asp-action="Details" asp-route-id="@item.ChemID" class="btn btn-info loc3">
                                 <i class="glyphicon glyphicon-search"></i>  Details
                             </a>
                         </td>
                        }
-                        <td></td>
                     </tr>
                 }
             </tbody>

@@ -53,7 +53,6 @@
                             Actions
                         </th>
                     }
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -67,7 +66,9 @@
                             @Html.DisplayFor(modelItem => item.Vendor.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Invoice)
+                            <a asp-area="" asp-controller="FileDetails" asp-action="Details" asp-route-id="@item.Invoice">
+                                @Html.DisplayFor(modelItem => item.Invoice)
+                            </a>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.PO)
@@ -84,18 +85,20 @@
                         @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser") || User.IsInRole("AnimalUser"))
                         { 
                             <td>
-                                <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.OrderID" class="btn btn-info">
+                                <a id="editbtn" asp-action="Edit" asp-route-id="@item.OrderID" class="btn btn-info">
                                     <i class="glyphicon glyphicon-pencil"></i>  Edit
                                 </a>
-                                <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.OrderID" class="btn btn-danger">
-                                    <i class="glyphicon glyphicon-trash"></i>  Delete
-                                </a>
-                                <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.OrderID" class="btn btn-info loc3">
+                                @if (User.IsInRole("Admin"))
+                                { 
+                                    <a id="deletebtn" asp-action="Delete" asp-route-id="@item.OrderID" class="btn btn-danger">
+                                        <i class="glyphicon glyphicon-trash"></i>  Delete
+                                    </a>
+                                }
+                                <a id="detailsbtn" asp-action="Details" asp-route-id="@item.OrderID" class="btn btn-info loc3">
                                     <i class="glyphicon glyphicon-search"></i>  Details
                                 </a>
                             </td>
                         }
-                        <td></td>
                     </tr>
                 }
             </tbody>

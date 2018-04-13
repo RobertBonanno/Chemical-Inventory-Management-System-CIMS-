@@ -35,6 +35,23 @@ namespace LMS4Carroll.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        // GET: FileDetails/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var fileDetailExpanded = await _context.FileDetails.SingleOrDefaultAsync(m => m.FileDetailID == id);
+            if (fileDetailExpanded == null)
+            {
+                return NotFound();
+            }
+
+            return View(fileDetailExpanded);
+        }
+
         [Authorize(Roles = "Admin")]
         // GET: FileDetails/Create
         public IActionResult Create()

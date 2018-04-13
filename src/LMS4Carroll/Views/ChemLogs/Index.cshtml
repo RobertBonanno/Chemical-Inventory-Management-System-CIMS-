@@ -64,7 +64,6 @@
                                     Actions
                                 </th>
                             }
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -75,16 +74,22 @@
                                     @Html.DisplayFor(modelItem => item.ChemLogId)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.ChemInventoryId)
+                                    <a asp-area="" asp-controller="ChemInventories" asp-action="Details" asp-route-id="@item.ChemInventoryId">
+                                        @Html.DisplayFor(modelItem => item.ChemInventoryId)
+                                    </a>                               
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Course.Department)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Course.Number)
+                                    <a asp-area="" asp-controller="Courses" asp-action="Details" asp-route-id="@item.Course.CourseID">
+                                        @Html.DisplayFor(modelItem => item.Course.Number)
+                                    </a>                            
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.ChemInventory.NormalizedLocation)
+                                    <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.ChemInventory.LocationID">
+                                        @Html.DisplayFor(modelItem => item.ChemInventory.NormalizedLocation)
+                                    </a>                                    
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Course.NormalizedLocation)
@@ -106,19 +111,21 @@
                                 { 
                                     <td>    
                                                                         
-                                        <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.ChemLogId" class="btn btn-info">
+                                        <a id="editbtn" asp-action="Edit" asp-route-id="@item.ChemLogId" class="btn btn-info">
                                             <i class="glyphicon glyphicon-pencil"></i>Edit
                                         </a>
-                                        <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.ChemLogId" class="btn btn-danger loc2">
-                                            <i class="glyphicon glyphicon-trash"></i>  Delete
-                                        </a>
+                                        @if (User.IsInRole("Admin"))
+                                        { 
+                                            <a id="deletebtn" asp-action="Delete" asp-route-id="@item.ChemLogId" class="btn btn-danger loc2">
+                                                <i class="glyphicon glyphicon-trash"></i>  Delete
+                                            </a>
+                                        }
                                         <!--
                                         <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.ChemLogId" class="btn btn-info">
                                             <i class="glyphicon glyphicon-pencil"></i>Details
                                         </a>-->
                                     </td>
                                 }
-                                <td></td>
                             </tr>
                         }
                     </tbody>

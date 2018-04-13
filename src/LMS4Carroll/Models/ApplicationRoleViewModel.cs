@@ -9,7 +9,10 @@ namespace LMS4Carroll.Models
     public class ApplicationRoleViewModel
     {
         public string Id { get; set; }
+
+        [Required]
         [Display(Name = "Role Name")]
+        [StringLength(50, MinimumLength = 2)]
         public string RoleName { get; set; }
         public string Description { get; set; }
     }

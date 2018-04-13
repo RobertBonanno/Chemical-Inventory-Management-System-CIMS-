@@ -76,7 +76,8 @@ namespace LMS4Carroll.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            return View(model);
+            //return View(model);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

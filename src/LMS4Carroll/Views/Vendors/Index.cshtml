@@ -46,7 +46,6 @@
                             Actions
                         </th>
                     }
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -68,18 +67,17 @@
                         @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("AnimalUser") || User.IsInRole("BiologyUser"))
                         {
                             <td>
-                                <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.VendorID" class="btn btn-info">
+                                <a id="editbtn" asp-action="Edit" asp-route-id="@item.VendorID" class="btn btn-info">
                                     <i class="glyphicon glyphicon-pencil"></i>  Edit
                                 </a>
-                                <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.VendorID" class="btn btn-danger">
+                                <a id="deletebtn" asp-action="Delete" asp-route-id="@item.VendorID" class="btn btn-danger">
                                     <i class="glyphicon glyphicon-trash"></i>  Delete
                                 </a>
-                                <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.VendorID" class="btn btn-info">
+                                <a id="detailsbtn" asp-action="Details" asp-route-id="@item.VendorID" class="btn btn-info">
                                     <i class="glyphicon glyphicon-search"></i>  Details
                                 </a>
                             </td>
                         }
-                        <td></td>
                     </tr>
                 }
             </tbody>
