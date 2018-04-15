@@ -49,7 +49,8 @@ namespace LMS4Carroll.Controllers
                 {
                     equipments = equipments.Where(s => s.EquipmentName.Contains(equipmentString)
                                             || s.EquipmentModel.Contains(equipmentString)
-                                            || s.SerialNumber.Equals(equipmentString)
+                                            || s.SerialNumber.Contains(equipmentString)
+                                         // || s.Location.NormalizedStr.Contains(equipmentString)
                                             || s.LOT.Equals(equipmentString)
                                             || s.CAT.Equals(equipmentString)
                                             || s.Type.Contains(equipmentString)

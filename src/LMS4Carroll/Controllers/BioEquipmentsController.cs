@@ -29,7 +29,7 @@ namespace LMS4Carroll.Controllers
         public async Task<IActionResult> Index(string equipmentString)
         {
             ViewData["CurrentFilter"] = equipmentString;
-            sp_Logging("1-Info", "View", "Successfuly viewed Biological Equipment list", "Success");
+            sp_Logging("1-Info", "View", "Successfuly viewed Biology Equipment list", "Success");
 
             //Search Feature
             if (!String.IsNullOrEmpty(equipmentString))
@@ -49,7 +49,8 @@ namespace LMS4Carroll.Controllers
                 {
                     equipments = equipments.Where(s => s.EquipmentName.Contains(equipmentString)
                                             || s.EquipmentModel.Contains(equipmentString)
-                                            || s.SerialNumber.Equals(equipmentString)
+                                            || s.SerialNumber.Contains(equipmentString)
+                                           // || s.Location.NormalizedStr.Contains(equipmentString)
                                             || s.LOT.Equals(equipmentString)
                                             || s.CAT.Equals(equipmentString)
                                             || s.Type.Contains(equipmentString)
@@ -60,7 +61,7 @@ namespace LMS4Carroll.Controllers
 
             else
             {
-                var equipments = from m in _context.BioEquipments.Include(c => c.Location).Include(c => c.Order).Take(300)
+                var equipments = from m in _context.BioEquipments.Include(c => c.Location).Include(c => c.Order).Take(1000)
                                  select m;
 
                 return View(await equipments.OrderByDescending(s => s.BioEquipmentID).ToListAsync());

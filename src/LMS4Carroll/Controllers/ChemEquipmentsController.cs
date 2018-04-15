@@ -41,6 +41,7 @@ namespace LMS4Carroll.Controllers
                 if (Int32.TryParse(equipmentString, out forID))
                 {
                     equipments = equipments.Where(s => s.ChemEquipmentID.Equals(forID)
+                                            || s.LocationID.Equals(forID)
                                             || s.OrderID.Equals(forID));
                     return View(await equipments.OrderByDescending(s => s.ChemEquipmentID).ToListAsync());
                 }
@@ -48,16 +49,17 @@ namespace LMS4Carroll.Controllers
                 equipments = equipments.Where(s => s.EquipmentName.Contains(equipmentString)
                                     || s.EquipmentModel.Contains(equipmentString)
                                     || s.SerialNumber.Contains(equipmentString)
-                                    || s.Location.NormalizedStr.Contains(equipmentString)
+                                 // || s.Location.NormalizedStr.Contains(equipmentString)
                                     || s.LOT.Contains(equipmentString)
                                     || s.CAT.Contains(equipmentString)
+                                    || s.Type.Contains(equipmentString)
                                     || s.Comments.Contains(equipmentString));
                 return View(await equipments.OrderByDescending(s => s.ChemEquipmentID).ToListAsync());
             }
 
             else
             {
-                var equipments = from m in _context.ChemicalEquipments.Include(c => c.Location).Include(c => c.Order).Take(300)
+                var equipments = from m in _context.ChemicalEquipments.Include(c => c.Location).Include(c => c.Order).Take(1000)
                                  select m;
                 return View(await equipments.OrderByDescending(s => s.ChemEquipmentID).ToListAsync());
             }
