@@ -1,7 +1,7 @@
-@model LMS4Carroll.Models.ChemEquipment
+@model LMS4Carroll.Models.BioArchive
 
 @{
-    ViewData["Title"] = "Delete | Chem Equipment";
+    ViewData["Title"] = "Delete | Bio Archive";
 }
 
 <div class="top-buffer"></div>
@@ -10,8 +10,6 @@
     <div class="panel-body">
         <br />
         <div>
-            <h4>ChemEquipment</h4>
-            <hr />
             <dl class="dl-horizontal">
                 <dt>
                     @Html.DisplayNameFor(model => model.SerialNumber)
@@ -26,10 +24,10 @@
                     @Html.DisplayFor(model => model.InstalledDate)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.InspectionDate)
+                    @Html.DisplayNameFor(model => model.ArchiveDate)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.InspectionDate)
+                    @Html.DisplayFor(model => model.ArchiveDate)
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.EquipmentModel)
@@ -60,9 +58,7 @@
             <form asp-action="Delete" id="deletebtn">
                 <div class="form-actions no-color">
                     <input type="submit" value="Delete" class="btn btn-danger" />
-                    <a asp-action="Index" class="btn btn-default">
-                        <i class="glyphicon glyphicon-arrow-left"></i> Back to List
-                    </a>
+                    <a asp-action="Index" class="btn btn-default">Back to List</a>
                 </div>
             </form>
         </div>

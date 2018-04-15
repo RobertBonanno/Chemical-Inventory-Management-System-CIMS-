@@ -19,7 +19,7 @@
                         <input asp-for="SerialNumber" class="form-control" />
                         <span asp-validation-for="SerialNumber" class="text-danger" />
                     </div>
-                 </div>
+                </div>
                 <div class="form-group">
                     <label asp-for="InstalledDate" class="col-md-2 control-label required"></label>
                     <div class="col-md-10">
@@ -81,6 +81,13 @@
                         <span asp-validation-for="Type" class="text-danger" />
                     </div>
                 </div>
+                <div class="form-group">
+                    <label asp-for="Comments" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Comments" class="form-control" />
+                        <span asp-validation-for="Comments" class="text-danger" />
+                    </div>
+                </div>
                 <div class="form-group" id="editbtn">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Save" class="btn btn-primary" />
@@ -91,7 +98,7 @@
                         </a>
                     </div>
                 </div>
-                </div>
+            </div>
         </form>
     </div>
 </div>
