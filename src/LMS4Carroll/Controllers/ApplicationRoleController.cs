@@ -76,7 +76,10 @@ namespace LMS4Carroll.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            return View(model);
+            //return PartialView(model);
+            return RedirectToAction("Index");
+            //the async won't be effective for model-based error handling.
+            //consider following the format Chemicals use to edit details in a new window
         }
 
         [HttpGet]

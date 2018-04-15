@@ -10,6 +10,7 @@ namespace LMS4Carroll.Models
     public class Location
     {
         [Key]
+        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "Location ID")]
         public int? LocationID { get; set; }
@@ -24,11 +25,13 @@ namespace LMS4Carroll.Models
         public string Room { get; set; }
 
         [Required]
+        [Display(Name = "Location")]
         [StringLength(50, MinimumLength = 3)]
         public string NormalizedStr { get; set; }
 
         [Required]
         [StringLength(50, MinimumLength = 3)]
+        [Display(Name = "Storage Code")]
         public string StorageCode { get; set; }
 
         [Required]

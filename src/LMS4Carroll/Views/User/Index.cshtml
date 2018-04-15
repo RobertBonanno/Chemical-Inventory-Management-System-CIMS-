@@ -9,7 +9,7 @@
 <div class="top-buffer"></div>
 <div class="panel panel-primary">
     <div class="panel-heading panel-head">Users</div>
-    <div class="panel-body">
+    <div class="panel-body table-responsive">
         @if (Model.Count() <= 0) {
             <div class="panel-heading panel-head">There are no users at this time</div>
         }
@@ -28,8 +28,7 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
-                    <th></th>
-                    @*<th>Action</th>*@
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
