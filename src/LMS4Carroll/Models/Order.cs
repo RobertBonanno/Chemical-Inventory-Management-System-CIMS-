@@ -11,11 +11,14 @@ namespace LMS4Carroll.Models
     public class Order
     {
         [Key]
+        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "Order ID")]
         public int? OrderID { get; set; }
 
+        [Required]
         [ForeignKey("Vendor")]
+        [Display(Name = "Vendor")]
         public int VendorID { get; set; }
         public virtual Vendor Vendor { get; set; }
         /*
@@ -24,7 +27,7 @@ namespace LMS4Carroll.Models
         public string Type { get; set; }
         */
         
-        [Required]
+        //[Required]
         [StringLength(50, MinimumLength = 3)]
         [Display(Name = "Invoice #")]
         public string Invoice { get; set; }
@@ -34,6 +37,7 @@ namespace LMS4Carroll.Models
         [Display(Name = "PO #")]
         public string PO { get; set; }
 
+        [Required]
         [DataType(DataType.Date)]
         [DefaultValue("01/01/1900")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

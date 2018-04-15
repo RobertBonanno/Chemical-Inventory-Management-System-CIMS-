@@ -29,7 +29,7 @@ namespace LMS4Carroll.Controllers
         public async Task<IActionResult> Index(string equipmentString)
         {
             ViewData["CurrentFilter"] = equipmentString;
-            sp_Logging("1-Info", "View", "Successfuly viewed Biological Equipment list", "Success");
+            sp_Logging("1-Info", "View", "Successfuly viewed Biology Equipment list", "Success");
 
             //Search Feature
             if (!String.IsNullOrEmpty(equipmentString))
@@ -49,17 +49,19 @@ namespace LMS4Carroll.Controllers
                 {
                     equipments = equipments.Where(s => s.EquipmentName.Contains(equipmentString)
                                             || s.EquipmentModel.Contains(equipmentString)
-                                            || s.SerialNumber.Equals(equipmentString)
+                                            || s.SerialNumber.Contains(equipmentString)
+                                           // || s.Location.NormalizedStr.Contains(equipmentString)
                                             || s.LOT.Equals(equipmentString)
                                             || s.CAT.Equals(equipmentString)
-                                            || s.Type.Contains(equipmentString));
+                                            || s.Type.Contains(equipmentString)
+                                            || s.Comments.Contains(equipmentString));
                     return View(await equipments.OrderByDescending(s => s.BioEquipmentID).ToListAsync());
                 }
             }
 
             else
             {
-                var equipments = from m in _context.BioEquipments.Include(c => c.Location).Include(c => c.Order).Take(40)
+                var equipments = from m in _context.BioEquipments.Include(c => c.Location).Include(c => c.Order).Take(1000)
                                  select m;
 
                 return View(await equipments.OrderByDescending(s => s.BioEquipmentID).ToListAsync());
@@ -95,7 +97,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BioEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type")] BioEquipment bioEquipment)
+        public async Task<IActionResult> Create([Bind("BioEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type,Comments")] BioEquipment bioEquipment)
         {
             if (ModelState.IsValid)
             {
@@ -131,7 +133,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BioEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type")] BioEquipment bioEquipment)
+        public async Task<IActionResult> Edit(int id, [Bind("BioEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type,Comments")] BioEquipment bioEquipment)
         {
             if (id != bioEquipment.BioEquipmentID)
             {
@@ -189,6 +191,51 @@ namespace LMS4Carroll.Controllers
             var bioEquipment = await _context.BioEquipments.SingleOrDefaultAsync(m => m.BioEquipmentID == id);
             _context.BioEquipments.Remove(bioEquipment);
             sp_Logging("3-Remove", "Delete", "User deleted a Biological Equipment where ID=" + id.ToString(), "Success");
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        // GET: BioEquipments/Archive/5
+        public async Task<IActionResult> Archive(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var bioEquipment = await _context.BioEquipments.SingleOrDefaultAsync(m => m.BioEquipmentID == id);
+            if (bioEquipment == null)
+            {
+                return NotFound();
+            }
+
+            return View(bioEquipment);
+        }
+
+        // POST: BioEquipments/Archive/5
+        [HttpPost, ActionName("Archive")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ArchiveConfirm(int id)
+        {
+            var bioEquipment = await _context.BioEquipments.SingleOrDefaultAsync(m => m.BioEquipmentID == id);
+            BioArchive bioArchive = new BioArchive();
+
+            if (bioArchive != null)
+            {
+
+                bioArchive.OrderID = bioEquipment.OrderID;
+                bioArchive.Type = bioEquipment.Type;
+                bioArchive.SerialNumber = bioEquipment.SerialNumber;
+                bioArchive.InstalledDate = bioEquipment.InstalledDate;
+                bioArchive.ArchiveDate = DateTime.Today;
+                bioArchive.EquipmentName = bioEquipment.EquipmentName;
+                bioArchive.EquipmentModel = bioEquipment.EquipmentModel;
+                bioArchive.Comments = bioEquipment.Comments;
+                _context.BioArchives.Add(bioArchive);
+                await _context.SaveChangesAsync();
+            }
+            _context.BioEquipments.Remove(bioEquipment);
+            sp_Logging("3-Remove", "Delete", "User deleted a Biology Equipment where ID=" + id.ToString(), "Success");
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }

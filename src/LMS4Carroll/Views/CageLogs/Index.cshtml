@@ -7,7 +7,7 @@
 <div class="top-buffer"></div>
 <div class="panel panel-primary">
     <div class="panel-heading panel-head">Cage Log</div>
-    <div class="panel-body">
+    <div class="panel-body table-responsive">
         <div class="btn-group">
             @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser"))
             {
@@ -73,7 +73,6 @@
                                 Actions
                             </th>
                         }
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,10 +83,14 @@
                                 @Html.DisplayFor(modelItem => item.CageLogId)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.AnimalID)
+                                <a asp-area="" asp-controller="Animals" asp-action="Details" asp-route-id="@item.Animal.AnimalID">
+                                    @Html.DisplayFor(modelItem => item.AnimalID)
+                                </a>
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Animal.NormalizedLocation)
+                                <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.Animal.LocationID">
+                                    @Html.DisplayFor(modelItem => item.Animal.NormalizedLocation)
+                                </a>  
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Animal.Designation)
@@ -134,7 +137,6 @@
                             </a>-->
                         </td>
                     }
-                            <td></td>
                         </tr>
                     }
                 </tbody>

@@ -38,7 +38,7 @@ namespace LMS4Carroll.Controllers
                 List<UserListViewModel> model = new List<UserListViewModel>();
                 model = userManager.Users.Select(u => new UserListViewModel
                 {
-                    //Id = u.Id,
+                    Id = u.Id,
                     FirstName = u.FirstName,
                     LastName = u.LastName,
                     //RoleName = await u.returnRoleName(u.Id),
@@ -77,6 +77,7 @@ namespace LMS4Carroll.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditUser(string id, EditUserViewModel model)
         {
             if (ModelState.IsValid)
@@ -113,7 +114,10 @@ namespace LMS4Carroll.Controllers
                     }
                 }
             }
-            return PartialView("EditUser", model); ;
+            //return PartialView("EditUser", model);
+            return RedirectToAction("Index");
+            //the async won't be effective for model-based error handling.
+            //consider following the format Chemicals use to edit details in a new window
         }
 
         [HttpGet]

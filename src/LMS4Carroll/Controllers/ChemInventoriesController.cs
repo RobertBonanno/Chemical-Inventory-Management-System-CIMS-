@@ -42,19 +42,22 @@ namespace LMS4Carroll.Controllers
                 int forID;
                 if (Int32.TryParse(cheminventoryString, out forID))
                 {
-                    inventory = inventory.Where(s => s.ChemInventoryId.Equals(forID));
-                    return View(await inventory.OrderBy(s => s.Chemical.FormulaName).ToListAsync());
+                    inventory = inventory.Where(s => s.ChemInventoryId.Equals(forID)
+                                          || s.LocationID.Equals(forID)
+                                          || s.OrderID.Equals(forID)
+                                          || s.Chemical.ChemID.Equals(forID));
+                    return View(await inventory.OrderByDescending(s => s.ChemInventoryId).ToListAsync());
                 }
                 else
                 {
-                   /* inventory = inventory.Where(s => s.Chemical.FormulaName.ToLower().Contains(cheminventoryString)
-                                                  || s.Chemical.CAS.ToLower().Contains(cheminventoryString)         //This is a fickle beast
-                                                  || s.Location.StorageCode.ToLower().Contains(cheminventoryString) //I'm assuming an error is 
-                                                  || s.Chemical.CAT.ToLower().Contains(cheminventoryString)         //generated in these lines 
-                                                  || s.LOT.ToLower().Contains(cheminventoryString)                  //but I cannot figure out 
-                                                  || s.Department.ToLower().Contains(cheminventoryString)           //the origin or cause
-                                                  );
-                    */                 
+                    inventory = inventory.Where(s => s.Chemical.FormulaName.Contains(cheminventoryString));
+
+                    inventory = inventory.Where(s => s.Department.Contains(cheminventoryString)
+                                          || s.CAT.Equals(cheminventoryString)
+                                          || s.LOT.Equals(cheminventoryString)
+                                          || s.Units.Contains(cheminventoryString)
+                                          || s.Chemical.FormulaName.Contains(cheminventoryString));
+                    return View(await inventory.OrderByDescending(s => s.ChemInventoryId).ToListAsync());
                 }
             }
 

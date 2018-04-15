@@ -1,0 +1,66 @@
+@model LMS4Carroll.Models.PhyEquipment
+
+@{
+    ViewData["Title"] = "Archive | Phy Equipment";
+}
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Are you sure you want to archive this piece of equipment?</div>
+    <div class="panel-body">
+        <br />
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.SerialNumber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.SerialNumber)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.InstalledDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.InstalledDate)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.InspectionDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.InspectionDate)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.EquipmentModel)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EquipmentModel)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.EquipmentName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EquipmentName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Type)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Comments)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Comments)
+                </dd>
+            </dl>
+
+            <form asp-action="Archive" id="archivebtn">
+                <div class="form-actions no-color">
+                    <input type="submit" value="Archive" class="btn btn-danger" />
+                    <a asp-action="Index" class="btn btn-default">Back to List</a>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>

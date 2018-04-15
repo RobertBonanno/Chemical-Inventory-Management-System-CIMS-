@@ -1,0 +1,144 @@
+@model IEnumerable<LMS4Carroll.Models.PhyEquipment>
+
+@{
+    ViewData["Title"] = "List | Physics Equipments";
+}
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Physics Equipment</div>
+    <div class="panel-body table-responsive">
+        <div class="btn-group">
+        @if (User.IsInRole("Admin") || User.IsInRole("PhysicsUser"))
+        {
+            <a id="createRoleModal" asp-action="Create" class="btn btn-primary">
+                <i class="glyphicon glyphicon-plus"></i>  Add Equipment
+            </a>
+        }
+        </div><br />
+            <form asp-controller="PhyEquipments" asp-action="Index" method="get" >
+                <div class="form-actions no-color">
+                    <p>
+                        <input type="text" name="EquipmentString" value="@ViewData["currentFilter"]" />
+                        <input type="submit" value="Search" class="btn btn-default" />  
+                        <a asp-action="Index" class="btn btn-default">Back to Full List</a>
+                    </p>
+                </div>
+            </form>
+            <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PhyEquipmentID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EquipmentName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EquipmentModel)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Type)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SerialNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Location.NormalizedStr)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.InstalledDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.InspectionDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.OrderID)
+                        </th>
+                        <td>
+                            CAT#
+                        </td>
+                        <td>
+                            LOT#
+                        </td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Comments)
+                        </th>
+                        @if (User.IsInRole("Admin") || User.IsInRole("PhysicsUser"))
+                        {
+                            <th>
+                                Actions
+                            </th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhyEquipmentID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EquipmentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EquipmentModel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SerialNumber)
+                        </td>
+                        <td>
+                            <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.LocationID">
+                                @Html.DisplayFor(modelItem => item.Location.NormalizedStr)
+                            </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InstalledDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InspectionDate)
+                        </td>
+                        <td>
+                            <a asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderID">
+                                @Html.DisplayFor(modelItem => item.OrderID)
+                            </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CAT)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LOT)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comments)
+                        </td>
+                        @if (User.IsInRole("Admin") || User.IsInRole("PhysicsUser"))
+                        {
+                        <td>
+                            <a id="editbtn" asp-action="Edit" asp-route-id="@item.PhyEquipmentID" class="btn btn-info">
+                                <i class="glyphicon glyphicon-pencil"></i>  Edit
+                            </a>
+                            @if (User.IsInRole("Admin"))
+                            { 
+                                <a id="deletebtn" asp-action="Delete" asp-route-id="@item.PhyEquipmentID" class="btn btn-danger loc2">
+                                    <i class="glyphicon glyphicon-trash"></i>  Delete
+                                </a>
+                                 <a id="archiveApplicationRoleModel" asp-action="Archive" asp-route-id="@item.PhyEquipmentID" class="btn btn-info">
+                                      <i class="glyphicon glyphicon-plus"></i>  Archive
+                                  </a>
+                            }
+                            <a id="detailsbtn" asp-action="Details" asp-route-id="@item.PhyEquipmentID" class="btn btn-info loc3">
+                                <i class="glyphicon glyphicon-search"></i>  Details
+                            </a>
+                        </td>
+                        }
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>

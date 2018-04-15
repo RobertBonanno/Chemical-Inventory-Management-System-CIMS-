@@ -174,6 +174,9 @@ namespace LMS4Carroll.Migrations
                     b.Property<string>("Type")
                         .HasAnnotation("MaxLength", 50);
 
+                    b.Property<string>("Comments")
+                        .HasAnnotation("MaxLength", 150);
+
                     b.HasKey("BioEquipmentID");
 
                     b.HasIndex("LocationID");
@@ -182,6 +185,148 @@ namespace LMS4Carroll.Migrations
 
                     b.ToTable("BioEquipments");
                 });
+
+            modelBuilder.Entity("LMS4Carroll.Models.PhyEquipment", b =>
+            {
+                b.Property<int>("PhyEquipmentID")
+                    .ValueGeneratedOnAdd();
+
+                b.Property<string>("CAT")
+                    .HasAnnotation("MaxLength", 50);
+
+                b.Property<string>("EquipmentModel")
+                    .HasAnnotation("MaxLength", 50);
+
+                b.Property<string>("EquipmentName")
+                    .HasAnnotation("MaxLength", 50);
+
+                b.Property<DateTime>("InspectionDate");
+
+                b.Property<DateTime>("InstalledDate");
+
+                b.Property<string>("LOT")
+                    .HasAnnotation("MaxLength", 50);
+
+                b.Property<int?>("LocationID");
+
+                b.Property<int?>("OrderID");
+
+                b.Property<string>("SerialNumber")
+                    .HasAnnotation("MaxLength", 50);
+
+                b.Property<string>("Type")
+                    .HasAnnotation("MaxLength", 50);
+
+                b.Property<string>("Comments")
+                    .HasAnnotation("MaxLength", 150);
+
+                b.HasKey("PhyEquipmentID");
+
+                b.HasIndex("LocationID");
+
+                b.HasIndex("OrderID");
+
+                b.ToTable("PhyEquipments");
+            });
+
+            modelBuilder.Entity("LMS4Carroll.Models.PhyArchive", b =>
+            {
+                b.Property<int>("PhyArchiveID")
+                    .ValueGeneratedOnAdd();
+
+                b.Property<string>("EquipmentModel")
+                    .HasAnnotation("MaxLength", 50);
+
+                b.Property<string>("EquipmentName")
+                    .HasAnnotation("MaxLength", 50);
+
+                b.Property<DateTime>("ArchiveDate");
+
+                b.Property<DateTime>("InstalledDate");
+
+                b.Property<int?>("OrderID");
+
+                b.Property<string>("SerialNumber")
+                    .HasAnnotation("MaxLength", 50);
+
+                b.Property<string>("Type")
+                    .HasAnnotation("MaxLength", 50);
+
+                b.Property<string>("Comments")
+                    .HasAnnotation("MaxLength", 150);
+
+                b.HasKey("PhyArchiveID");
+
+                b.HasIndex("OrderID");
+
+                b.ToTable("PhyArchives");
+            });
+
+            modelBuilder.Entity("LMS4Carroll.Models.BioArchive", b =>
+            {
+                b.Property<int>("BioArchiveID")
+                    .ValueGeneratedOnAdd();
+
+                b.Property<string>("EquipmentModel")
+                    .HasAnnotation("MaxLength", 50);
+
+                b.Property<string>("EquipmentName")
+                    .HasAnnotation("MaxLength", 50);
+
+                b.Property<DateTime>("ArchiveDate");
+
+                b.Property<DateTime>("InstalledDate");
+
+                b.Property<int?>("OrderID");
+
+                b.Property<string>("SerialNumber")
+                    .HasAnnotation("MaxLength", 50);
+
+                b.Property<string>("Type")
+                    .HasAnnotation("MaxLength", 50);
+
+                b.Property<string>("Comments")
+                    .HasAnnotation("MaxLength", 150);
+
+                b.HasKey("BioArchiveID");
+
+                b.HasIndex("OrderID");
+
+                b.ToTable("BioArchives");
+            });
+
+            modelBuilder.Entity("LMS4Carroll.Models.ChemArchive", b =>
+            {
+                b.Property<int>("ChemArchiveID")
+                    .ValueGeneratedOnAdd();
+
+                b.Property<string>("EquipmentModel")
+                    .HasAnnotation("MaxLength", 50);
+
+                b.Property<string>("EquipmentName")
+                    .HasAnnotation("MaxLength", 50);
+
+                b.Property<DateTime>("ArchiveDate");
+
+                b.Property<DateTime>("InstalledDate");
+
+                b.Property<int?>("OrderID");
+
+                b.Property<string>("SerialNumber")
+                    .HasAnnotation("MaxLength", 50);
+
+                b.Property<string>("Type")
+                    .HasAnnotation("MaxLength", 50);
+
+                b.Property<string>("Comments")
+                    .HasAnnotation("MaxLength", 150);
+
+                b.HasKey("ChemArchiveID");
+
+                b.HasIndex("OrderID");
+
+                b.ToTable("ChemArchives");
+            });
 
             modelBuilder.Entity("LMS4Carroll.Models.CageLog", b =>
                 {
@@ -247,6 +392,9 @@ namespace LMS4Carroll.Migrations
 
                     b.Property<string>("Type")
                         .HasAnnotation("MaxLength", 50);
+
+                    b.Property<string>("Comments")
+                        .HasAnnotation("MaxLength", 150);
 
                     b.HasKey("ChemEquipmentID");
 

@@ -10,29 +10,33 @@
     <div class="modal-body form-horizontal">
         <div class="row">
             <div class="col-lg-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="FirstName" class="col-lg-3 col-sm-3 control-label"></label>
                     <div class="col-lg-6">
                         <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="LastName" class="col-lg-3 col-sm-3 control-label"></label>
+                    <label asp-for="LastName" class="col-lg-3 col-sm-3 control-label required"></label>
                     <div class="col-lg-6">
                         <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Email" class="col-lg-3 col-sm-3 control-label"></label>
+                    <label asp-for="Email" class="col-lg-3 col-sm-3 control-label required"></label>
                     <div class="col-lg-6">
-                        <input asp-for="Email" class="form-control" />
+                        <input type="email" asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ApplicationRoleId" class="col-lg-3 col-sm-3 control-label"></label>
+                    <label asp-for="ApplicationRoleId" class="col-lg-3 col-sm-3 control-label required"></label>
                     <div class="col-lg-6">
                         <select asp-for="ApplicationRoleId" asp-items="@Model.ApplicationRoles" class="form-control">
-                            <option>Please select</option>
+                            <option disabled>Please select</option>
                         </select>
                     </div>
                 </div>
@@ -55,3 +59,6 @@
     </div>
     @await Html.PartialAsync("_ModalFooter", new ModalFooter { })
 </form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
