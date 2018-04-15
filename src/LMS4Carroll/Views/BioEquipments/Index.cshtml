@@ -61,9 +61,9 @@
                         <td>
                             LOT#
                         </td>
-                        <th>
+                        @*<th>
                             @Html.DisplayNameFor(model => model.Comments)
-                        </th>
+                        </th>*@
                         @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
                         {
                             <th>
@@ -113,9 +113,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.LOT)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.Comments)
-                        </td>
+                        </td>*@
                         @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
                         {
                           <td>

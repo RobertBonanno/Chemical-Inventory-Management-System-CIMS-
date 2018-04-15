@@ -53,14 +53,6 @@ namespace LMS4Carroll.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        // GET: FileDetails/Create
-        public IActionResult Create()
-        {
-            ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID");
-            return View();
-        }
-
-        [Authorize(Roles = "Admin")]
         [HttpGet]
         //GET: FileDetails/Create/5
         public IActionResult Create(int? id)

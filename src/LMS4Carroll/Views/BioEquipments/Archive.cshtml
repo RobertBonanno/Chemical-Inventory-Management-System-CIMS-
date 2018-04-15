@@ -55,10 +55,12 @@
                 </dd>
             </dl>
 
-            <form asp-action="Archive" id="archivebtn">
+            <form asp-action="Archive" id="deletebtn">
                 <div class="form-actions no-color">
+                    <a asp-action="Index" class="btn btn-default">
+                        <i class="glyphicon glyphicon-arrow-left"></i> Back to List
+                    </a>
                     <input type="submit" value="Archive" class="btn btn-danger" />
-                    <a asp-action="Index" class="btn btn-default">Back to List</a>
                 </div>
             </form>
         </div>
