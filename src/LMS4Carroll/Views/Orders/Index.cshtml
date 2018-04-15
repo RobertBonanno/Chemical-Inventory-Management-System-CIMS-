@@ -7,7 +7,7 @@
 <div class="top-buffer"></div>
 <div class="panel panel-primary">
     <div class="panel-heading panel-head">Orders</div>
-    <div class="panel-body">
+    <div class="panel-body table-responsive">
         <div class="btn-group">
             @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser") || User.IsInRole("AnimalUser"))
             {
@@ -66,9 +66,10 @@
                             @Html.DisplayFor(modelItem => item.Vendor.Name)
                         </td>
                         <td>
-                            <a asp-area="" asp-controller="FileDetails" asp-action="Details" asp-route-id="@item.Invoice">
+                            @*@{int firstFile = item.FileDetails.FirstOrDefault<FileDetail>().FileDetailID; }
+                            <a asp-area="" asp-controller="FileDetails" asp-action="Details" asp-route-id="@firstFile">*@
                                 @Html.DisplayFor(modelItem => item.Invoice)
-                            </a>
+                            @*</a>*@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.PO)

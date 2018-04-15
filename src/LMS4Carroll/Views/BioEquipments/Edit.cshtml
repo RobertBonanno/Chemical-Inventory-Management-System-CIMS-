@@ -15,7 +15,7 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="BioEquipmentID" />
                 <div class="form-group">
-                    <label asp-for="SerialNumber" class="col-md-2 control-label required"></label>
+                    <label asp-for="SerialNumber" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
                         <input asp-for="SerialNumber" class="form-control" />
                         <span asp-validation-for="SerialNumber" class="text-danger" />
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="InspectionDate" class="col-md-2 control-label required"></label>
+                    <label asp-for="InspectionDate" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
                         <input asp-for="InspectionDate" class="form-control" />
                         <span asp-validation-for="InspectionDate" class="text-danger" />
@@ -64,13 +64,13 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="CAT" class="col-md-2 control-label required"></label>
+                    <label asp-for="CAT" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="CAT" name="Cat" class="form-control"></input>
+                        <input asp-for="CAT" name="Cat" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="LOT" class="col-md-2 control-label required"></label>
+                    <label asp-for="LOT" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
                         <input asp-for="LOT" name="Lot" class="form-control" />
                     </div>
@@ -87,7 +87,9 @@
                         <input type="submit" value="Save" class="btn btn-primary" />       
                     </div>
                     <div class="col-md-offset-2 col-md-10">
-                        <a asp-action="Index" class="btn btn-danger">Back to List</a>
+                        <a asp-action="Index" class="btn btn-danger">
+                            <i class="glyphicon glyphicon-arrow-left"></i> Back to List
+                        </a>
                     </div>
                 </div>
             </div>

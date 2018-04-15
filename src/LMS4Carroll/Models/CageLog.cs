@@ -14,10 +14,12 @@ namespace LMS4Carroll.Models
         [Display(Name = "Log ID")]
         public int CageLogId { get; set; }
 
+        [Required]
         [ForeignKey("Animal")]
         public int AnimalID { get; set; }
         public virtual Animal Animal { get; set; }
 
+        [Required]
         [Display(Name = "Food Served")]
         public Boolean Food { get; set; }
 
@@ -25,6 +27,7 @@ namespace LMS4Carroll.Models
         [Display(Name = "Food Comments")]
         public string FoodComments { get; set; }
 
+        [Required]
         [Display(Name = "Washed")]
         public Boolean Washed { get; set; }
 
@@ -32,9 +35,11 @@ namespace LMS4Carroll.Models
         [Display(Name = "Wash Comments")]
         public string WashComments { get; set; }
 
+        [Required]
         [Display(Name = "Cage Cleaned")]
         public Boolean Clean { get; set; }
 
+        [Required]
         [Display(Name = "Socializing")]
         public Boolean Social { get; set; }
 

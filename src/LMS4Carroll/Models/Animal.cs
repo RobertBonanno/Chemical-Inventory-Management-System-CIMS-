@@ -11,26 +11,32 @@ namespace LMS4Carroll.Models
     public class Animal
     {
         [Key]
+        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "Animals ID")]
         public int AnimalID { get; set; }
 
         [ForeignKey("Order")]
+        [Required]
         public int OrderID { get; set; }
         public virtual Order Order { get; set; }
 
         [ForeignKey("Location")]
+        [Required]
         public int LocationID { get; set; }
         public virtual Location Location { get; set; }
 
+        [Required]
         [StringLength(50)]
         [Display(Name = "Cage Designation")]
         public string Designation { get; set; }
 
+        [Required]
         [StringLength(50)]
         [Display(Name = "Name")]
         public string Name { get; set; }
 
+        [Required]
         [StringLength(50)]
         [Display(Name = "Gender")]
         public string Gender { get; set; }
@@ -43,6 +49,7 @@ namespace LMS4Carroll.Models
         [Display(Name = "Lot #")]
         public string LOT { get; set; }
 
+        [Required]
         [DataType(DataType.Date)]
         [DefaultValue("01/01/1900")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -59,6 +66,7 @@ namespace LMS4Carroll.Models
         [Display(Name = "Species")]
         public string Species { get; set; }
 
+        [Required]
         [StringLength(50)]
         [Display(Name = "Location")]
         public string NormalizedLocation { get; set; }

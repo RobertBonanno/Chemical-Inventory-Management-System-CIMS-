@@ -7,7 +7,7 @@
 <div class="top-buffer"></div>
 <div class="panel panel-primary">
     <div class="panel-heading panel-head">Physics Equipment</div>
-    <div class="panel-body">
+    <div class="panel-body table-responsive">
         <div class="btn-group">
         @if (User.IsInRole("Admin") || User.IsInRole("PhysicsUser"))
         {
@@ -101,7 +101,7 @@
                         </td>
                         <td>
                             <a asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderID">
-                                @Html.DisplayFor(modelItem => item.Order)
+                                @Html.DisplayFor(modelItem => item.OrderID)
                             </a>
                         </td>
                         <td>

@@ -60,6 +60,19 @@ namespace LMS4Carroll.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        //GET: FileDetails/Create/5
+        public IActionResult Create(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID", id);
+            return View();
+        }
+
         // POST: FileDetails/Create
         // Overposting attack vulnerability [Next iteration need to bind]
         //[Bind("FileDetailID,Content,ContentType,FileName,FileType,OrderID")] FileDetail fileDetail

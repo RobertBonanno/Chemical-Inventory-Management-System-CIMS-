@@ -20,7 +20,7 @@
             <div class="form-group">
                 <label asp-for="Description" class="col-lg-3 col-sm-3 control-label"></label>
                 <div class="col-lg-6">
-                    <input asp-for="Description" class="form-control" />
+                    <textarea type="string" asp-for="Description" class="form-control"> @Model.Description</textarea>
                     <span asp-validation-for="Description" class="text-danger" />
                 </div>
             </div>

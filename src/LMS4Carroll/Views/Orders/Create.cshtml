@@ -14,13 +14,7 @@
                 <h4>Order</h4>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                @*<div class="form-group">
-                    <label asp-for="Invoice" class="col-md-2 control-label required"></label>
-                    <div class="col-md-10">
-                        <input asp-for="Invoice" class="form-control" />
-                        <span asp-validation-for="Invoice" class="text-danger" />
-                    </div>
-                </div>*@
+                <input type="hidden" asp-for="Invoice" class="form-control" />
                 <div class="form-group">
                     <label asp-for="PO" class="col-md-2 control-label required"></label>
                     <div class="col-md-10">
@@ -43,14 +37,14 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Recievedate" class="col-md-2 control-label required"></label>
+                    <label asp-for="Recievedate" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
                         <input asp-for="Recievedate" class="form-control" />
                         <span asp-validation-for="Recievedate" class="text-danger" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="VendorID" class="col-md-2 control-label">Vendor Name</label>
+                    <label asp-for="VendorID" class="col-md-2 control-label required">Vendor Name</label>
                     <div class="col-md-10">
                         <select asp-for="VendorID" class="form-control" asp-items="ViewBag.VendorID"></select>
                     </div>
@@ -60,7 +54,9 @@
                         <input type="submit" value="Create" class="btn btn-primary" />
                     </div>
                     <div class="col-md-offset-2 col-md-10">
-                        <a asp-action="Index" class="btn btn-danger">Back to List</a>
+                        <a asp-action="Index" class="btn btn-danger">
+                            <i class="glyphicon glyphicon-arrow-left"></i> Back to List
+                        </a>
                     </div>
                 </div>
             </div>
