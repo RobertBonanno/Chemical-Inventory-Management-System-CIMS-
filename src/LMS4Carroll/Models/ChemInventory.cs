@@ -22,7 +22,7 @@ namespace LMS4Carroll.Models
         public virtual Order Order { get; set; }
 
         [Required]
-        [ForeignKey("Location ID")]
+        [ForeignKey("Location")]
         public int? LocationID { get; set; }
         public virtual Location Location { get; set; }
 
