@@ -21,7 +21,15 @@
                     <p>
                         <input type="text" placeholder="Chem Name" name="CheminventoryString" value="@ViewData["currentFilter"]" />
                         <input type="submit" value="Search" class="btn btn-default" />  
+                        <input type="file" name="Barcode Search" accept="image/*" capture     value="@ViewData["imageFilter"]"/>
                         <a class="btn btn-default" asp-action="Index">Back to Full List</a>
+                    </p>
+                </div>
+            </form>
+            <form asp-controller="ChemInventories" asp-action="generateReport" >
+                <div class="form-actions no-color">
+                    <p>
+                        <a class="btn btn-default" asp-action="generateReport">Print Report</a>
                     </p>
                 </div>
             </form>

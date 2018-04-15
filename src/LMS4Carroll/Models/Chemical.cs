@@ -23,7 +23,7 @@ namespace LMS4Carroll.Models
         public string CAS { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "Formuala Name")]
+        [Display(Name = "Chemical Name")]
         public string FormulaName { get; set; }
 
         [StringLength(50)]

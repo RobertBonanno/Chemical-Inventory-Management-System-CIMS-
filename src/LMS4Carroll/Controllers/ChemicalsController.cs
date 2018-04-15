@@ -40,23 +40,23 @@ namespace LMS4Carroll.Controllers
                 if (Int32.TryParse(chemstring, out forID))
                 {
                     chemicals = chemicals.Where(s => s.ChemID.Equals(forID));
-                    return View(await chemicals.OrderByDescending(s => s.ChemID).ToListAsync());
+                    return View(await chemicals.OrderBy(s => s.FormulaName).ToListAsync());
                 }
                 else
                 {
                     chemicals = chemicals.Where(s => s.CAS.Contains(chemstring)
-                                       || s.Formula.Contains(chemstring)
-                                       || s.FormulaName.Contains(chemstring)
-                                       || s.FormulaWeight.Contains(chemstring)
-                                       || s.CAT.Contains(chemstring)
-                                       || s.CAS.Contains(chemstring)
-                                       || s.Hazard.Contains(chemstring)
-                                       || s.State.Contains(chemstring));
-                    return View(await chemicals.OrderByDescending(s => s.ChemID).ToListAsync());
+                                       || s.Formula.ToLower().Contains(chemstring)
+                                       || s.FormulaName.ToLower().Contains(chemstring)
+                                       || s.FormulaWeight.ToLower().Contains(chemstring)
+                                       || s.CAT.ToLower().Contains(chemstring)
+                                       || s.CAS.ToLower().Contains(chemstring)
+                                       || s.Hazard.ToLower().Contains(chemstring)
+                                       || s.State.ToLower().Contains(chemstring));
+                    return View(await chemicals.OrderBy(s => s.FormulaName).ToListAsync());
                 }
             }
 
-            return View(await chemicals.OrderByDescending(s => s.ChemID).ToListAsync());
+            return View(await chemicals.OrderBy(s => s.FormulaName).ToListAsync());
             //return View(await _context.Chemical.ToListAsync());
         }
 
