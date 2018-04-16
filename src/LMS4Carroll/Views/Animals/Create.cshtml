@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <label asp-for="CageID" class="col-md-2 control-label required">Cage</label>
                     <div class="col-md-10">
-                        <select asp-for="CageID" class="form-control" asp-items="ViewBag.Cages"value="@ViewData["CageID"]"></select>
+                        <select asp-for="CageID" name="CageID" class="form-control" asp-items="ViewBag.Cages"value="@ViewData["CageID"]"></select>
                     </div>
                 </div>
                 <div class="form-group">

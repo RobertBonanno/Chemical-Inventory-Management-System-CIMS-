@@ -253,7 +253,7 @@ namespace LMS4Carroll.Migrations
                     b.Property<int>("CageLogId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AnimalID");
+                    b.Property<int>("CageID");
 
                     b.Property<bool>("Clean");
 
