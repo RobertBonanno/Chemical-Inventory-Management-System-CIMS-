@@ -165,6 +165,9 @@ namespace LMS4Carroll.Controllers
                     await _emailSender.SendEmailAsync("ckadrich@carrollu.edu", "New Account Registered",
                        $"New user account has been created [awaiting email confirmation].\n Email Address: " + user.Email +
                        "\n Name: " + user.FirstName + " " + user.LastName);
+                    await _emailSender.SendEmailAsync("sroskopf@carrollu.edu", "New Account Registered",
+                       $"New user account has been created [awaiting email confirmation].\n Email Address: " + user.Email +
+                       "\n Name: " + user.FirstName + " " + user.LastName);
                     // Comment out following line to prevent a new user automatically logged on.
                     // await _signInManager.SignInAsync(user, isPersistent: false);
                     await _userManager.AddToRoleAsync(user, "Student");

@@ -38,6 +38,8 @@ namespace LMS4Carroll.Models
         public DateTime DatetimeCreated { get; set; }
 
         [ForeignKey("Order")]
+        [Display(Name = "Order ID")]
+        [Required]
         public int? OrderID { get; set; }
         public virtual Order Order { get; set; }
     }

@@ -35,11 +35,41 @@ namespace LMS4Carroll.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        // GET: FileDetails/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var fileDetailExpanded = await _context.FileDetails.SingleOrDefaultAsync(m => m.FileDetailID == id);
+            if (fileDetailExpanded == null)
+            {
+                return NotFound();
+            }
+
+            return View(fileDetailExpanded);
+        }
+
         [Authorize(Roles = "Admin")]
         // GET: FileDetails/Create
         public IActionResult Create()
         {
             ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID");
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        //GET: FileDetails/Create/5
+        public IActionResult Create(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID", id);
             return View();
         }
 

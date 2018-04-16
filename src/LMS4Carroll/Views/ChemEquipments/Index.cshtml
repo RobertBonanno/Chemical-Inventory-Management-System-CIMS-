@@ -7,7 +7,7 @@
 <div class="top-buffer"></div>
 <div class="panel panel-primary">
     <div class="panel-heading panel-head">Chemical Equipment</div>
-    <div class="panel-body">
+    <div class="panel-body table-responsive">
         <div class="btn-group">
     @if (User.IsInRole("Admin") || User.IsInRole("ChemUser"))
     {
@@ -61,14 +61,15 @@
                         <th>
                             LOT#
                         </th>
-
+                        <th>
+                            @Html.DisplayNameFor(model => model.Comments)
+                        </th>
                         @if (User.IsInRole("Admin") || User.IsInRole("ChemUser"))
-    {
-                    <th>
-                        Actions
-                    </th>
-}
-                        <th></th>
+                        {
+                            <th>
+                                Actions
+                            </th>
+                         }
                     </tr>
                 </thead>
                 <tbody>
@@ -91,7 +92,9 @@
                             @Html.DisplayFor(modelItem => item.SerialNumber)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Location.NormalizedStr)
+                            <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.LocationID">
+                                @Html.DisplayFor(modelItem => item.Location.NormalizedStr)
+                            </a>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.InstalledDate)
@@ -100,12 +103,9 @@
                             @Html.DisplayFor(modelItem => item.InspectionDate)
                         </td>
                         <td>
-                            @{string orderLink = "http://lms4carroll.azurewebsites.net/Orders/Details/";}
-                            @{var orderint = item.OrderID;}
-                            @{string link = orderLink + orderint;}
-
-                            <a target="_blank" href="@link">@Html.DisplayFor(modelItem => item.OrderID)</a>
-
+                            <a asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderID">
+                                @Html.DisplayFor(modelItem => item.OrderID)
+                            </a>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CAT)
@@ -113,23 +113,28 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.LOT)
                         </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comments)
+                        </td>
                         @if (User.IsInRole("Admin") || User.IsInRole("ChemUser"))
-    {
-                    <td>
-                        <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.ChemEquipmentID" class="btn btn-info">
-                            <i class="glyphicon glyphicon-pencil"></i>  Edit
-                        </a>
-                        @if (User.IsInRole("Admin")) { 
-                            <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.ChemEquipmentID" class="btn btn-danger loc2">
-                                <i class="glyphicon glyphicon-trash"></i>  Delete
+                        {
+                        <td>
+                            <a id="editbtn" asp-action="Edit" asp-route-id="@item.ChemEquipmentID" class="btn btn-info">
+                                <i class="glyphicon glyphicon-pencil"></i>  Edit
                             </a>
+                            @if (User.IsInRole("Admin")) { 
+                                <a id="archiveApplicationRoleModel" asp-action="Archive" asp-route-id="@item.ChemEquipmentID" class="btn btn-info loc2">
+                                      <i class="glyphicon glyphicon-plus"></i>  Archive
+                                </a>
+                                <a id="deletebtn" asp-action="Delete" asp-route-id="@item.ChemEquipmentID" class="btn btn-danger loc2">
+                                    <i class="glyphicon glyphicon-trash"></i>  Delete
+                                </a>
+                            }
+                            <a id="detailsbtn" asp-action="Details" asp-route-id="@item.ChemEquipmentID" class="btn btn-info  loc3">
+                                <i class="glyphicon glyphicon-search"></i>  Details
+                            </a>
+                        </td>
                         }
-                        <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.ChemEquipmentID" class="btn btn-info  loc3">
-                            <i class="glyphicon glyphicon-search"></i>  Details
-                        </a>
-                    </td>
-}
-                        <td></td>
                     </tr>
                     }
                 </tbody>

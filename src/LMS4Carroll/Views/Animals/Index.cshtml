@@ -7,8 +7,8 @@
 
 <div class="top-buffer"></div>
 <div class="panel panel-primary">
-    <div class="panel-heading panel-head">Cage</div>
-    <div class="panel-body">
+    <div class="panel-heading panel-head">Animals</div>
+    <div class="panel-body table-responsive">
         <div class="btn-group">
             @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser"))
             {
@@ -68,7 +68,6 @@
                     Actions
                 </th>
                    }
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -126,6 +125,56 @@
                       }
                     <td></td>
                 </tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AnimalID)
+                        </td>
+                        <td>
+                            <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.LocationID">
+                                @Html.DisplayFor(modelItem => item.Location.NormalizedStr)
+                            </a>
+                        </td>                       
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DOB)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DOR)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Designation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Gender)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CAT)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LOT)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Species)
+                        </td>
+                        @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser"))
+                        {
+                            <td>
+                                <a id="editbtn" asp-action="Edit" asp-route-id="@item.AnimalID" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-pencil"></i>  Edit
+                                </a>
+                                @if (User.IsInRole("Admin"))
+                                { 
+                                    <a id="deletebtn" asp-action="Delete" asp-route-id="@item.AnimalID" class="btn btn-danger">
+                                        <i class="glyphicon glyphicon-trash"></i>  Delete
+                                    </a>
+                                }
+                                <a id="detailsbtn" asp-action="Details" asp-route-id="@item.AnimalID" class="btn btn-info loc3">
+                                    <i class="glyphicon glyphicon-search"></i>  Details
+                                </a>
+                            </td>
+                        }
+                    </tr>
                     }
             </tbody>
         </table>

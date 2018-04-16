@@ -11,15 +11,19 @@ namespace LMS4Carroll.Models
     public class BioEquipment
     {
         [Key]
+        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "BioEquipment ID")]
         public int BioEquipmentID { get; set; }
 
         [ForeignKey("Order")]
+        [Required]
+        [Display(Name = "Order ID")]
         public int? OrderID { get; set; }
         public virtual Order Order { get; set; }
 
         [ForeignKey("Location")]
+        [Required]
         public int? LocationID { get; set; }
         public virtual Location Location { get; set; }
 
@@ -35,11 +39,11 @@ namespace LMS4Carroll.Models
         [Display(Name = "Lot #")]
         public string LOT { get; set; }
 
-
         [StringLength(50)]
         [Display(Name = "S/N")]
         public string SerialNumber { get; set; }
 
+        [Required]
         [DataType(DataType.Date)]
         [DefaultValue("01/01/1900")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -52,12 +56,17 @@ namespace LMS4Carroll.Models
         [Display(Name = "Next Inspection")]
         public DateTime InspectionDate { get; set; }
 
+        [Required]
         [StringLength(50)]
         [Display(Name = "Manufacturer Name")]
         public string EquipmentName { get; set; }
 
+        [Required]
         [StringLength(50)]
         [Display(Name = "Equipment Model")]
         public string EquipmentModel { get; set; }
+
+        [Display(Name = "Comments")]
+        public string Comments { get; set; }
     }
 }
