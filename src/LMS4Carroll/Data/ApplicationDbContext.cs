@@ -24,6 +24,7 @@ namespace LMS4Carroll.Data
         public DbSet<BioEquipment> BioEquipments { get; set; }
         public DbSet<BioArchive> BioArchives { get; set; }
         public DbSet<Animal> Animal { get; set; }
+		public DbSet<Cage> Cage { get; set; }
         public DbSet<CageLog> CageLog { get; set; }
         public DbSet<Chemical> Chemical { get; set; }
         public DbSet<ChemInventory> ChemInventory { get; set; }

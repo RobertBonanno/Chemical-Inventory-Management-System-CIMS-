@@ -26,6 +26,10 @@ namespace LMS4Carroll.Models
         public int LocationID { get; set; }
         public virtual Location Location { get; set; }
 
+        [ForeignKey("Cage")]
+        public int CageID { get; set; }
+		    public virtual Cage Cage { get; set; }
+
         [Required]
         [StringLength(50)]
         [Display(Name = "Cage Designation")]
@@ -40,6 +44,10 @@ namespace LMS4Carroll.Models
         [StringLength(50)]
         [Display(Name = "Gender")]
         public string Gender { get; set; }
+
+        [StringLength(50)]
+        [Display(Name = "Weight")]
+        public string Weight { get; set; }
 
         [StringLength(50, MinimumLength = 3)]
         [Display(Name = "CAT Number")]
@@ -71,6 +79,6 @@ namespace LMS4Carroll.Models
         [Display(Name = "Location")]
         public string NormalizedLocation { get; set; }
 
-        public virtual ICollection<CageLog> CageLogs { get; set; }
+        //public virtual ICollection<CageLog> CageLogs { get; set; }
     }
 }
