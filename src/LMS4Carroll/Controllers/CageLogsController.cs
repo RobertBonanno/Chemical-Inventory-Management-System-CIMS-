@@ -35,7 +35,7 @@ namespace LMS4Carroll.Controllers
             //Search Feature
             if (!String.IsNullOrEmpty(cagelogstring))
             {
-                var logs = from m in _context.CageLog.Include(c => c.Animal)
+                var logs = from m in _context.CageLog.Include(c => c.Cage)
                            select m;
                 int forID;
                 if (Int32.TryParse(cagelogstring, out forID))
@@ -45,29 +45,23 @@ namespace LMS4Carroll.Controllers
                 }
                 else
                 {
-                    logs = logs.Where(s => s.Animal.Designation.Contains(cagelogstring)
-                                       || s.Animal.Species.Contains(cagelogstring)
-                                       || s.Animal.Gender.Contains(cagelogstring)
-                                       || s.Animal.Order.Invoice.Contains(cagelogstring)
-                                       || s.Animal.Order.PO.Contains(cagelogstring)
-                                       || s.Animal.Order.Vendor.Name.Contains(cagelogstring)
-                                       || s.Animal.CAT.Contains(cagelogstring)
-                                       || s.Animal.Location.Name.Contains(cagelogstring)
-                                       || s.Animal.Location.NormalizedStr.Contains(cagelogstring)
-                                       || s.Animal.Location.Room.Contains(cagelogstring));
+                    logs = logs.Where(s => s.Cage.CageDesignation.Contains(cagelogstring)
+                                       || s.Cage.Species.Contains(cagelogstring)
+                                       || s.Cage.Location.Name.Contains(cagelogstring)
+                                       || s.Cage.Location.NormalizedStr.Contains(cagelogstring)
+                                       || s.Cage.Location.Room.Contains(cagelogstring));
                     return View(await logs.OrderByDescending(s => s.CageLogId).ToListAsync());
                 }
             }
             else
             {
-                var logs = from m in _context.CageLog.Include(c => c.Animal).Take(40)
+                var logs = from m in _context.CageLog.Include(c => c.Cage).Take(40)
                            select m;
                 return View(await logs.OrderByDescending(s => s.CageLogId).ToListAsync());
             }
         }
 
         // GET: CageLogs/Details/5
-        [Authorize(Roles = "Admin,AnimalUser")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -85,10 +79,9 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: CageLogs/Create
-        [Authorize(Roles = "Admin,AnimalUser")]
         public IActionResult Create()
         {
-            ViewData["Animals"] = new SelectList(_context.Animal, "AnimalID", "Name");
+            ViewData["Cages"] = new SelectList(_context.Cage, "CageID", "CageDesignation");
             return View();
         }
 
@@ -96,22 +89,20 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled binding of properties
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,AnimalUser")]
-        public async Task<IActionResult> Create([Bind("CageLogId,AnimalID,Clean,Food,FoodComments,Social,SocialComments,WashComments,Washed")] CageLog cageLog)
+        public async Task<IActionResult> Create([Bind("CageLogId,CageID,Clean,Food,Social,NoteworthyComments,Washed")] CageLog cageLog)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(cageLog);
                 await _context.SaveChangesAsync();
-                sp_Logging("2-Change", "Create", "User created a Cage Log entry where AnimalID=" + cageLog.AnimalID, "Success");
+                sp_Logging("2-Change", "Create", "User created a Cage Log entry where Cage ID=" + cageLog.CageID, "Success");
                 return RedirectToAction("Index");
             }
-            ViewData["Animals"] = new SelectList(_context.Animal, "AnimalID", "Name", cageLog.AnimalID);
+            ViewData["Cages"] = new SelectList(_context.Cage, "CageID", "CageDesignation", cageLog.CageID);
             return View(cageLog);
         }
 
         // GET: CageLogs/Edit/5
-        [Authorize(Roles = "Admin,AnimalUser")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -124,7 +115,7 @@ namespace LMS4Carroll.Controllers
             {
                 return NotFound();
             }
-            ViewData["Animals"] = new SelectList(_context.Animal, "AnimalID", "Name", cageLog.AnimalID);
+            ViewData["Cages"] = new SelectList(_context.Cage, "CageID", "CageDesignation", cageLog.CageID);
             return View(cageLog);
         }
 
@@ -132,8 +123,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled binding properties 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,AnimalUser")]
-        public async Task<IActionResult> Edit(int id, [Bind("CageLogId,AnimalID,Clean,Food,FoodComments,Social,SocialComments,WashComments,Washed")] CageLog cageLog)
+        public async Task<IActionResult> Edit(int id, [Bind("CageLogId,CageID,Clean,Food,Social,NoteworthyComments,Washed")] CageLog cageLog)
         {
             if (id != cageLog.CageLogId)
             {
@@ -162,12 +152,11 @@ namespace LMS4Carroll.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["Animals"] = new SelectList(_context.Animal, "AnimalID", "Name", cageLog.AnimalID);
+            ViewData["Cages"] = new SelectList(_context.Cage, "CageID", "CageDesignation", cageLog.CageID);
             return View(cageLog);
         }
 
         // GET: CageLogs/Delete/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -187,7 +176,6 @@ namespace LMS4Carroll.Controllers
         // POST: CageLogs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var cageLog = await _context.CageLog.SingleOrDefaultAsync(m => m.CageLogId == id);
