@@ -20,9 +20,11 @@ namespace LMS4Carroll.Models
         [Display(Name = "File ID")]
         public int FileDetailID { get; set; }
 
+        [Display(Name = "File Name")]
         [StringLength(255)]
         public string FileName { get; set; }
 
+        [Display(Name = "File Type")]
         [StringLength(100)]
         public string FileType { get; set; }
 

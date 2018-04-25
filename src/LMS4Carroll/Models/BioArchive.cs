@@ -15,7 +15,9 @@ namespace LMS4Carroll.Models
         [Display(Name = "BioArchive ID")]
         public int BioArchiveID { get; set; }
 
+        [Required]
         [ForeignKey("Order")]
+        [Display(Name = "Order ID")]
         public int? OrderID { get; set; }
         public virtual Order Order { get; set; }
 
@@ -27,18 +29,21 @@ namespace LMS4Carroll.Models
         [Display(Name = "S/N")]
         public string SerialNumber { get; set; }
 
+        [Required]
         [DataType(DataType.Date)]
         [DefaultValue("01/01/1900")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Installed Date")]
         public DateTime InstalledDate { get; set; }
 
+        [Required]
         [DataType(DataType.Date)]
         [DefaultValue("01/01/1900")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Archived Date")]
         public DateTime ArchiveDate { get; set; }
 
+        [Required]
         [StringLength(50)]
         [Display(Name = "Manufacturer Name")]
         public string EquipmentName { get; set; }

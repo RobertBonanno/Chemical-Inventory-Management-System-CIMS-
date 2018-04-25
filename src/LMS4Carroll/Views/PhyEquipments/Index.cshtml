@@ -40,9 +40,9 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Type)
                         </th>
-                        <th>
+                        @*<th>
                             @Html.DisplayNameFor(model => model.SerialNumber)
-                        </th>
+                        </th>*@
                         <th>
                             @Html.DisplayNameFor(model => model.Location.NormalizedStr)
                         </th>
@@ -56,14 +56,14 @@
                             @Html.DisplayNameFor(model => model.OrderID)
                         </th>
                         <td>
-                            CAT#
+                            @Html.DisplayNameFor(model => model.CAT)
                         </td>
                         <td>
-                            LOT#
+                            @Html.DisplayNameFor(model => model.LOT)
                         </td>
-                        <th>
+                        @*<th>
                             @Html.DisplayNameFor(model => model.Comments)
-                        </th>
+                        </th>*@
                         @if (User.IsInRole("Admin") || User.IsInRole("PhysicsUser"))
                         {
                             <th>
@@ -88,9 +88,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Type)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.SerialNumber)
-                        </td>
+                        </td>*@
                         <td>
                             <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.LocationID">
                                 @Html.DisplayFor(modelItem => item.Location.NormalizedStr)
@@ -113,9 +113,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.LOT)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.Comments)
-                        </td>
+                        </td>*@
                         @if (User.IsInRole("Admin") || User.IsInRole("PhysicsUser"))
                         {
                         <td>

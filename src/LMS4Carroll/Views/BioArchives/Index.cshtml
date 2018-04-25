@@ -7,14 +7,14 @@
 <div class="top-buffer"></div>
 <div class="panel panel-primary">
     <div class="panel-heading panel-head">Biology Archive</div>
-    <div class="panel-body">
+    <div class="panel-body table-responsive">
         <div class="btn-group">
-        @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
+        @*@if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
         {
             <a id="createRoleModal" asp-action="Create" class="btn btn-primary">
                 <i class="glyphicon glyphicon-plus"></i>  Add Archive
             </a>
-        }
+        }*@
         </div><br />
             <form asp-controller="BioArchives" asp-action="Index" method="get" >
                 <div class="form-actions no-color">
@@ -52,9 +52,9 @@
                         <th>
                             @Html.DisplayNameFor(model => model.OrderID)
                         </th>
-                        <th>
+                        @*<th>
                             @Html.DisplayNameFor(model => model.Comments)
-                        </th>
+                        </th>*@
                         @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
                         {
                             <th>
@@ -90,10 +90,9 @@
                             @Html.DisplayFor(modelItem => item.ArchiveDate)
                         </td>
                         <td>
-                            @{string orderLink = "http://lms4carroll.azurewebsites.net/Orders/Details/";}
-                            @{var orderint = item.OrderID;}
-                            @{string link = orderLink + orderint;}
-                            <a target="_blank" href="@link">@Html.DisplayFor(modelItem => item.OrderID)</a>
+                            <a asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderID">
+                                @Html.DisplayFor(modelItem => item.OrderID)
+                            </a>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Comments)
@@ -112,7 +111,6 @@
                                 </a>
                             </td>
                         }
-                        <td></td>
                     </tr>
                     }
                 </tbody>

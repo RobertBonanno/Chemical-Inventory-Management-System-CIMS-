@@ -37,9 +37,9 @@
                         <th>
                             @Html.DisplayNameFor(model => model.EquipmentModel)
                         </th>
-                        <th>
+                        @*<th>
                             @Html.DisplayNameFor(model => model.Type)
-                        </th>
+                        </th>*@
                         <th>
                             @Html.DisplayNameFor(model => model.SerialNumber)
                         </th>
@@ -61,9 +61,9 @@
                         <th>
                             LOT#
                         </th>
-                        <th>
+                        @*<th>
                             @Html.DisplayNameFor(model => model.Comments)
-                        </th>
+                        </th>*@
                         @if (User.IsInRole("Admin") || User.IsInRole("ChemUser"))
                         {
                             <th>
@@ -85,9 +85,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.EquipmentModel)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.Type)
-                        </td>
+                        </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => item.SerialNumber)
                         </td>
@@ -113,9 +113,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.LOT)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.Comments)
-                        </td>
+                        </td>*@
                         @if (User.IsInRole("Admin") || User.IsInRole("ChemUser"))
                         {
                         <td>

@@ -21,7 +21,7 @@
                 <div class="form-group">
                     <label asp-for="ExpiryDate" class="col-md-2 control-label required"></label>
                     <div class="col-md-10">
-                        <input asp-for="ExpiryDate" name="DateInput" class="form-control" value="@ViewData["ExpiryDate"]"/>
+                        <input asp-for="ExpiryDate" name="DateInput" class="form-control" value="@ViewData["ExpiryDate"]" />
                         <span asp-validation-for="ExpiryDate" class="text-danger" />
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                 <div class="form-group">
                     <label asp-for="LOT" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="LOT" name="Lot" class="form-control" value="@ViewData["LOT"]"/>
+                        <input asp-for="LOT" name="Lot" class="form-control" value="@ViewData["LOT"]" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -59,7 +59,7 @@
                 <div class="form-group">
                     <label asp-for="Units" class="col-md-2 control-label required">Units</label>
                     <div class="col-md-10">
-                        <input asp-for="Units" name="UnitString" class="form-control" value="@ViewData["Unit"]"/>
+                        <input asp-for="Units" name="UnitString" class="form-control" value="@ViewData["Unit"]" />
                         <span asp-validation-for="Units" class="text-danger" />
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                         <span asp-validation-for="Department" class="text-danger" />
                     </div>
                 </div>
-                <div class="form-group" id="createbtn">
+                <div id="editbtn" class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Create" class="btn btn-primary" />
                     </div>
