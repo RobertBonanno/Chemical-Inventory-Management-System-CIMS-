@@ -106,6 +106,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Animals/Details/5
+        [Authorize(Roles = "Admin,AnimalUser")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -123,6 +124,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Animals/Create
+        [Authorize(Roles = "Admin,AnimalUser")]
         public IActionResult Create()
         {
             ViewData["LocationName"] = new SelectList(_context.Locations.Distinct(), "LocationID", "NormalizedStr");
@@ -136,6 +138,7 @@ namespace LMS4Carroll.Controllers
         //[Bind("AnimalID,DOB,DOR,Designation,Name,LOT,CAT,Gender,LocationID,OrderID,Species")] Animal animal
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,AnimalUser")]
         public async Task<IActionResult> Create(DateTime dobinput, DateTime dorinput, string designationstring, string cat, string lot, string genderstring, int locationinput, int orderinput, string speciesstring, string namestring)
         {
             //_logger.Info("Attempted to add an animal - AnimalController");
@@ -178,6 +181,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Animals/Edit/5
+        [Authorize(Roles = "Admin,AnimalUser")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -199,6 +203,7 @@ namespace LMS4Carroll.Controllers
         //[Bind("CageID,DOB,Designation,Gender,LocationID,OrderID,Species")] Animal cage
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,AnimalUser")]
         public async Task<IActionResult> Edit(int id, DateTime dobinput, DateTime dorinput,string designationstring, string genderstring, string cat, string lot, int locationinput, int orderinput, string speciesstring, string namestring)
         {
             Animal cage = await _context.Animal.FirstAsync(s => s.AnimalID == id);
@@ -247,6 +252,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Animals/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -267,6 +273,7 @@ namespace LMS4Carroll.Controllers
         // POST: Animals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var cage = await _context.Animal.SingleOrDefaultAsync(m => m.AnimalID == id);

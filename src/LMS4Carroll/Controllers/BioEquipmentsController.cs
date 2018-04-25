@@ -69,6 +69,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: BioEquipments/Details/5
+        [Authorize(Roles = "Admin,BiologyUser")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -86,6 +87,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: BioEquipments/Create
+        [Authorize(Roles = "Admin,BiologyUser")]
         public IActionResult Create()
         {
             ViewData["LocationName"] = new SelectList(_context.Locations.Distinct(), "LocationID", "NormalizedStr");
@@ -97,6 +99,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,BiologyUser")]
         public async Task<IActionResult> Create([Bind("BioEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type,Comments")] BioEquipment bioEquipment)
         {
             if (ModelState.IsValid)
@@ -112,6 +115,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: BioEquipments/Edit/5
+        [Authorize(Roles = "Admin,BiologyUser")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -133,6 +137,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,BiologyUser")]
         public async Task<IActionResult> Edit(int id, [Bind("BioEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type,Comments")] BioEquipment bioEquipment)
         {
             if (id != bioEquipment.BioEquipmentID)
@@ -167,6 +172,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: BioEquipments/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -186,6 +192,7 @@ namespace LMS4Carroll.Controllers
         // POST: BioEquipments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var bioEquipment = await _context.BioEquipments.SingleOrDefaultAsync(m => m.BioEquipmentID == id);
@@ -196,6 +203,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: BioEquipments/Archive/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Archive(int? id)
         {
             if (id == null)
@@ -215,6 +223,7 @@ namespace LMS4Carroll.Controllers
         // POST: BioEquipments/Archive/5
         [HttpPost, ActionName("Archive")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ArchiveConfirm(int id)
         {
             var bioEquipment = await _context.BioEquipments.SingleOrDefaultAsync(m => m.BioEquipmentID == id);

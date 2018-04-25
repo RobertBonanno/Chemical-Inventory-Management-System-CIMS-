@@ -92,9 +92,15 @@
                             @Html.DisplayFor(modelItem => item.SerialNumber)
                         </td>*@
                         <td>
-                            <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.LocationID">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.LocationID">
+                                    @Html.DisplayFor(modelItem => item.Location.NormalizedStr)
+                                </a>
+                            }
+                            else {
                                 @Html.DisplayFor(modelItem => item.Location.NormalizedStr)
-                            </a>
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.InstalledDate)
@@ -103,9 +109,16 @@
                             @Html.DisplayFor(modelItem => item.InspectionDate)
                         </td>
                         <td>
-                            <a asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderID">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderID">
+                                    @Html.DisplayFor(modelItem => item.OrderID)
+                                </a>
+                            }
+                            else
+                            {
                                 @Html.DisplayFor(modelItem => item.OrderID)
-                            </a>
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CAT)

@@ -66,6 +66,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemEquipments/Details/5
+        [Authorize(Roles = "Admin,ChemUser")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -83,6 +84,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemEquipments/Create
+        [Authorize(Roles = "Admin,ChemUser")]
         public IActionResult Create()
         {
             ViewData["LocationName"] = new SelectList(_context.Locations, "LocationID", "NormalizedStr");
@@ -94,6 +96,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ChemUser")]
         public async Task<IActionResult> Create([Bind("ChemEquipmentID,SerialNumber,InstalledDate,InspectionDate,LOT,CAT,EquipmentModel,EquipmentName,LocationID,OrderID,Type,Comments")] ChemEquipment chemEquipment)
         {
             if (ModelState.IsValid)
@@ -109,6 +112,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemEquipments/Edit/5
+        [Authorize(Roles = "Admin,ChemUser")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -130,6 +134,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ChemUser")]
         public async Task<IActionResult> Edit(int id, [Bind("ChemEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type,Comments")] ChemEquipment chemEquipment)
         {
             if (id != chemEquipment.ChemEquipmentID)
@@ -164,6 +169,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemEquipments/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -183,6 +189,7 @@ namespace LMS4Carroll.Controllers
         // POST: ChemEquipments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var chemEquipment = await _context.ChemicalEquipments.SingleOrDefaultAsync(m => m.ChemEquipmentID == id);
@@ -193,6 +200,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemEquipments/Archive/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Archive(int? id)
         {
             if (id == null)
@@ -212,6 +220,7 @@ namespace LMS4Carroll.Controllers
         // POST: ChemEquipments/Archive/5
         [HttpPost, ActionName("Archive")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ArchiveConfirm(int id)
         {
             var chemEquipment = await _context.ChemicalEquipments.SingleOrDefaultAsync(m => m.ChemEquipmentID == id);

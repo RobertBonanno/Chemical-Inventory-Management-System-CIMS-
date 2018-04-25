@@ -65,6 +65,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: BioArchives/Details/5
+        [Authorize(Roles = "Admin,BiologyUser")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -82,6 +83,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: BioArchives/Create
+        [Authorize(Roles = "Admin,BiologyUser")]
         public IActionResult Create()
         {
             ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID");
@@ -92,6 +94,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,BiologyUser")]
         public async Task<IActionResult> Create([Bind("BioArchiveID,SerialNumber,InstalledDate,ArchiveDate,EquipmentModel,EquipmentName,OrderID,Type,Comments")] BioArchive bioArchive)
         {
             if (ModelState.IsValid)
@@ -106,6 +109,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: BioArchives/Edit/5
+        [Authorize(Roles = "Admin,BiologyUser")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -126,6 +130,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,BiologyUser")]
         public async Task<IActionResult> Edit(int id, [Bind("BioArchiveID,SerialNumber,InstalledDate,ArchiveDate,EquipmentModel,EquipmentName,OrderID,Type,Comments")] BioArchive bioArchive)
         {
             if (id != bioArchive.BioArchiveID)
@@ -159,6 +164,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: BioArchives/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -178,6 +184,7 @@ namespace LMS4Carroll.Controllers
         // POST: BioArchives/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var bioArchive = await _context.BioArchives.SingleOrDefaultAsync(m => m.BioArchiveID == id);

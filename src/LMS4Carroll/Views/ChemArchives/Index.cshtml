@@ -89,9 +89,16 @@
                             @Html.DisplayFor(modelItem => item.ArchiveDate)
                         </td>
                         <td>
-                            <a asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderID">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderID">
+                                    @Html.DisplayFor(modelItem => item.OrderID)
+                                </a>
+                            }
+                            else
+                            {
                                 @Html.DisplayFor(modelItem => item.OrderID)
-                            </a>
+                            }
                         </td>
                         @*<td>
                             @Html.DisplayFor(modelItem => item.Comments)

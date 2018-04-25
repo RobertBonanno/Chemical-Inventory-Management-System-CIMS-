@@ -9,7 +9,7 @@
     <div class="panel-heading panel-head">Orders</div>
     <div class="panel-body table-responsive">
         <div class="btn-group">
-            @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser") || User.IsInRole("AnimalUser"))
+            @if (User.IsInRole("Admin"))
             {
                 <a id="createRoleModal" asp-action="Create" class="btn btn-primary">
                     <i class="glyphicon glyphicon-plus"></i>  Add Order
@@ -47,7 +47,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Status)
                     </th>
-                    @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser") || User.IsInRole("AnimalUser"))
+                    @if (User.IsInRole("Admin"))
                     {
                         <th>
                             Actions
@@ -63,7 +63,16 @@
                             @Html.DisplayFor(modelItem => item.OrderID)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Vendor.Name)
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-area="" asp-controller="Vendors" asp-action="Details" asp-route-id="@item.VendorID">
+                                    @Html.DisplayFor(modelItem => item.Vendor.Name)
+                                </a>
+                            }
+                            else {
+                                @Html.DisplayFor(modelItem => item.Vendor.Name)
+                            }
+                            
                         </td>
                         <td>
                             @*@{int firstFile = item.FileDetails.FirstOrDefault<FileDetail>().FileDetailID; }
@@ -83,18 +92,15 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Status)
                         </td>
-                        @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser") || User.IsInRole("AnimalUser"))
+                        @if (User.IsInRole("Admin"))
                         { 
                             <td>
                                 <a id="editbtn" asp-action="Edit" asp-route-id="@item.OrderID" class="btn btn-info">
                                     <i class="glyphicon glyphicon-pencil"></i>  Edit
                                 </a>
-                                @if (User.IsInRole("Admin"))
-                                { 
-                                    <a id="deletebtn" asp-action="Delete" asp-route-id="@item.OrderID" class="btn btn-danger">
-                                        <i class="glyphicon glyphicon-trash"></i>  Delete
-                                    </a>
-                                }
+                                <a id="deletebtn" asp-action="Delete" asp-route-id="@item.OrderID" class="btn btn-danger">
+                                    <i class="glyphicon glyphicon-trash"></i>  Delete
+                                </a>
                                 <a id="detailsbtn" asp-action="Details" asp-route-id="@item.OrderID" class="btn btn-info loc3">
                                     <i class="glyphicon glyphicon-search"></i>  Details
                                 </a>

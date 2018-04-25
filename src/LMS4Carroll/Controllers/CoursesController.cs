@@ -13,7 +13,7 @@ using System.Data.SqlClient;
 
 namespace LMS4Carroll.Controllers
 {
-    [Authorize(Roles = "Admin,ChemUser,BiologyUser,Student")]
+    [Authorize(Roles = "Admin,ChemUser,BiologyUser,AnimalUser,PhysicsUser,Student")]
     public class CoursesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -93,6 +93,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Courses/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -111,6 +112,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Courses/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["LocationName"] = new SelectList(_context.Locations.Distinct(), "LocationID", "NormalizedStr");
@@ -123,6 +125,7 @@ namespace LMS4Carroll.Controllers
         //[Bind("CourseID,Department,Handler,Instructor,Name,Number")] Course course
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(string deptstring,string handlerstring,
             string namestring, string numberstring, int locationinput)
         {
@@ -154,6 +157,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Courses/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -175,6 +179,7 @@ namespace LMS4Carroll.Controllers
         //[Bind("CourseID,Department,Handler,Instructor,Name,Number")] Course course
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, string deptstring, string handlerstring,
             string namestring, string numberstring, int locationinput)
         {
@@ -215,6 +220,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Courses/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -234,6 +240,7 @@ namespace LMS4Carroll.Controllers
         // POST: Courses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var course = await _context.Course.SingleOrDefaultAsync(m => m.CourseID == id);

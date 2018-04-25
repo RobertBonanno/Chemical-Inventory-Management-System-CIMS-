@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace LMS4Carroll.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class FileDetailsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -55,13 +56,23 @@ namespace LMS4Carroll.Controllers
         [Authorize(Roles = "Admin")]
         [HttpGet]
         //GET: FileDetails/Create/5
-        public IActionResult Create(int? id)
+        public async Task<IActionResult> Create(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID", id);
+
+            var orderId = await _context.Orders.SingleOrDefaultAsync(m => m.OrderID == id);
+            if (orderId != null)
+            {
+                ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID", orderId);
+            } else
+            {
+                ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID");
+
+            }
+
             return View();
         }
 

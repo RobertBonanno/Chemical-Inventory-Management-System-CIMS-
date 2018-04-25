@@ -67,6 +67,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: CageLogs/Details/5
+        [Authorize(Roles = "Admin,AnimalUser")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -84,6 +85,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: CageLogs/Create
+        [Authorize(Roles = "Admin,AnimalUser")]
         public IActionResult Create()
         {
             ViewData["Animals"] = new SelectList(_context.Animal, "AnimalID", "Name");
@@ -94,6 +96,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled binding of properties
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,AnimalUser")]
         public async Task<IActionResult> Create([Bind("CageLogId,AnimalID,Clean,Food,FoodComments,Social,SocialComments,WashComments,Washed")] CageLog cageLog)
         {
             if (ModelState.IsValid)
@@ -108,6 +111,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: CageLogs/Edit/5
+        [Authorize(Roles = "Admin,AnimalUser")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -128,6 +132,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled binding properties 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,AnimalUser")]
         public async Task<IActionResult> Edit(int id, [Bind("CageLogId,AnimalID,Clean,Food,FoodComments,Social,SocialComments,WashComments,Washed")] CageLog cageLog)
         {
             if (id != cageLog.CageLogId)
@@ -162,6 +167,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: CageLogs/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -181,6 +187,7 @@ namespace LMS4Carroll.Controllers
         // POST: CageLogs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var cageLog = await _context.CageLog.SingleOrDefaultAsync(m => m.CageLogId == id);

@@ -52,16 +52,15 @@
                         <th>
                             @Html.DisplayNameFor(model => model.OrderID)
                         </th>
-                        @*<th>
+                        <th>
                             @Html.DisplayNameFor(model => model.Comments)
-                        </th>*@
+                        </th>
                         @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
                         {
                             <th>
                                 Actions
                             </th>
                         }
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

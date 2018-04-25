@@ -9,7 +9,7 @@
     <div class="panel-heading panel-head">Vendors</div>
     <div class="panel-body">
         <div class="btn-group">
-            @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("AnimalUser") || User.IsInRole("BiologyUser"))
+            @if (User.IsInRole("Admin"))
             {
                 <a id="createRoleModal" asp-action="Create" class="btn btn-primary">
                     <i class="glyphicon glyphicon-plus"></i>  Add Vendor
@@ -40,7 +40,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
-                    @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("AnimalUser") || User.IsInRole("BiologyUser"))
+                    @if (User.IsInRole("Admin"))
                     {
                         <th>
                             Actions
@@ -64,7 +64,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
-                        @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("AnimalUser") || User.IsInRole("BiologyUser"))
+                        @if (User.IsInRole("Admin"))
                         {
                             <td>
                                 <a id="editbtn" asp-action="Edit" asp-route-id="@item.VendorID" class="btn btn-info">

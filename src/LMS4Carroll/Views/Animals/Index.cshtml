@@ -75,9 +75,15 @@
                             @Html.DisplayFor(modelItem => item.AnimalID)
                         </td>
                         <td>
-                            <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.LocationID">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.LocationID">
+                                    @Html.DisplayFor(modelItem => item.Location.NormalizedStr)
+                                </a>
+                            }
+                            else {
                                 @Html.DisplayFor(modelItem => item.Location.NormalizedStr)
-                            </a>
+                            }
                         </td>                       
                         <td>
                             @Html.DisplayFor(modelItem => item.DOB)
