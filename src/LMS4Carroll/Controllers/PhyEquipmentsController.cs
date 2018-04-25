@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace LMS4Carroll.Controllers
 {
-    [Authorize(Roles = "Admin,Handler,Student,PhysicsUser")]
+    [Authorize(Roles = "Admin,Student,Handler,PhysicsUser")]
     public class PhyEquipmentsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -68,6 +68,7 @@ namespace LMS4Carroll.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,PhysicsUser")]
         // GET: PhyEquipments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -85,6 +86,7 @@ namespace LMS4Carroll.Controllers
             return View(phyEquipment);
         }
 
+        [Authorize(Roles = "Admin,PhysicsUser")]
         // GET: PhyEquipments/Create
         public IActionResult Create()
         {
@@ -95,6 +97,7 @@ namespace LMS4Carroll.Controllers
 
         // POST: PhyEquipments/Create
         // To protect from overposting attacks, enabled bind properties
+        [Authorize(Roles = "Admin,PhysicsUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PhyEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type,Comments")] PhyEquipment phyEquipment)
@@ -112,6 +115,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: PhyEquipments/Edit/5
+        [Authorize(Roles = "Admin,PhysicsUser")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -133,6 +137,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,PhysicsUser")]
         public async Task<IActionResult> Edit(int id, [Bind("PhyEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type,Comments")] PhyEquipment phyEquipment)
         {
             if (id != phyEquipment.PhyEquipmentID)
@@ -167,6 +172,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: PhyEquipments/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -186,6 +192,7 @@ namespace LMS4Carroll.Controllers
         // POST: PhyEquipments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var phyEquipment = await _context.PhyEquipments.SingleOrDefaultAsync(m => m.PhyEquipmentID == id);
@@ -196,6 +203,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: PhyEquipments/Archive/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Archive(int? id)
         {
             if (id == null)
@@ -215,6 +223,7 @@ namespace LMS4Carroll.Controllers
         // POST: PhyEquipments/Archive/5
         [HttpPost, ActionName("Archive")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ArchiveConfirm(int id)
         {
             var phyEquipment = await _context.PhyEquipments.SingleOrDefaultAsync(m => m.PhyEquipmentID == id);

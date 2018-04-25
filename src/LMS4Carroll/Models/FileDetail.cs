@@ -18,18 +18,23 @@ namespace LMS4Carroll.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "File ID")]
+        [Required]
         public int FileDetailID { get; set; }
 
-        [StringLength(255)]
+        [Display(Name = "File Name")]
+        [StringLength(255, MinimumLength = 3)]
+        [Required]
         public string FileName { get; set; }
 
-        [StringLength(100)]
+        [Display(Name = "File Type")]
+        [StringLength(100, MinimumLength = 2)]
         public string FileType { get; set; }
 
         [Required]
         [Display(Name = "File")]
         public byte[] File { get; set; }
 
+        [StringLength(100, MinimumLength = 2)]
         public string ContentType { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

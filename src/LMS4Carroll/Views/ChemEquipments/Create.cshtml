@@ -82,11 +82,11 @@
                 <div class="form-group">
                     <label asp-for="Comments" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="Comments" class="form-control" />
+                        <textarea asp-for="Comments" class="form-control">@Model.Comments</textarea>
                         <span asp-validation-for="Comments" class="text-danger" />
                     </div>
                 </div>
-                <div class="form-group" id="createbtn">
+                <div class="form-group" id="editbtn">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Create" class="btn btn-primary" />
                     </div>
