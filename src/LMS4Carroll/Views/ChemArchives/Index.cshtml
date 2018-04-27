@@ -106,7 +106,7 @@
                         @if (User.IsInRole("Admin") || User.IsInRole("ChemUser"))
                         {
                             <td>
-                                <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.ChemArchiveID" class="btn btn-info">
+                                <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.ChemArchiveID" class="btn btn-info loc2">
                                     <i class="glyphicon glyphicon-pencil"></i>  Edit
                                 </a>
                                 @if (User.IsInRole("Admin"))

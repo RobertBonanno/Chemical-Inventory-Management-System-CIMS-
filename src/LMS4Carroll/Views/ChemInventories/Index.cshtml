@@ -145,13 +145,13 @@
                                     </a>
                                     @if (User.IsInRole("Admin"))
                                     {
-                                        <a id="detailsbtn" asp-action="Details" asp-route-id="@item.ChemInventoryId" class="btn btn-info loc2">
-                                            <i class="glyphicon glyphicon-search"></i>  Details
-                                        </a>
+                                        <a id="deletebtn" asp-action="Delete" asp-route-id="@item.ChemInventoryId" class="btn btn-danger loc3">
+                                            <i class="glyphicon glyphicon-trash"></i>  Delete
+                                        </a> 
                                     }
-                                    <a id="deletebtn" asp-action="Delete" asp-route-id="@item.ChemInventoryId" class="btn btn-danger loc3">
-                                        <i class="glyphicon glyphicon-trash"></i>  Delete
-                                    </a>                 
+                                    <a id="detailsbtn" asp-action="Details" asp-route-id="@item.ChemInventoryId" class="btn btn-info loc2">
+                                            <i class="glyphicon glyphicon-search"></i>  Details
+                                    </a>
                                 </td>
                             }
                         </tr>
