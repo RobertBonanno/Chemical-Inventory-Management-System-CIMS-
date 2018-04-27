@@ -9,12 +9,12 @@
     <div class="panel-heading panel-head">Chemistry Archive</div>
     <div class="panel-body table-responsive">
         <div class="btn-group">
-        @*@if (User.IsInRole("Admin") || User.IsInRole("ChemUser"))
+        @if (User.IsInRole("Admin") || User.IsInRole("ChemUser"))
         {
             <a id="createRoleModal" asp-action="Create" class="btn btn-primary">
                 <i class="glyphicon glyphicon-plus"></i>  Add Archive
             </a>
-        }*@
+        }
         </div><br />
             <form asp-controller="ChemArchives" asp-action="Index" method="get" >
                 <div class="form-actions no-color">
