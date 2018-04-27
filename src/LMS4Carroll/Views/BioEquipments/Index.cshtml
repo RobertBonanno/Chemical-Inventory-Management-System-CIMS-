@@ -7,7 +7,7 @@
 <div class="top-buffer"></div>
 <div class="panel panel-primary">
     <div class="panel-heading panel-head">Biological Equipment</div>
-    <div class="panel-body">
+    <div class="panel-body table-responsive">
         <div class="btn-group">
         @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
         {
@@ -61,9 +61,9 @@
                         <td>
                             LOT#
                         </td>
-                        <th>
+                        @*<th>
                             @Html.DisplayNameFor(model => model.Comments)
-                        </th>
+                        </th>*@
                         @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
                         {
                             <th>
@@ -92,7 +92,15 @@
                             @Html.DisplayFor(modelItem => item.SerialNumber)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Location.NormalizedStr)
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.LocationID">
+                                    @Html.DisplayFor(modelItem => item.Location.NormalizedStr)
+                                </a>
+                            }
+                            else {
+                                @Html.DisplayFor(modelItem => item.Location.NormalizedStr)
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.InstalledDate)
@@ -101,10 +109,16 @@
                             @Html.DisplayFor(modelItem => item.InspectionDate)
                         </td>
                         <td>
-                            @{string orderLink = "http://lms4carroll.azurewebsites.net/Orders/Details/";}
-                            @{var orderint = item.OrderID;}
-                            @{string link = orderLink + orderint;}
-                            <a target="_blank" href="@link">@Html.DisplayFor(modelItem => item.OrderID)</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderID">
+                                    @Html.DisplayFor(modelItem => item.OrderID)
+                                </a>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.OrderID)
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CAT)
@@ -112,21 +126,24 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.LOT)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.Comments)
-                        </td>
+                        </td>*@
                         @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
                         {
                           <td>
                               <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.BioEquipmentID" class="btn btn-info">
                                   <i class="glyphicon glyphicon-pencil"></i>  Edit
                               </a>
-                              <a id="archiveApplicationRoleModel" asp-action="Archive" asp-route-id="@item.BioEquipmentID" class="btn btn-info loc2">
-                                  <i class="glyphicon glyphicon-plus"></i>  Archive
-                              </a>
-                              <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.BioEquipmentID" class="btn btn-danger loc3">
-                                  <i class="glyphicon glyphicon-trash"></i>  Delete
-                              </a>
+                               @if (User.IsInRole("Admin"))
+                              { 
+                                  <a id="archiveApplicationRoleModel" asp-action="Archive" asp-route-id="@item.BioEquipmentID" class="btn btn-info loc2">
+                                      <i class="glyphicon glyphicon-plus"></i>  Archive
+                                  </a>
+                                  <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.BioEquipmentID" class="btn btn-danger loc3">
+                                      <i class="glyphicon glyphicon-trash"></i>  Delete
+                                  </a>
+                              }
                               <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.BioEquipmentID" class="btn btn-info loc3">
                                   <i class="glyphicon glyphicon-search"></i>  Details
                               </a>

@@ -17,28 +17,28 @@
                 <div class="form-group">
                     <label asp-for="Department" class="col-md-2 control-label required"></label>
                     <div class="col-md-10">
-                        <input asp-for="Department" name="DeptString" class="form-control" value="@ViewData["Department"]"/>
+                        <input asp-for="Department" name="DeptString" class="form-control" value="@ViewData["Department"]" />
                         <span asp-validation-for="Department" class="text-danger" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="Handler" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="Handler" name="HandlerString" class="form-control" value="@ViewData["Handler"]"/>
+                        <input asp-for="Handler" name="HandlerString" class="form-control" value="@ViewData["Handler"]" />
                         <span asp-validation-for="Handler" class="text-danger" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="Name" class="col-md-2 control-label required"></label>
                     <div class="col-md-10">
-                        <input asp-for="Name" class="form-control" name="NameString" value="@ViewData["Name"]"/>
+                        <input asp-for="Name" class="form-control" name="NameString" value="@ViewData["Name"]" />
                         <span asp-validation-for="Name" class="text-danger" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="Number" class="col-md-2 control-label required"></label>
                     <div class="col-md-10">
-                        <input asp-for="Number" name="NumberString" class="form-control" value="@ViewData["Number"]"/>
+                        <input asp-for="Number" name="NumberString" class="form-control" value="@ViewData["Number"]" />
                         <span asp-validation-for="Number" class="text-danger" />
                     </div>
                 </div>
@@ -48,12 +48,14 @@
                         <select asp-for="LocationID" class="form-control" name="LocationInput" asp-items="ViewBag.LocationName" value="@ViewData["Location"]"></select>
                     </div>
                 </div>
-                <div class="form-group" id="createbtn">
+                <div class="form-group" id="editbtn">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Create" class="btn btn-primary" />
                     </div>
                     <div class="col-md-offset-2 col-md-10">
-                        <a asp-action="Index" class="btn btn-danger">Back to List</a>
+                        <a asp-action="Index" class="btn btn-danger">
+                            <i class="glyphicon glyphicon-arrow-left"></i> Back to List
+                        </a>
                     </div>
                 </div>
             </div>

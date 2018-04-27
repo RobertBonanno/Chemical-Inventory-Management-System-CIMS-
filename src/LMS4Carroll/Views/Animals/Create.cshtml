@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <label asp-for="DOB" class="col-md-2 control-label required"></label>
                     <div class="col-md-10">
-                        <input asp-for="DOB" name="DOBinput" class="form-control" value="@ViewData["DOB"]"/>
+                        <input asp-for="DOB" name="DOBinput" class="form-control" value="@ViewData["DOB"]" />
                         <span asp-validation-for="DOB" class="text-danger" />
                     </div>
                 </div>
@@ -27,10 +27,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Designation" class="col-md-2 control-label required"></label>
+                    <label asp-for="CageID" class="col-md-2 control-label required">Cage</label>
                     <div class="col-md-10">
-                        <input asp-for="Designation" name="DesignationString" class="form-control" value="@ViewData["Designation"]"/>
-                        <span asp-validation-for="Designation" class="text-danger" />
+                        <select asp-for="CageID" name="CageID" class="form-control" asp-items="ViewBag.Cages"value="@ViewData["CageID"]"></select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -52,6 +51,13 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label asp-for="Weight" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Weight" name="WeightString" class="form-control" value="@ViewData["Weight"]" />
+                        <span asp-validation-for="Weight" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
                     <label asp-for="LocationID" class="col-md-2 control-label required"></label>
                     <div class="col-md-10">
                         <select asp-for="LocationID" name="LocationInput" class="form-control" asp-items="ViewBag.LocationName" value="@ViewData["Location"]"></select>
@@ -64,21 +70,21 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="CAT" class="col-md-2 control-label required"></label>
+                    <label asp-for="CAT" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="CAT" name="Cat" class="form-control" value="@ViewData["CAT"]"></input>
+                        <input asp-for="CAT" name="Cat" class="form-control" value="@ViewData["CAT"]">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="LOT" class="col-md-2 control-label required"></label>
+                    <label asp-for="LOT" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
                         <input asp-for="LOT" name="Lot" class="form-control" value="@ViewData["LOT"]" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Species" class="col-md-2 control-label required"></label>
+                    <label asp-for="Species" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="Species" name="SpeciesString" class="form-control" value="@ViewData["Species"]"/>
+                        <input asp-for="Species" name="SpeciesString" class="form-control" value="@ViewData["Species"]" />
                         <span asp-validation-for="Species" class="text-danger" />
                     </div>
                 </div>
@@ -87,7 +93,9 @@
                         <input type="submit" value="Create" class="btn btn-primary" />
                     </div>
                     <div class="col-md-offset-2 col-md-10">
-                        <a asp-action="Index" class="btn btn-danger">Back to List</a>
+                        <a asp-action="Index" class="btn btn-danger">
+                            <i class="glyphicon glyphicon-arrow-left"></i> Back to List
+                        </a>
                     </div>
                 </div>
             </div>

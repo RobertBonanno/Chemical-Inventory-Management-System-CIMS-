@@ -14,33 +14,34 @@ namespace LMS4Carroll.Models
         [Display(Name = "Log ID")]
         public int CageLogId { get; set; }
 
+		    [ForeignKey("Cage")]
+        public int CageID { get; set; }
+        public virtual Cage Cage { get; set; }
+
+        [Required]
         [ForeignKey("Animal")]
         public int AnimalID { get; set; }
         public virtual Animal Animal { get; set; }
 
+        [Required]
         [Display(Name = "Food Served")]
         public Boolean Food { get; set; }
 
-        [StringLength(150)]
-        [Display(Name = "Food Comments")]
-        public string FoodComments { get; set; }
-
+        [Required]
         [Display(Name = "Washed")]
         public Boolean Washed { get; set; }
 
-        [StringLength(150)]
-        [Display(Name = "Wash Comments")]
-        public string WashComments { get; set; }
-
+        [Required]
         [Display(Name = "Cage Cleaned")]
         public Boolean Clean { get; set; }
 
+        [Required]
         [Display(Name = "Socializing")]
         public Boolean Social { get; set; }
 
         [StringLength(150)]
-        [Display(Name = "Socializing Comments")]
-        public string SocialComments { get; set; }
+        [Display(Name = "Noteworthy Comments")]
+        public string NoteworthyComments { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]

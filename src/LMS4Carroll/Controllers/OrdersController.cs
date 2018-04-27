@@ -15,7 +15,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace LMS4Carroll.Controllers
 {
-    [Authorize(Roles = "Admin,Handler,BiologyUser,ChemUser,AnimalUser")]
+    [Authorize(Roles = "Admin,Handler,BiologyUser,ChemUser,AnimalUser,PhysicsUser")]
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -91,6 +91,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Orders/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -108,6 +109,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Orders/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["VendorID"] = new SelectList(_context.Vendors, "VendorID", "Name");
@@ -118,6 +120,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled binding of properties
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("OrderID,Orderdate,Recievedate,Status,VendorID,Invoice,PO")] Order order)
         {
             if (ModelState.IsValid)
@@ -132,6 +135,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Orders/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -152,6 +156,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled binding of properties
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("OrderID,Orderdate,Recievedate,Status,VendorID,Invoice,PO")] Order order)
         {
             if (id != order.OrderID)
@@ -185,6 +190,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Orders/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -204,6 +210,7 @@ namespace LMS4Carroll.Controllers
         // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var order = await _context.Orders.SingleOrDefaultAsync(m => m.OrderID == id);

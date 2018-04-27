@@ -25,10 +25,10 @@
                     @Html.DisplayFor(model => model.DatetimeCreated)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.AnimalID)
+                    @Html.DisplayNameFor(model => model.CageID)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.AnimalID)
+                    @Html.DisplayFor(model => model.CageID)
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.Food)
@@ -37,28 +37,16 @@
                     @Html.DisplayFor(model => model.Food)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.FoodComments)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.FoodComments)
-                </dd>
-                <dt>
                     @Html.DisplayNameFor(model => model.Social)
                 </dt>
                 <dd>
                     @Html.DisplayFor(model => model.Social)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.SocialComments)
+                    @Html.DisplayNameFor(model => model.NoteworthyComments)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.SocialComments)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.WashComments)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.WashComments)
+                    @Html.DisplayFor(model => model.NoteworthyComments)
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.Washed)
@@ -68,9 +56,13 @@
                 </dd>
             </dl>
         </div>
-        <div id="detailsbtn">
-            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.CageLogId">Edit</a><br />
-            <a asp-action="Index" class="btn btn-default">Back to List</a>
+        <div id="deletebtn">
+            <div class="form-actions no-color">
+                <a asp-action="Index" class="btn btn-default">
+                    <i class="glyphicon glyphicon-arrow-left"></i> Back to List
+                </a>
+                <a asp-action="Edit" class="btn btn-info" asp-route-id="@Model.CageLogId">Edit</a><br />
+            </div>
         </div>
-        </div>
+    </div>
     </div>

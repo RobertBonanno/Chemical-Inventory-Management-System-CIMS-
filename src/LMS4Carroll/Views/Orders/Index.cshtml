@@ -7,9 +7,9 @@
 <div class="top-buffer"></div>
 <div class="panel panel-primary">
     <div class="panel-heading panel-head">Orders</div>
-    <div class="panel-body">
+    <div class="panel-body table-responsive">
         <div class="btn-group">
-            @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser") || User.IsInRole("AnimalUser"))
+            @if (User.IsInRole("Admin"))
             {
                 <a id="createRoleModal" asp-action="Create" class="btn btn-primary">
                     <i class="glyphicon glyphicon-plus"></i>  Add Order
@@ -47,13 +47,12 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Status)
                     </th>
-                    @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser") || User.IsInRole("AnimalUser"))
+                    @if (User.IsInRole("Admin"))
                     {
                         <th>
                             Actions
                         </th>
                     }
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -64,10 +63,22 @@
                             @Html.DisplayFor(modelItem => item.OrderID)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Vendor.Name)
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-area="" asp-controller="Vendors" asp-action="Details" asp-route-id="@item.VendorID">
+                                    @Html.DisplayFor(modelItem => item.Vendor.Name)
+                                </a>
+                            }
+                            else {
+                                @Html.DisplayFor(modelItem => item.Vendor.Name)
+                            }
+                            
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Invoice)
+                            @*@{int firstFile = item.FileDetails.FirstOrDefault<FileDetail>().FileDetailID; }
+                            <a asp-area="" asp-controller="FileDetails" asp-action="Details" asp-route-id="@firstFile">*@
+                                @Html.DisplayFor(modelItem => item.Invoice)
+                            @*</a>*@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.PO)
@@ -81,21 +92,20 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Status)
                         </td>
-                        @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser") || User.IsInRole("AnimalUser"))
+                        @if (User.IsInRole("Admin"))
                         { 
                             <td>
-                                <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.OrderID" class="btn btn-info">
+                                <a id="editbtn" asp-action="Edit" asp-route-id="@item.OrderID" class="btn btn-info">
                                     <i class="glyphicon glyphicon-pencil"></i>  Edit
                                 </a>
-                                <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.OrderID" class="btn btn-danger">
+                                <a id="deletebtn" asp-action="Delete" asp-route-id="@item.OrderID" class="btn btn-danger">
                                     <i class="glyphicon glyphicon-trash"></i>  Delete
                                 </a>
-                                <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.OrderID" class="btn btn-info loc3">
+                                <a id="detailsbtn" asp-action="Details" asp-route-id="@item.OrderID" class="btn btn-info loc3">
                                     <i class="glyphicon glyphicon-search"></i>  Details
                                 </a>
                             </td>
                         }
-                        <td></td>
                     </tr>
                 }
             </tbody>

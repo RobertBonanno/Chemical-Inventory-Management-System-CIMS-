@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace LMS4Carroll.Controllers
 {
-    [Authorize(Roles = "Admin,ChemUser,BiologyUser,AnimalUser,Student")]
+    [Authorize(Roles = "Admin,ChemUser,BiologyUser,AnimalUser,PhysicsUser,Student")]
     public class LocationsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -33,6 +33,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Locations/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -50,7 +51,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Locations/Create
-        [Authorize(Roles = "Admin,Handler")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -60,26 +61,28 @@ namespace LMS4Carroll.Controllers
         // Overposting attack vulnerability [Next iteration need to bind]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(string addressstring,string namestring,string typestring,string roomstring,string storagestring)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create([Bind("LocationID,Address,Name,Type,Room,StorageCode")] Location location)
         {
             //[Bind("LocationID,Address,Name,Room,Type")] Location location
-            ViewData["Address"] = addressstring;
-            ViewData["Name"] = namestring;
-            ViewData["Type"] = typestring;
-            ViewData["Room"] = roomstring;
-            ViewData["StorageCode"] = storagestring;
-            Location location = new Location();
+            //[Bind("LocationID,Address,Name,Type,Room,StorageCode")] Location location
+            //ViewData["Address"] = addressstring;
+            //ViewData["Name"] = namestring;
+            //ViewData["Type"] = typestring;
+            //ViewData["Room"] = roomstring;
+            //ViewData["StorageCode"] = storagestring;
+            //Location location = new Location();
             if (ModelState.IsValid)
             {
-                location.Address = addressstring;
-                location.Name = namestring;
-                location.Type = typestring;
-                location.Room = roomstring;
-                location.NormalizedStr = namestring + "-" + roomstring;
-                location.StorageCode = storagestring;
+                //location.Address = addressstring;
+                //location.Name = namestring;
+                //location.Type = typestring;
+                //location.Room = roomstring;
+                //location.NormalizedStr = namestring + "-" + roomstring;
+                //location.StorageCode = storagestring;
                 _context.Add(location);
                 await _context.SaveChangesAsync();
-                sp_Logging("2-Change", "Create", "User created location: " + namestring + "-" + roomstring, "Success");
+                sp_Logging("2-Change", "Create", "User created location: " + location.Name + "-" + location.Room, "Success");
                 return RedirectToAction("Index");
             }
             return View(location);
@@ -87,6 +90,7 @@ namespace LMS4Carroll.Controllers
 
         // GET: Locations/Edit/5
         //[Authorize(Roles = "Admin,Handler")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -106,6 +110,7 @@ namespace LMS4Carroll.Controllers
         // Overposting attack vulnerability [Next iteration need to bind]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         //[Authorize(Roles = "Admin,Handler")]
         public async Task<IActionResult> Edit(int id, string addressstring, string namestring, string typestring, string roomstring, string storagestring)
         {
@@ -148,6 +153,7 @@ namespace LMS4Carroll.Controllers
 
         // GET: Locations/Delete/5
         //[Authorize(Roles = "Admin,Handler")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -167,6 +173,7 @@ namespace LMS4Carroll.Controllers
         // POST: Locations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         //[Authorize(Roles = "Admin,Handler")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

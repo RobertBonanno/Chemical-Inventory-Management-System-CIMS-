@@ -7,7 +7,7 @@
 <div class="top-buffer"></div>
 <div class="panel panel-primary">
     <div class="panel-heading panel-head">Chemical Inventory</div>
-    <div class="panel-body">
+    <div class="panel-body table-responsive">
         <div class="btn-group">
             @if (User.IsInRole("Admin"))
             {
@@ -21,7 +21,15 @@
                     <p>
                         <input type="text" placeholder="Chem Name" name="CheminventoryString" value="@ViewData["currentFilter"]" />
                         <input type="submit" value="Search" class="btn btn-default" />  
+                        <input type="file" name="Barcode Search" accept="image/*" capture     value="@ViewData["imageFilter"]"/>
                         <a class="btn btn-default" asp-action="Index">Back to Full List</a>
+                    </p>
+                </div>
+            </form>
+            <form asp-controller="ChemInventories" asp-action="generateReport" >
+                <div class="form-actions no-color">
+                    <p>
+                        <a class="btn btn-default" asp-action="generateReport">Print Report</a>
                     </p>
                 </div>
             </form>
@@ -52,9 +60,9 @@
                         <th>
                             LOT#
                         </th>
-                        <th>
+                        @*<th>
                             @Html.DisplayNameFor(model => model.Chemical.SDS)
-                        </th>
+                        </th>*@
                         <th>
                             @Html.DisplayNameFor(model => model.ExpiryDate)
                         </th>
@@ -92,14 +100,27 @@
                                 @Html.DisplayFor(modelItem => item.Chemical.FormulaName)
                             </td>
                             <td>
-                                @{string orderLink = "http://lms4carroll.azurewebsites.net/Orders/Details/";}
-                                @{var orderint = item.OrderID;}
-                                @{string link = orderLink + orderint;}
-                                
-                                <a target="_blank" href="@link">@Html.DisplayFor(modelItem => item.OrderID)</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.LocationID">
+                                    @Html.DisplayFor(modelItem => item.Location.NormalizedStr)
+                                </a>
+                            }
+                            else {
+                                @Html.DisplayFor(modelItem => item.Location.NormalizedStr)
+                            }
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Location.StorageCode)
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderID">
+                                    @Html.DisplayFor(modelItem => item.OrderID)
+                                </a>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.OrderID)
+                            }
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.CAT)
@@ -107,9 +128,11 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.LOT)
                             </td>
-                            <td>
-                                <a target="_blank" href="@Html.DisplayFor(modelItem => item.Chemical.SDS)">SDS</a>
-                            </td>
+                            @*<td>
+                                <a id="viewbtn" asp-action="Details" asp-route-id="@item.ChemInventoryId" class="btn btn-info loc2">
+                                    <i class="glyphicon glyphicon-eye-open"></i>  Veiw
+                                </a>
+                            </td>*@
                             <td>
                                 @Html.DisplayFor(modelItem => item.ExpiryDate)
                             </td>
@@ -125,13 +148,16 @@
                             @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser"))
                             {
                                 <td>
-                                    <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.ChemInventoryId" class="btn btn-info">
+                                    <a id="editbtn" asp-action="Edit" asp-route-id="@item.ChemInventoryId" class="btn btn-info">
                                         <i class="glyphicon glyphicon-pencil"></i>  Edit
                                     </a>
-                                    <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.ChemInventoryId" class="btn btn-info loc2">
-                                        <i class="glyphicon glyphicon-search"></i>  Details
-                                    </a>
-                                    <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.ChemInventoryId" class="btn btn-danger loc3">
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a id="detailsbtn" asp-action="Details" asp-route-id="@item.ChemInventoryId" class="btn btn-info loc2">
+                                            <i class="glyphicon glyphicon-search"></i>  Details
+                                        </a>
+                                    }
+                                    <a id="deletebtn" asp-action="Delete" asp-route-id="@item.ChemInventoryId" class="btn btn-danger loc3">
                                         <i class="glyphicon glyphicon-trash"></i>  Delete
                                     </a>                 
                                 </td>

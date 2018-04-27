@@ -65,6 +65,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: PhyArchives/Details/5
+        [Authorize(Roles = "Admin,PhysicsUser")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -82,6 +83,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: PhyArchives/Create
+        [Authorize(Roles = "Admin,PhysicsUser")]
         public IActionResult Create()
         {
             ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID");
@@ -92,6 +94,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,PhysicsUser")]
         public async Task<IActionResult> Create([Bind("PhyArchiveID,SerialNumber,InstalledDate,ArchiveDate,EquipmentModel,EquipmentName,OrderID,Type,Comments")] PhyArchive phyArchive)
         {
             if (ModelState.IsValid)
@@ -106,6 +109,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: PhyArchives/Edit/5
+        [Authorize(Roles = "Admin,PhysicsUser")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -126,6 +130,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,PhysicsUser")]
         public async Task<IActionResult> Edit(int id, [Bind("PhyArchiveID,SerialNumber,InstalledDate,ArchiveDate,EquipmentModel,EquipmentName,OrderID,Type,Comments")] PhyArchive phyArchive)
         {
             if (id != phyArchive.PhyArchiveID)
@@ -159,6 +164,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: PhyArchives/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -178,6 +184,7 @@ namespace LMS4Carroll.Controllers
         // POST: PhyArchives/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var phyArchive = await _context.PhyArchives.SingleOrDefaultAsync(m => m.PhyArchiveID == id);

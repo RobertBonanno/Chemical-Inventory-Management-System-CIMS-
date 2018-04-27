@@ -10,6 +10,7 @@ using LMS4Carroll.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using ZXing;
 
 namespace LMS4Carroll.Controllers
 {
@@ -31,14 +32,13 @@ namespace LMS4Carroll.Controllers
             //var applicationDbContext = _context.ChemInventory.Include(c => c.Chemical).Include(c => c.Location).Include(c => c.Order);
             ViewData["CurrentFilter"] = cheminventoryString;
             sp_Logging("1-Info", "View", "Successfuly viewed Chemical Inventory list", "Success");
-
+            var inventory = from m in _context.ChemInventory.Include(c => c.Chemical).Include(c => c.Location).Include(c => c.Order)
+                            select m;
+            
 
             //Search Feature
             if (!String.IsNullOrEmpty(cheminventoryString))
             {
-                var inventory = from m in _context.ChemInventory.Include(c => c.Chemical).Include(c => c.Location).Include(c => c.Order)
-                                select m;
-
                 int forID;
                 if (Int32.TryParse(cheminventoryString, out forID))
                 {
@@ -60,16 +60,19 @@ namespace LMS4Carroll.Controllers
                     return View(await inventory.OrderByDescending(s => s.ChemInventoryId).ToListAsync());
                 }
             }
-            else
-            {
-                var inventory = from m in _context.ChemInventory.Include(c => c.Chemical).Include(c => c.Location).Include(c => c.Order).Take(50)
-                                select m;
-                return View(await inventory.OrderByDescending(s => s.ChemInventoryId).ToListAsync());
-            }
-            //return View(await applicationDbContext.ToListAsync());
+
+            return View(await inventory.OrderBy(s => s.Chemical.FormulaName).ToListAsync());
+        }
+
+        // print out the chemInventory as a pdf...
+        public void generateReport()
+        {
+            //todo
+
         }
 
         // GET: ChemInventories/Details/5
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -87,6 +90,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemInventories/Create
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public IActionResult Create()
         {
             ViewData["ChemID"] = new SelectList(_context.Chemical, "ChemID", "FormulaName");
@@ -100,6 +104,7 @@ namespace LMS4Carroll.Controllers
         //[Bind("ChemInventoryId,OrderID,LocationID,ChemID,Units,QtyLeft,ExpiryDate")] ChemInventory chemInventory
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public async Task<IActionResult> Create(int? formulainput, DateTime dateinput, int? storageinput, int? orderinput, string cat, string lot, float qtyinput, string unitstring, string deptstring)
         { 
             ViewData["Formula"] = formulainput;
@@ -144,6 +149,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemInventories/Edit/5
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -167,6 +173,7 @@ namespace LMS4Carroll.Controllers
         //[Bind("ChemInventoryId,OrderID,LocationID,ChemID,Units,QtyLeft,ExpiryDate")] ChemInventory chemInventory
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public async Task<IActionResult> Edit(int id, int? formulainput, DateTime dateinput, int? storageinput, int? orderinput, string cat, string lot, float qtyinput, string unitstring, string deptstring)
         {
             ChemInventory chemInventory = await _context.ChemInventory.SingleOrDefaultAsync(p => p.ChemInventoryId == id);
@@ -215,6 +222,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemInventories/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -234,6 +242,7 @@ namespace LMS4Carroll.Controllers
         // POST: ChemInventories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var chemInventory = await _context.ChemInventory.SingleOrDefaultAsync(m => m.ChemInventoryId == id);

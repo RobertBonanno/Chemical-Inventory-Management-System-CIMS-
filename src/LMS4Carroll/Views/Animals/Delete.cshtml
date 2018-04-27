@@ -24,10 +24,10 @@
                     @Html.DisplayFor(model => model.DOR)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.Designation)
+                    @Html.DisplayNameFor(model => model.CageID)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Designation)
+                    @Html.DisplayFor(model => model.CageID)
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.Name)
@@ -52,7 +52,9 @@
             <form asp-action="Delete" id="deletebtn">
                 <div class="form-actions no-color">
                     <input type="submit" value="Delete" class="btn btn-danger" />
-                    <a asp-action="Index" class="btn btn-default">Back to List</a>
+                    <a asp-action="Index" class="btn btn-default">
+                        <i class="glyphicon glyphicon-arrow-left"></i> Back to List
+                    </a>
                 </div>
             </form>
         </div>

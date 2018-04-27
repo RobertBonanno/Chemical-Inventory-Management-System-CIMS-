@@ -84,6 +84,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemLogs/Details/5
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -101,6 +102,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemLogs/Create
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public IActionResult Create()
         {
             ViewData["CourseID"] = new SelectList(_context.Course, "CourseID", "NormalizedStr");
@@ -111,6 +113,7 @@ namespace LMS4Carroll.Controllers
         // Overposting attack vulnerability [Next iteration need to bind]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public async Task<IActionResult> Create(int barcodeinput, int courseinput, float qtyusedinput)
         {
             ViewData["Barcode"] = barcodeinput;
@@ -145,6 +148,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemLogs/Edit/5
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -167,6 +171,7 @@ namespace LMS4Carroll.Controllers
         // Overposting attack vulnerability [Next iteration need to bind]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public async Task<IActionResult> Edit(int id, int barcodeinput, int courseinput, float qtyusedinput)
         {
             if (_context.ChemInventory.Count(M => M.ChemInventoryId == barcodeinput) >= 1)
@@ -220,6 +225,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemLogs/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -239,6 +245,7 @@ namespace LMS4Carroll.Controllers
         // POST: ChemLogs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var chemLog = await _context.ChemLog.SingleOrDefaultAsync(m => m.ChemLogId == id);

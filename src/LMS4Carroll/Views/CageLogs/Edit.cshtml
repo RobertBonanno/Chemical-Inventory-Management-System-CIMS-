@@ -14,10 +14,10 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="CageLogId" />
                 <div class="form-group">
-                    <label asp-for="AnimalID" class="control-label col-md-2 required">Animal</label>
+                    <label asp-for="CageID" class="control-label col-md-2 required">Cage</label>
                     <div class="col-md-10">
-                        <select asp-for="AnimalID" class="form-control" asp-items="ViewBag.Animals"></select>
-                        <span asp-validation-for="AnimalID" class="text-danger" />
+                        <select asp-for="CageID" class="form-control" asp-items="ViewBag.Cages"></select>
+                        <span asp-validation-for="CageID" class="text-danger" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -37,25 +37,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="FoodComments" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input asp-for="FoodComments" class="form-control" />
-                        <span asp-validation-for="FoodComments" class="text-danger" />
-                    </div>
-                </div>
-                <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <div class="checkbox">
                             <input asp-for="Social" />
                             <label asp-for="Social"></label>
                         </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="SocialComments" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input asp-for="SocialComments" class="form-control" />
-                        <span asp-validation-for="SocialComments" class="text-danger" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -67,10 +53,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="WashComments" class="col-md-2 control-label"></label>
+                    <label asp-for="NoteworthyComments" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="WashComments" class="form-control" />
-                        <span asp-validation-for="WashComments" class="text-danger" />
+                        <input asp-for="NoteworthyComments" class="form-control" />
+                        <span asp-validation-for="NoteworthyComments" class="text-danger" />
                     </div>
                 </div>             
                 <div class="form-group" id="editbtn">
@@ -78,7 +64,9 @@
                         <input type="submit" value="Save" class="btn btn-primary" />
                     </div>
                     <div class="col-md-offset-2 col-md-10">
-                        <a asp-action="Index" class="btn btn-danger">Back to List</a>
+                        <a asp-action="Index" class="btn btn-danger">
+                            <i class="glyphicon glyphicon-arrow-left"></i> Back to List
+                        </a>
                     </div>
                 </div>
             </div>
