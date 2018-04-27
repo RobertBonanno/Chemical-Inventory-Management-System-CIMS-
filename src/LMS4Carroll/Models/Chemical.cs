@@ -26,7 +26,7 @@ namespace LMS4Carroll.Models
 
         [Required]
         [StringLength(50)]
-        [Display(Name = "Formuala Name")]
+        [Display(Name = "Chemical Name")]
         public string FormulaName { get; set; }
 
         [Required]

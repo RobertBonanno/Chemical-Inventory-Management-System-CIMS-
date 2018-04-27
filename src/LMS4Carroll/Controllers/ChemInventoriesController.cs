@@ -10,6 +10,7 @@ using LMS4Carroll.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using ZXing;
 
 namespace LMS4Carroll.Controllers
 {
@@ -31,14 +32,13 @@ namespace LMS4Carroll.Controllers
             //var applicationDbContext = _context.ChemInventory.Include(c => c.Chemical).Include(c => c.Location).Include(c => c.Order);
             ViewData["CurrentFilter"] = cheminventoryString;
             sp_Logging("1-Info", "View", "Successfuly viewed Chemical Inventory list", "Success");
-
+            var inventory = from m in _context.ChemInventory.Include(c => c.Chemical).Include(c => c.Location).Include(c => c.Order)
+                            select m;
+            
 
             //Search Feature
             if (!String.IsNullOrEmpty(cheminventoryString))
             {
-                var inventory = from m in _context.ChemInventory.Include(c => c.Chemical).Include(c => c.Location).Include(c => c.Order)
-                                select m;
-
                 int forID;
                 if (Int32.TryParse(cheminventoryString, out forID))
                 {
@@ -60,13 +60,15 @@ namespace LMS4Carroll.Controllers
                     return View(await inventory.OrderByDescending(s => s.ChemInventoryId).ToListAsync());
                 }
             }
-            else
-            {
-                var inventory = from m in _context.ChemInventory.Include(c => c.Chemical).Include(c => c.Location).Include(c => c.Order).Take(50)
-                                select m;
-                return View(await inventory.OrderByDescending(s => s.ChemInventoryId).ToListAsync());
-            }
-            //return View(await applicationDbContext.ToListAsync());
+
+            return View(await inventory.OrderBy(s => s.Chemical.FormulaName).ToListAsync());
+        }
+
+        // print out the chemInventory as a pdf...
+        public void generateReport()
+        {
+            //todo
+
         }
 
         // GET: ChemInventories/Details/5
