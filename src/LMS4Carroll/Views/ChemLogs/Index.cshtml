@@ -74,22 +74,40 @@
                                     @Html.DisplayFor(modelItem => item.ChemLogId)
                                 </td>
                                 <td>
-                                    <a asp-area="" asp-controller="ChemInventories" asp-action="Details" asp-route-id="@item.ChemInventoryId">
+                                    @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser"))
+                                    {
+                                        <a asp-area="" asp-controller="ChemInventories" asp-action="Details" asp-route-id="@item.ChemInventoryId">
+                                            @Html.DisplayFor(modelItem => item.ChemInventoryId)
+                                        </a>  
+                                    } else
+                                    {
                                         @Html.DisplayFor(modelItem => item.ChemInventoryId)
-                                    </a>                               
+                                    }
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Course.Department)
                                 </td>
                                 <td>
-                                    <a asp-area="" asp-controller="Courses" asp-action="Details" asp-route-id="@item.Course.CourseID">
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a asp-area="" asp-controller="Courses" asp-action="Details" asp-route-id="@item.Course.CourseID">
+                                            @Html.DisplayFor(modelItem => item.Course.Number)
+                                        </a>
+                                    } else
+                                    {
                                         @Html.DisplayFor(modelItem => item.Course.Number)
-                                    </a>                            
+                                    }
                                 </td>
                                 <td>
-                                    <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.ChemInventory.LocationID">
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.ChemInventory.LocationID">
+                                            @Html.DisplayFor(modelItem => item.ChemInventory.NormalizedLocation)
+                                        </a> 
+                                    } else
+                                    {
                                         @Html.DisplayFor(modelItem => item.ChemInventory.NormalizedLocation)
-                                    </a>                                    
+                                    }
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Course.NormalizedLocation)

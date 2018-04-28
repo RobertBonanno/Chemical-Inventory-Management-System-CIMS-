@@ -65,6 +65,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemArchives/Details/5
+        [Authorize(Roles = "Admin,ChemUser")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -82,6 +83,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemArchives/Create
+        [Authorize(Roles = "Admin,ChemUser")]
         public IActionResult Create()
         {
             ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID");
@@ -92,6 +94,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ChemUser")]
         public async Task<IActionResult> Create([Bind("ChemArchiveID,SerialNumber,InstalledDate,ArchiveDate,EquipmentModel,EquipmentName,OrderID,Type,Comments")] ChemArchive chemArchive)
         {
             if (ModelState.IsValid)
@@ -106,6 +109,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemArchives/Edit/5
+        [Authorize(Roles = "Admin,ChemUser")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -126,6 +130,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ChemUser")]
         public async Task<IActionResult> Edit(int id, [Bind("ChemArchiveID,SerialNumber,InstalledDate,ArchiveDate,EquipmentModel,EquipmentName,OrderID,Type,Comments")] ChemArchive chemArchive)
         {
             if (id != chemArchive.ChemArchiveID)
@@ -159,6 +164,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemArchives/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -178,6 +184,7 @@ namespace LMS4Carroll.Controllers
         // POST: ChemArchives/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var chemArchive = await _context.ChemArchives.SingleOrDefaultAsync(m => m.ChemArchiveID == id);

@@ -9,7 +9,7 @@
     <div class="panel-heading panel-head">Chemical Inventory</div>
     <div class="panel-body table-responsive">
         <div class="btn-group">
-            @if (User.IsInRole("Admin"))
+            @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser"))
             {
                 <a id="createRoleModal" asp-action="Create" class="btn btn-primary">
                     <i class="glyphicon glyphicon-plus"></i>  Add Inventory
@@ -18,19 +18,11 @@
         </div><br />
             <form asp-controller="ChemInventories" asp-action="Index" method="get" >
                 <div class="form-actions no-color">
-                    <p>
                         <input type="text" placeholder="Chem Name" name="CheminventoryString" value="@ViewData["currentFilter"]" />
                         <input type="submit" value="Search" class="btn btn-default" />  
-                        <input type="file" name="Barcode Search" accept="image/*" capture     value="@ViewData["imageFilter"]"/>
                         <a class="btn btn-default" asp-action="Index">Back to Full List</a>
-                    </p>
-                </div>
-            </form>
-            <form asp-controller="ChemInventories" asp-action="generateReport" >
-                <div class="form-actions no-color">
-                    <p>
                         <a class="btn btn-default" asp-action="generateReport">Print Report</a>
-                    </p>
+                        <input type="file" name="Barcode Search" accept="image/*" capture     value="@ViewData["imageFilter"]"/>                                              
                 </div>
             </form>
             <table class="table table-bordered table-striped table-condensed">
@@ -54,12 +46,12 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Location.StorageCode)
                         </th>
-                        <th>
+                        @*<th>
                             CAT#
                         </th>
                         <th>
                             LOT#
-                        </th>
+                        </th>*@
                         @*<th>
                             @Html.DisplayNameFor(model => model.Chemical.SDS)
                         </th>*@
@@ -122,12 +114,12 @@
                                 @Html.DisplayFor(modelItem => item.OrderID)
                             }
                             </td>
-                            <td>
+                            @*<td>
                                 @Html.DisplayFor(modelItem => item.CAT)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.LOT)
-                            </td>
+                            </td>*@
                             @*<td>
                                 <a id="viewbtn" asp-action="Details" asp-route-id="@item.ChemInventoryId" class="btn btn-info loc2">
                                     <i class="glyphicon glyphicon-eye-open"></i>  Veiw

@@ -79,7 +79,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Chemicals/Create
-        [Authorize(Roles = "Admin,ChemUser,BiologyUser,Student")]
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public IActionResult Create()
         {
             return View();
@@ -89,7 +89,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled binding of properties
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,ChemUser,BiologyUser,Student")]
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public async Task<IActionResult> Create([Bind("ChemID,CAS,CAT,Formula,FormulaName,FormulaWeight,Hazard,SDS,State")] Chemical chemical)
         {
             if (ModelState.IsValid)
@@ -104,7 +104,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Chemicals/Edit/5
-        [Authorize(Roles = "Admin,ChemUser,BiologyUser,Student")]
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -124,7 +124,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled binding of properties
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,ChemUser,BiologyUser,Student")]
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public async Task<IActionResult> Edit(int id, [Bind("ChemID,CAS,CAT,Formula,FormulaName,FormulaWeight,Hazard,SDS,State")] Chemical chemical)
         {
             if (id != chemical.ChemID)

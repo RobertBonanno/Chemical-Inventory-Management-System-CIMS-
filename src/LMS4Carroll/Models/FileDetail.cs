@@ -35,6 +35,7 @@ namespace LMS4Carroll.Models
         public byte[] File { get; set; }
 
         [StringLength(100, MinimumLength = 2)]
+        [Display(Name = "Content Type")]
         public string ContentType { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
