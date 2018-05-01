@@ -170,22 +170,40 @@
                         @Html.DisplayFor(modelItem => item.ChemLogId)
                     </td>
                     <td>
-                        <a asp-area="" asp-controller="ChemInventories" asp-action="Details" asp-route-id="@item.ChemInventoryId">
-                            @Html.DisplayFor(modelItem => item.ChemInventoryId)
-                        </a>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser"))
+                                    {
+                                        <a asp-area="" asp-controller="ChemInventories" asp-action="Details" asp-route-id="@item.ChemInventoryId">
+                                            @Html.DisplayFor(modelItem => item.ChemInventoryId)
+                                        </a>  
+                                    } else
+                                    {
+                                        @Html.DisplayFor(modelItem => item.ChemInventoryId)
+                                    }
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Course.Department)
                     </td>
                     <td>
-                        <a asp-area="" asp-controller="Courses" asp-action="Details" asp-route-id="@item.Course.CourseID">
-                            @Html.DisplayFor(modelItem => item.Course.Number)
-                        </a>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a asp-area="" asp-controller="Courses" asp-action="Details" asp-route-id="@item.Course.CourseID">
+                                            @Html.DisplayFor(modelItem => item.Course.Number)
+                                        </a>
+                                    } else
+                                    {
+                                        @Html.DisplayFor(modelItem => item.Course.Number)
+                                    }
                     </td>
                     <td>
-                        <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.ChemInventory.LocationID">
-                            @Html.DisplayFor(modelItem => item.ChemInventory.NormalizedLocation)
-                        </a>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.ChemInventory.LocationID">
+                                            @Html.DisplayFor(modelItem => item.ChemInventory.NormalizedLocation)
+                                        </a> 
+                                    } else
+                                    {
+                                        @Html.DisplayFor(modelItem => item.ChemInventory.NormalizedLocation)
+                                    }
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Course.NormalizedLocation)
@@ -196,7 +214,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.ChemInventory.QtyLeft)
                     </td>
-                    <!--QtyLeftText is a fiedl used to track measurement unit -->
+                    <!--QtyLeftText is a field used to track measurement unit -->
                     <td>
                         @Html.DisplayFor(modelItem => item.ChemInventory.Units)
                     </td>

@@ -152,16 +152,16 @@
                         @Html.DisplayNameFor(model => model.Comments)
                     </th>
                     @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
-                {
+                    {
                     <th>
                         Actions
                     </th>
-            }
+                    }
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
-            {
+                {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.BioArchiveID)
@@ -185,15 +185,21 @@
                         @Html.DisplayFor(modelItem => item.ArchiveDate)
                     </td>
                     <td>
-                        <a asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderID">
-                            @Html.DisplayFor(modelItem => item.OrderID)
-                        </a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderID">
+                                    @Html.DisplayFor(modelItem => item.OrderID)
+                                </a>
+                            } else
+                            {
+                                @Html.DisplayFor(modelItem => item.OrderID)
+                            }
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Comments)
                     </td>
                     @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
-                {
+                    {
                     <td>
                         <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.BioArchiveID" class="btn btn-info">
                             <i class="glyphicon glyphicon-pencil"></i>  Edit
@@ -205,9 +211,9 @@
                             <i class="glyphicon glyphicon-search"></i>  Details
                         </a>
                     </td>
-            }
+                  }
                 </tr>
-        }
+              }
             </tbody>
         </table>
     </div>

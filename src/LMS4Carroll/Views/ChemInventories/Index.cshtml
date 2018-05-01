@@ -9,7 +9,7 @@
     <div class="panel-heading panel-head">Chemical Inventory</div>
     <div class="panel-body table-responsive">
         <div class="btn-group">
-            @if (User.IsInRole("Admin"))
+            @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser"))
         {
             <a id="createRoleModal" asp-action="Create" class="btn btn-primary">
                 <i class="glyphicon glyphicon-plus"></i>  Add Inventory
@@ -142,13 +142,13 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Location.StorageCode)
                     </th>
-                    <th>
+                    @*<th>
                         CAT#
                     </th>
                     <th>
                         LOT#
                     </th>
-                    @*<th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Chemical.SDS)
                     </th>*@
                     <th>
@@ -211,13 +211,13 @@
                     @Html.DisplayFor(modelItem => item.OrderID)
             }
                     </td>
-                    <td>
+                     @*<td>
                         @Html.DisplayFor(modelItem => item.CAT)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.LOT)
                     </td>
-                    @*<td>
+                   <td>
                         <a id="viewbtn" asp-action="Details" asp-route-id="@item.ChemInventoryId" class="btn btn-info loc2">
                             <i class="glyphicon glyphicon-eye-open"></i>  Veiw
                         </a>

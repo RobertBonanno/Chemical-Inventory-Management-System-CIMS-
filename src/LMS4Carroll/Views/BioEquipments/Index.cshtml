@@ -10,11 +10,11 @@
     <div class="panel-body table-responsive">
         <div class="btn-group">
             @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
-        {
+            {
             <a id="createRoleModal" asp-action="Create" class="btn btn-primary">
                 <i class="glyphicon glyphicon-plus"></i>  Add Equipment
             </a>
-    }
+          }
         </div><br />
         <form asp-controller="BioEquipments" asp-action="Index" method="get">
             <div class="form-actions no-color">
@@ -151,13 +151,13 @@
                     <th>
                         @Html.DisplayNameFor(model => model.OrderID)
                     </th>
-                    <td>
+                    @*<td>
                         CAT#
                     </td>
                     <td>
                         LOT#
                     </td>
-                    @*<th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Comments)
                     </th>*@
                     @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
@@ -217,13 +217,13 @@
                     @Html.DisplayFor(modelItem => item.OrderID)
             }
                     </td>
-                    <td>
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.CAT)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.LOT)
                     </td>
-                    @*<td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.Comments)
                     </td>*@
                     @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))

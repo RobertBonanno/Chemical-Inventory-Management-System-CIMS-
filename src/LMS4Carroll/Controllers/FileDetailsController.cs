@@ -66,7 +66,7 @@ namespace LMS4Carroll.Controllers
             var orderId = await _context.Orders.SingleOrDefaultAsync(m => m.OrderID == id);
             if (orderId != null)
             {
-                ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID", orderId);
+                ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID", id);
             } else
             {
                 ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID");

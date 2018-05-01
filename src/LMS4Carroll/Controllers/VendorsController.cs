@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace LMS4Carroll.Controllers
 {
-    [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
+    [Authorize(Roles = "Admin,ChemUser,BiologyUser,AnimalUser,PhysicsUser")]
     public class VendorsController : Controller
     {
         private readonly ApplicationDbContext _context;

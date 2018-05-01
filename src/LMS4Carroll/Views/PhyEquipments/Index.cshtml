@@ -217,13 +217,13 @@
                     @Html.DisplayFor(modelItem => item.OrderID)
             }
                     </td>
-                    <td>
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.CAT)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.LOT)
                     </td>
-                    @*<td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.Comments)
                     </td>*@
                     @if (User.IsInRole("Admin") || User.IsInRole("PhysicsUser"))

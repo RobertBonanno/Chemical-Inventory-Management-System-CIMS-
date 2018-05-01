@@ -28,11 +28,11 @@ namespace LMS4Carroll.Models
         public virtual Location Location { get; set; }
 
         [StringLength(50, MinimumLength = 3)]
-        [Display(Name = "CAT Number")]
+        [Display(Name = "CAT #")]
         public string CAT { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "Lot #")]
+        [Display(Name = "LOT #")]
         public string LOT { get; set; }
 
         [StringLength(50)]
