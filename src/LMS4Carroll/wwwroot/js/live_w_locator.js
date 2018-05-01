@@ -6,6 +6,7 @@ $(function() {
                     console.log(err);
                     return;
                 }
+                document.getElementById("PreLoadMessage").style.display = "none";
                 App.attachListeners();
                 App.checkCapabilities();
                 Quagga.start();
