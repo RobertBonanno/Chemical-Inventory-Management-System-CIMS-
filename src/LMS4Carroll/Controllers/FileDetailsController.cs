@@ -14,6 +14,12 @@ using Microsoft.AspNetCore.Authorization;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
+/// <summary>
+/// When the FileDetails controller is called upon, or any actions within, the service
+/// will gather this controller. Generates both web pages and preforms logic for those
+/// web pages. Its actions and pages can only be accessed by an administrator.
+/// </summary>
+
 namespace LMS4Carroll.Controllers
 {
     [Authorize(Roles = "Admin")]
@@ -53,26 +59,34 @@ namespace LMS4Carroll.Controllers
             return View(fileDetailExpanded);
         }
 
+        //this method is called when an ID is passed into the route of the Create action.
+        //it generates a webpage that will allow the user to create a new Invoice
         [Authorize(Roles = "Admin")]
         [HttpGet]
         //GET: FileDetails/Create/5
         public async Task<IActionResult> Create(int? id)
         {
+            //checks to make sure ID is valid
             if (id == null)
             {
                 return NotFound();
             }
 
+            //the ID should belong to a Order in the database
             var orderId = await _context.Orders.SingleOrDefaultAsync(m => m.OrderID == id);
             if (orderId != null)
             {
+                //if it exists, the ID is set to be the default/preselected value of the Select List
                 ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID", id);
             } else
             {
+                //If not, the slect list is simply filled with a list of Orders from the context
                 ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID");
 
             }
 
+            //the view Data is generated with this information, and filled with blank input fields
+            //for the rest of the required properties
             return View();
         }
 

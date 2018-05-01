@@ -4,13 +4,21 @@
     ViewData["Title"] = "Details | Invoice";
 }
 
+@* This page provides a static view of a specific invoice record. This file was 
+    added in futuer anticipation of providing a "list view" of files that could be seen
+    from the orders page. It takes its data from the "Details" method of the FileDetails
+    Controller.*@
+
 <div class="top-buffer"></div>
 <div class="panel panel-primary">
+    @* header *@
     <div class="panel-heading panel-head">Invoice Details</div>
     <div class="panel-body">
         <br />
         <div>
             <dl class="dl-horizontal">
+                @*Lables followed by their property names (as defined in the Invoice model
+                under "Display")*@
                 <dt>
                     @Html.DisplayNameFor(model => model.FileName)
                 </dt>
@@ -43,11 +51,14 @@
                 </dd>
             </dl>
         </div>
-        <div id="deletebtn">
+        <div id="detailsbtn">
             <div class="form-actions no-color">
+                @*returns user to list*@
                 <a asp-action="Index" class="btn btn-default">
                     <i class="glyphicon glyphicon-arrow-left"></i> Back to List
                 </a>
+                @*brings user to the Edit action of the Orders controller. The ID is used to direct the route
+                to the correct Edit method. Files cannot be edited once posted, but the order may be adjusted.*@
                 <a asp-controller="Orders" asp-action="Edit" class="btn btn-info" asp-route-id="@Model.OrderID">Edit</a><br />
             </div>
         </div>

@@ -4,15 +4,20 @@
     ViewData["Title"] = "Edit | Order";
 }
 
+@*This HTML page will open in a new window when the Edit action of the Orders controller is called upon*@
+
 <div class="top-buffer"></div>
 <div class="panel panel-primary">
+    @*header*@
     <div class="panel-heading panel-head">Edit Orders</div>
     <div class="panel-body">
         <br />
         <form asp-action="Edit">
             <div class="form-horizontal">
+                @*validation corresponds to "Required" fields within the order model*@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="OrderID" />
+                @* Invoice ID is now optional, since there may be multiple files uploaded as invoices  *@
                 <div class="form-group">
                     <label asp-for="Invoice" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
@@ -20,14 +25,13 @@
                         <span asp-validation-for="Invoice" class="text-danger" />
                     </div>
                 </div>
-                 @if (User.IsInRole("Admin"))
-                 {
+                @*Button that will pull the "Create" action within the FileDetails controller. It passes in the OrderID into the method
+                while also sending its valude into the route. When selected, redirects to the new invoice page*@
                 <div id="addbtn" class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <a asp-area="" asp-controller="FileDetails" asp-action="Create" asp-route-id="@Model.OrderID" class="btn btn-info">Add Invoice File</a>
                     </div>
                 </div>
-                 }
                 <div class="form-group">
                     <label asp-for="PO" class="col-md-2 control-label required"></label>
                     <div class="col-md-10">
@@ -63,11 +67,15 @@
                         <span asp-validation-for="VendorID" class="text-danger" />
                     </div>
                 </div>
+                @*buttons restyled for user readablity, as well as consistency across the app*@
                 <div id="editbtn" class="form-group">
                     <div class="col-md-offset-2 col-md-10">
+                        @* calls upon the "Edit" method within orders, with the now-filled model
+                            as its second parameter*@
                         <input type="submit" value="Save" class="btn btn-primary" />
                     </div>
                     <div class="col-md-offset-2 col-md-10">
+                         @* returns to the index *@
                         <a asp-action="Index" class="btn btn-danger">
                             <i class="glyphicon glyphicon-arrow-left"></i> Back to List
                         </a>

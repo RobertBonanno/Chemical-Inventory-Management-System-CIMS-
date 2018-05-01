@@ -4,8 +4,11 @@
     ViewData["Title"] = "Add | Order";
 }
 
+@*This file opens in a new window when the "create" action in the orders controller is called upon.*@
+
 <div class="top-buffer"></div>
 <div class="panel panel-primary">
+    @*header*@
     <div class="panel-heading panel-head">Create Orders</div>
     <div class="panel-body">
         <br />
@@ -13,6 +16,7 @@
             <div class="form-horizontal">
                 <h4>Order</h4>
                 <hr />
+                @*invoice is initially hidden*@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Invoice" class="form-control" />
                 <div class="form-group">
