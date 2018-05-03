@@ -29,14 +29,12 @@ namespace LMS4Carroll.Models
         [Display(Name = "S/N")]
         public string SerialNumber { get; set; }
 
-        [Required]
         [DataType(DataType.Date)]
         [DefaultValue("01/01/1900")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Installed Date")]
         public DateTime InstalledDate { get; set; }
 
-        [Required]
         [DataType(DataType.Date)]
         [DefaultValue("01/01/1900")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

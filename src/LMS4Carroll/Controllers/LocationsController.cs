@@ -62,27 +62,26 @@ namespace LMS4Carroll.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([Bind("LocationID,Address,Name,Type,Room,StorageCode")] Location location)
+        public async Task<IActionResult> Create(string addressstring, string namestring, string typestring, string roomstring, string storagestring)
         {
             //[Bind("LocationID,Address,Name,Room,Type")] Location location
-            //[Bind("LocationID,Address,Name,Type,Room,StorageCode")] Location location
-            //ViewData["Address"] = addressstring;
-            //ViewData["Name"] = namestring;
-            //ViewData["Type"] = typestring;
-            //ViewData["Room"] = roomstring;
-            //ViewData["StorageCode"] = storagestring;
-            //Location location = new Location();
+            ViewData["Address"] = addressstring;
+            ViewData["Name"] = namestring;
+            ViewData["Type"] = typestring;
+            ViewData["Room"] = roomstring;
+            ViewData["StorageCode"] = storagestring;
+            Location location = new Location();
             if (ModelState.IsValid)
             {
-                //location.Address = addressstring;
-                //location.Name = namestring;
-                //location.Type = typestring;
-                //location.Room = roomstring;
-                //location.NormalizedStr = namestring + "-" + roomstring;
-                //location.StorageCode = storagestring;
+                location.Address = addressstring;
+                location.Name = namestring;
+                location.Type = typestring;
+                location.Room = roomstring;
+                location.NormalizedStr = namestring + "-" + roomstring;
+                location.StorageCode = storagestring;
                 _context.Add(location);
                 await _context.SaveChangesAsync();
-                sp_Logging("2-Change", "Create", "User created location: " + location.Name + "-" + location.Room, "Success");
+                sp_Logging("2-Change", "Create", "User created location: " + namestring + "-" + roomstring, "Success");
                 return RedirectToAction("Index");
             }
             return View(location);
