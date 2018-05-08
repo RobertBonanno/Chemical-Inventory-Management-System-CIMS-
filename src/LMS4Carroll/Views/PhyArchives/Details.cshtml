@@ -1,0 +1,73 @@
+@model LMS4Carroll.Models.PhyArchive
+
+@{
+    ViewData["Title"] = "Details | Phy Archive";
+}
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Physics Equipment Details</div>
+    <div class="panel-body">
+        <br />
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.SerialNumber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.SerialNumber)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.InstalledDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.InstalledDate)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ArchiveDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ArchiveDate)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.EquipmentModel)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EquipmentModel)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.EquipmentName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EquipmentName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.OrderID)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.OrderID)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Type)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Comments)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Comments)
+                </dd>
+            </dl>
+        </div>
+        <div id="deletebtn">
+            <div class="form-actions no-color">
+                <a asp-action="Index" class="btn btn-default">
+                    <i class="glyphicon glyphicon-arrow-left"></i> Back to List
+                </a>
+                <a asp-action="Edit" class="btn btn-info" asp-route-id="@Model.PhyArchiveID">Edit</a><br />
+            </div>
+        </div>
+    </div>
+  </div>

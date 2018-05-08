@@ -40,27 +40,28 @@ namespace LMS4Carroll.Controllers
                 if (Int32.TryParse(chemstring, out forID))
                 {
                     chemicals = chemicals.Where(s => s.ChemID.Equals(forID));
-                    return View(await chemicals.OrderByDescending(s => s.ChemID).ToListAsync());
+                    return View(await chemicals.OrderBy(s => s.FormulaName).ToListAsync());
                 }
                 else
                 {
                     chemicals = chemicals.Where(s => s.CAS.Contains(chemstring)
-                                       || s.Formula.Contains(chemstring)
-                                       || s.FormulaName.Contains(chemstring)
-                                       || s.FormulaWeight.Contains(chemstring)
-                                       || s.CAT.Contains(chemstring)
-                                       || s.CAS.Contains(chemstring)
-                                       || s.Hazard.Contains(chemstring)
-                                       || s.State.Contains(chemstring));
-                    return View(await chemicals.OrderByDescending(s => s.ChemID).ToListAsync());
+                                       || s.Formula.ToLower().Contains(chemstring)
+                                       || s.FormulaName.ToLower().Contains(chemstring)
+                                       || s.FormulaWeight.ToLower().Contains(chemstring)
+                                       || s.CAT.ToLower().Contains(chemstring)
+                                       || s.CAS.ToLower().Contains(chemstring)
+                                       || s.Hazard.ToLower().Contains(chemstring)
+                                       || s.State.ToLower().Contains(chemstring));
+                    return View(await chemicals.OrderBy(s => s.FormulaName).ToListAsync());
                 }
             }
 
-            return View(await chemicals.OrderByDescending(s => s.ChemID).ToListAsync());
+            return View(await chemicals.OrderBy(s => s.FormulaName).ToListAsync());
             //return View(await _context.Chemical.ToListAsync());
         }
 
         // GET: Chemicals/Details/5
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -78,6 +79,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Chemicals/Create
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public IActionResult Create()
         {
             return View();
@@ -87,6 +89,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled binding of properties
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public async Task<IActionResult> Create([Bind("ChemID,CAS,CAT,Formula,FormulaName,FormulaWeight,Hazard,SDS,State")] Chemical chemical)
         {
             if (ModelState.IsValid)
@@ -101,6 +104,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Chemicals/Edit/5
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -120,6 +124,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled binding of properties
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ChemUser,BiologyUser")]
         public async Task<IActionResult> Edit(int id, [Bind("ChemID,CAS,CAT,Formula,FormulaName,FormulaWeight,Hazard,SDS,State")] Chemical chemical)
         {
             if (id != chemical.ChemID)
@@ -145,6 +150,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Chemicals/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -164,6 +170,7 @@ namespace LMS4Carroll.Controllers
         // POST: Chemicals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var chemical = await _context.Chemical.SingleOrDefaultAsync(m => m.ChemID == id);

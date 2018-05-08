@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace LMS4Carroll.Controllers
 {
-    [Authorize(Roles = "Admin,ChemUser,BiologyUser,AnimalUser")]
+    [Authorize(Roles = "Admin,ChemUser,BiologyUser,AnimalUser,PhysicsUser")]
     public class VendorsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -55,6 +55,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Vendors/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -72,6 +73,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Vendors/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -81,6 +83,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, used binding properties
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("VendorID,Address,Comments,Name")] Vendor vendor)
         {
             if (ModelState.IsValid)
@@ -94,6 +97,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Vendors/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -113,6 +117,7 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, used binding properties
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("VendorID,Address,CAT,Comments,Name")] Vendor vendor)
         {
             if (id != vendor.VendorID)
@@ -145,6 +150,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: Vendors/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -164,6 +170,7 @@ namespace LMS4Carroll.Controllers
         // POST: Vendors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var vendor = await _context.Vendors.SingleOrDefaultAsync(m => m.VendorID == id);

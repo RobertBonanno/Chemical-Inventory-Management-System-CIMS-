@@ -14,6 +14,7 @@ namespace LMS4Carroll.Models
         [Display(Name = "Course ID")]
         public int CourseID { get; set; }
 
+        [Required]
         [ForeignKey("Location")]
         [Display(Name = "Lab Location")]
         public int? LocationID { get; set; }

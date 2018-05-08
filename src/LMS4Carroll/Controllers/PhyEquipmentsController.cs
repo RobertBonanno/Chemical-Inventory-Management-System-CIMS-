@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace LMS4Carroll.Controllers
 {
-    [Authorize(Roles = "Admin,Handler,Student,PhysicsUser")]
+    [Authorize(Roles = "Admin,Student,Handler,PhysicsUser")]
     public class PhyEquipmentsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -49,10 +49,12 @@ namespace LMS4Carroll.Controllers
                 {
                     equipments = equipments.Where(s => s.EquipmentName.Contains(equipmentString)
                                             || s.EquipmentModel.Contains(equipmentString)
-                                            || s.SerialNumber.Equals(equipmentString)
+                                            || s.SerialNumber.Contains(equipmentString)
+                                         // || s.Location.NormalizedStr.Contains(equipmentString)
                                             || s.LOT.Equals(equipmentString)
                                             || s.CAT.Equals(equipmentString)
-                                            || s.Type.Contains(equipmentString));
+                                            || s.Type.Contains(equipmentString)
+                                            || s.Comments.Contains(equipmentString));
                     return View(await equipments.OrderByDescending(s => s.PhyEquipmentID).ToListAsync());
                 }
             }
@@ -66,6 +68,7 @@ namespace LMS4Carroll.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,PhysicsUser")]
         // GET: PhyEquipments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -83,6 +86,7 @@ namespace LMS4Carroll.Controllers
             return View(phyEquipment);
         }
 
+        [Authorize(Roles = "Admin,PhysicsUser")]
         // GET: PhyEquipments/Create
         public IActionResult Create()
         {
@@ -93,9 +97,10 @@ namespace LMS4Carroll.Controllers
 
         // POST: PhyEquipments/Create
         // To protect from overposting attacks, enabled bind properties
+        [Authorize(Roles = "Admin,PhysicsUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PhyEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type")] PhyEquipment phyEquipment)
+        public async Task<IActionResult> Create([Bind("PhyEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type,Comments")] PhyEquipment phyEquipment)
         {
             if (ModelState.IsValid)
             {
@@ -110,6 +115,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: PhyEquipments/Edit/5
+        [Authorize(Roles = "Admin,PhysicsUser")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -131,7 +137,8 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PhyEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type")] PhyEquipment phyEquipment)
+        [Authorize(Roles = "Admin,PhysicsUser")]
+        public async Task<IActionResult> Edit(int id, [Bind("PhyEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type,Comments")] PhyEquipment phyEquipment)
         {
             if (id != phyEquipment.PhyEquipmentID)
             {
@@ -165,6 +172,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: PhyEquipments/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -184,11 +192,59 @@ namespace LMS4Carroll.Controllers
         // POST: PhyEquipments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var phyEquipment = await _context.PhyEquipments.SingleOrDefaultAsync(m => m.PhyEquipmentID == id);
             _context.PhyEquipments.Remove(phyEquipment);
             sp_Logging("3-Remove", "Delete", "User deleted a Phylogical Equipment where ID=" + id.ToString(), "Success");
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        // GET: PhyEquipments/Archive/5
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Archive(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var phyEquipment = await _context.PhyEquipments.SingleOrDefaultAsync(m => m.PhyEquipmentID == id);
+            if (phyEquipment == null)
+            {
+                return NotFound();
+            }
+
+            return View(phyEquipment);
+        }
+
+        // POST: PhyEquipments/Archive/5
+        [HttpPost, ActionName("Archive")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ArchiveConfirm(int id)
+        {
+            var phyEquipment = await _context.PhyEquipments.SingleOrDefaultAsync(m => m.PhyEquipmentID == id);
+            PhyArchive phyArchive = new PhyArchive();
+            
+            if(phyArchive != null)
+            {
+
+                phyArchive.OrderID = phyEquipment.OrderID;
+                phyArchive.Type = phyEquipment.Type;
+                phyArchive.SerialNumber = phyEquipment.SerialNumber;
+                phyArchive.InstalledDate = phyEquipment.InstalledDate;
+                phyArchive.ArchiveDate = DateTime.Today;
+                phyArchive.EquipmentName = phyEquipment.EquipmentName;
+                phyArchive.EquipmentModel = phyEquipment.EquipmentModel;
+                phyArchive.Comments = phyEquipment.Comments;
+                _context.PhyArchives.Add(phyArchive);
+                await _context.SaveChangesAsync();
+            }
+            _context.PhyEquipments.Remove(phyEquipment);
+            sp_Logging("3-Remove", "Delete", "User deleted a Physics Equipment where ID=" + id.ToString(), "Success");
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }

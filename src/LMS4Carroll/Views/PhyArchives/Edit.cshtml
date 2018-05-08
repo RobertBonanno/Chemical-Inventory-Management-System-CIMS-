@@ -1,0 +1,90 @@
+@model LMS4Carroll.Models.PhyArchive
+@using LMS4Carroll.Models
+
+@{
+    ViewData["Title"] = "Edit | Phy Archive";
+}
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Edit Archive</div>
+    <div class="panel-body">
+        <br />
+        <form asp-action="Edit" role="form">
+            <div class="form-horizontal">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="PhyArchiveID" />
+                <div class="form-group">
+                    <label asp-for="SerialNumber" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="SerialNumber" class="form-control" />
+                        <span asp-validation-for="SerialNumber" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="InstalledDate" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="InstalledDate" class="form-control" />
+                        <span asp-validation-for="InstalledDate" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ArchiveDate" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="ArchiveDate" class="form-control" />
+                        <span asp-validation-for="ArchiveDate" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EquipmentModel" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="EquipmentModel" class="form-control" />
+                        <span asp-validation-for="EquipmentModel" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EquipmentName" class="col-md-2 control-label required"></label>
+                    <div class="col-md-10">
+                        <input asp-for="EquipmentName" class="form-control" />
+                        <span asp-validation-for="EquipmentName" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OrderID" class="control-label col-md-2 required"></label>
+                    <div class="col-md-10">
+                        <select asp-for="OrderID" class="form-control" asp-items="ViewBag.OrderID"></select>
+                        <span asp-validation-for="OrderID" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Type" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Type" class="form-control" />
+                        <span asp-validation-for="Type" class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Comments" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <textarea asp-for="Comments" class="form-control">@Model.Comments</textarea>
+                        <span asp-validation-for="Comments" class="text-danger" />
+                    </div>
+                </div>
+                <div id="editbtn" class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                    <div class="col-md-offset-2 col-md-10">
+                        <a asp-action="Index" class="btn btn-danger">
+                            <i class="glyphicon glyphicon-arrow-left"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

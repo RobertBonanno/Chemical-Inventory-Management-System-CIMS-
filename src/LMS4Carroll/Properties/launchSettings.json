@@ -2,8 +2,12 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/LMS4Carroll",
+      "sslPort": 0
+    },
     "iisExpress": {
-      "applicationUrl": "http://localhost:54926/",
+      "applicationUrl": "http://localhost:5000",
       "sslPort": 0
     }
   },
@@ -11,17 +15,20 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
+      "launchUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "LMS4Carroll": {
-      "commandName": "Project",
+      "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "use64Bit": false,
+      "applicationUrl": "http://localhost:5000"
     }
   }
 }

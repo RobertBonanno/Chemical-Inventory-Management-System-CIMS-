@@ -50,33 +50,29 @@
                         <li><a asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
                     }
                      *@
-                    @if (User.IsInRole("Admin") || User.IsInRole("Student") || User.IsInRole("ChemUser") || User.IsInRole("AnimalUser"))
+                    @if (User.IsInRole("Admin") || User.IsInRole("Student") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser"))
                     {
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chemistry<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                            @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser") || User.IsInRole("ChemUser") || User.IsInRole("Student"))
-                            {
                                 <li><a asp-area="" asp-controller="Chemicals" asp-action="Index">Chemicals</a></li>
-                            }
-                            @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("Student"))
-                            {
-                                <li><a asp-area="" asp-controller="ChemEquipments" asp-action="Index">Chemical Equipment</a></li>                         
-                            }
-
+                                <li><a asp-area="" asp-controller="ChemInventories" asp-action="Index">Chemical Inventory</a></li>
+                                @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("Student"))
+                                {
+                                    <li><a asp-area="" asp-controller="ChemEquipments" asp-action="Index">Chemical Equipment</a></li>
+                                    <li><a asp-area="" asp-controller="ChemArchives" asp-action="Index">Chemistry Equipment Archives</a></li>
+                                }
                             </ul>
                         </li>
                     }
 
-                    @if (User.IsInRole("Admin") || User.IsInRole("Student") || User.IsInRole("PhysicsUser") || User.IsInRole("AnimalUser"))
+                    @if (User.IsInRole("Admin") || User.IsInRole("Student") || User.IsInRole("PhysicsUser"))
                     {
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Physics<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                @if (User.IsInRole("Admin") || User.IsInRole("Student") || User.IsInRole("PhysicsUser") || User.IsInRole("AnimalUser"))
-                                {
-                                    <li><a asp-area="" asp-controller="PhyEquipments" asp-action="Index">Physics Equipment</a></li>
-                                }
+                                <li><a asp-area="" asp-controller="PhyEquipments" asp-action="Index">Physics Equipment</a></li>
+                                <li><a asp-area="" asp-controller="PhyArchives" asp-action="Index">Physics Archive</a></li>
                             </ul>
                         </li>
                     }
@@ -86,10 +82,6 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Biology<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser") || User.IsInRole("ChemUser") || User.IsInRole("Student"))
-                                {
-                                    <li><a asp-area="" asp-controller="Chemicals" asp-action="Index">Chemicals</a></li>
-                                }
                                 @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser") || User.IsInRole("Student"))
                                 {
                                     <li><a asp-area="" asp-controller="Animals" asp-action="Index">Animals</a></li>
@@ -97,54 +89,48 @@
                                 @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser") || User.IsInRole("Student"))
                                 {
                                     <li><a asp-area="" asp-controller="BioEquipments" asp-action="Index">Biological Equipment</a></li>
+                                    <li><a asp-area="" asp-controller="BioArchives" asp-action="Index">Biology Archives</a></li>
                                 }
-
                             </ul>
                         </li>
                     }
-                     @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser") || User.IsInRole("Student"))
-                {
-                    @*<li><a asp-area="" asp-controller="ChemInventories" asp-action="Index">Chemical Inventory</a></li>*@
-                }
-                    @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser") || User.IsInRole("BiologyUser") || User.IsInRole("ChemUser")|| User.IsInRole("Student"))
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser") || User.IsInRole("BiologyUser") || User.IsInRole("ChemUser")|| User.IsInRole("Student") || User.IsInRole("PhysicsUser"))
                     {
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Management<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a asp-area="" asp-controller="Locations" asp-action="Index">Locations</a></li>
-                                @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser") || User.IsInRole("BiologyUser") || User.IsInRole("ChemUser"))
+                                <li><a asp-area="" asp-controller="Courses" asp-action="Index">Courses</a></li>
+                                @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser") || User.IsInRole("BiologyUser") || User.IsInRole("ChemUser") || User.IsInRole("PhysicsUser"))
                                 {
                                     <li><a asp-area="" asp-controller="Orders" asp-action="Index">Orders</a></li>
                                     <li><a asp-area="" asp-controller="Vendors" asp-action="Index">Vendors</a></li>
                                 }
-                                <li><a asp-area="" asp-controller="Courses" asp-action="Index">Courses</a></li>
                                 @if (User.IsInRole("Admin"))
                                 {
                                     <li><a asp-area="" asp-controller="FileDetails" asp-action="Index">Invoice Upload</a></li>
                                 }
                             </ul>
                         </li>
-                }
-                @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser") || User.IsInRole("Student"))
-                {
-                    <li><a asp-area="" asp-controller="ChemInventories" asp-action="Index">Chemical Inventory</a></li>
-                }
-                @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser") || User.IsInRole("AnimalUser") || User.IsInRole("Student"))
-                {
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Log<b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser") || User.IsInRole("Student"))
-                        {
-                            <li><a asp-area="" asp-controller="ChemLogs" asp-action="Index">Log Chemicals</a></li>
-                        }
-                        @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser"))
-                        {
-                            <li><a asp-area="" asp-controller="CageLogs" asp-action="Index">Log Cage</a></li>
-                        }
-                        </ul>
-                    </li>
-                }
+                    }
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser") || User.IsInRole("AnimalUser") || User.IsInRole("Student"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Log<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                            @if (User.IsInRole("Admin") || User.IsInRole("ChemUser") || User.IsInRole("BiologyUser") || User.IsInRole("Student"))
+                            {
+                                <li><a asp-area="" asp-controller="ChemLogs" asp-action="Index">Log Chemicals</a></li>
+                            }
+                            @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser") || User.IsInRole("Student"))
+                            {
+                                <li><a asp-area="" asp-controller="CageLogs" asp-action="Index">Log Cage</a></li>
+                            }
+                            </ul>
+                        </li>
+                    }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

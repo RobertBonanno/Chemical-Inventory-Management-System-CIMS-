@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace LMS4Carroll.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class FileDetailsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -35,11 +36,43 @@ namespace LMS4Carroll.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        [Authorize(Roles = "Admin")]
-        // GET: FileDetails/Create
-        public IActionResult Create()
+        // GET: FileDetails/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID");
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var fileDetailExpanded = await _context.FileDetails.SingleOrDefaultAsync(m => m.FileDetailID == id);
+            if (fileDetailExpanded == null)
+            {
+                return NotFound();
+            }
+
+            return View(fileDetailExpanded);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        //GET: FileDetails/Create/5
+        public async Task<IActionResult> Create(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var orderId = await _context.Orders.SingleOrDefaultAsync(m => m.OrderID == id);
+            if (orderId != null)
+            {
+                ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID", id);
+            } else
+            {
+                ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID");
+
+            }
+
             return View();
         }
 

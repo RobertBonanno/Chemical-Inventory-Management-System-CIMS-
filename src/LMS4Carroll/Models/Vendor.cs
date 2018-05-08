@@ -10,6 +10,7 @@ namespace LMS4Carroll.Models
     public class Vendor
     {
         [Key]
+        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "Vendor ID")]
         public int VendorID { get; set; }
@@ -19,11 +20,9 @@ namespace LMS4Carroll.Models
         [Display(Name = "Manufacturer Name")]
         public string Name { get; set; }
 
-        [Required]
         [StringLength(50, MinimumLength = 3)]
         public string Address { get; set; }
 
-        [Required]
         [StringLength(50, MinimumLength = 3)]
         public string Comments { get; set; }
 

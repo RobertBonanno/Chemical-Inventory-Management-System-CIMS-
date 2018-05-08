@@ -7,128 +7,251 @@
 <div class="top-buffer"></div>
 <div class="panel panel-primary">
     <div class="panel-heading panel-head">Biological Equipment</div>
-    <div class="panel-body">
+    <div class="panel-body table-responsive">
         <div class="btn-group">
-        @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
+            @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
         {
             <a id="createRoleModal" asp-action="Create" class="btn btn-primary">
                 <i class="glyphicon glyphicon-plus"></i>  Add Equipment
             </a>
-        }
+    }
         </div><br />
-            <form asp-controller="BioEquipments" asp-action="Index" method="get" >
-                <div class="form-actions no-color">
-                    <p>
-                        <input type="text" name="EquipmentString" value="@ViewData["currentFilter"]" />
-                        <input type="submit" value="Search" class="btn btn-default" />  
-                        <a asp-action="Index" class="btn btn-default">Back to Full List</a>
-                    </p>
-                </div>
-            </form>
-            <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.BioEquipmentID)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.EquipmentName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.EquipmentModel)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Type)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.SerialNumber)
-                        </th>
-                        <th>
-                            Location
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.InstalledDate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.InspectionDate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.OrderID)
-                        </th>
-                        <td>
-                            CAT#
-                        </td>
-                        <td>
-                            LOT#
-                        </td>
-                        @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser")) 
-                        {
-                            <th>
-                                Actions
-                            </th>
-                        }
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.BioEquipmentID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EquipmentName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EquipmentModel)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Type)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SerialNumber)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Location.NormalizedStr)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.InstalledDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.InspectionDate)
-                        </td>
-                        <td>
-                            @{string orderLink = "http://lms4carroll.azurewebsites.net/Orders/Details/";}
-                            @{var orderint = item.OrderID;}
-                            @{string link = orderLink + orderint;}
-                            <a target="_blank" href="@link">@Html.DisplayFor(modelItem => item.OrderID)</a>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CAT)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LOT)
-                        </td>
-                        @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
-                        {
-                        <td>
-                            <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.BioEquipmentID" class="btn btn-info">
-                                <i class="glyphicon glyphicon-pencil"></i>  Edit
-                            </a>
-                            @if (User.IsInRole("Admin"))
-                            { 
-                                <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.BioEquipmentID" class="btn btn-danger loc2">
-                                    <i class="glyphicon glyphicon-trash"></i>  Delete
-                                </a>
-                            }
-                            <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.BioEquipmentID" class="btn btn-info loc3">
-                                <i class="glyphicon glyphicon-search"></i>  Details
-                            </a>
-                        </td>
-                        }
-                    </tr>
+        <form asp-controller="BioEquipments" asp-action="Index" method="get">
+            <div class="form-actions no-color">
+                <p>
+                    <input type="text" name="EquipmentString" value="@ViewData["currentFilter"]" id="SearchString" />
+                    <input type="submit" value="Search" class="btn btn-default" />
+                    <a asp-action="Index" class="btn btn-default">Back to Full List</a>
+                </p>
+            </div>
+        </form>
+        <div id="Barcode">
+            <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+            <script src="//webrtc.github.io/adapter/adapter-latest.js" type="text/javascript"></script>
+            <script src="~/js/quagga.min.js" type="text/javascript"></script>
+            <script src="~/js/live_w_locator.js" type="text/javascript"></script>
+            <script name="toggleBarcode">
+                function toggleBarcode() {
+                    var x = document.getElementById("BarcodeScanner");
+                    if (x.style.display === "none") {
+                        x.style.display = "block";
+                        document.getElementById("Stop").click();
+                    } else {
+                        x.style.display = "none";
+                        document.getElementById("Start").click();
                     }
-                </tbody>
-            </table>
+                }
+            </script>
+            <button name="BarcodeToggle" onclick="toggleBarcode()">Toggle Barcode</button>
+            <div id="BarcodeScanner" style="display: none;">
+                <div class="controls">
+                    <fieldset class="input-group">
+                        <button class="stop" id="Start">Stop</button>
+                        <button class="start" id="Stop">Start</button>
+                    </fieldset>
+                    <fieldset class="reader-config-group">
+                        <label>
+                            <span>Barcode-Type</span>
+                            <select name="decoder_readers">
+                                <option value="code_128" selected="selected">Code 128</option>
+                                <option value="code_39">Code 39</option>
+                                <option value="code_39_vin">Code 39 VIN</option>
+                                <option value="ean">EAN</option>
+                                <option value="ean_extended">EAN-extended</option>
+                                <option value="ean_8">EAN-8</option>
+                                <option value="upc">UPC</option>
+                                <option value="upc_e">UPC-E</option>
+                                <option value="codabar">Codabar</option>
+                                <option value="i2of5">I2of5</option>
+                                <option value="2of5">Standard 2 of 5</option>
+                                <option value="code_93">Code 93</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>Resolution (long side)</span>
+                            <select name="input-stream_constraints">
+                                <option value="320x240">320px</option>
+                                <option selected="selected" value="640x480">640px</option>
+                                <option value="800x600">800px</option>
+                                <option value="1280x720">1280px</option>
+                                <option value="1600x960">1600px</option>
+                                <option value="1920x1080">1920px</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>Patch-Size</span>
+                            <select name="locator_patch-size">
+                                <option value="x-small">x-small</option>
+                                <option value="small">small</option>
+                                <option selected="selected" value="medium">medium</option>
+                                <option value="large">large</option>
+                                <option value="x-large">x-large</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>Half-Sample</span>
+                            <input type="checkbox" checked="checked" name="locator_half-sample" />
+                        </label>
+                        <label>
+                            <span>Workers</span>
+                            <select name="numOfWorkers">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option selected="selected" value="4">4</option>
+                                <option value="8">8</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>Camera</span>
+                            <select name="input-stream_constraints" id="deviceSelection"></select>
+                        </label>
+                        <label style="display: none">
+                            <span>Zoom</span>
+                            <select name="settings_zoom"></select>
+                        </label>
+                        <label style="display: none">
+                            <span>Torch</span>
+                            <input type="checkbox" name="settings_torch" />
+                        </label>
+                    </fieldset>
+                </div>
+                <div id="result_strip">
+                    <ul class="thumbnails"></ul>
+                </div>
+                <div id="interactive" class="viewport">
+                    <div id="PreLoadMessage">If the barcode scanner does not appear, please give the page access to your camera and load the website using https://"url"</div>
+                </div>
+            </div>
         </div>
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BioEquipmentID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EquipmentName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EquipmentModel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SerialNumber)
+                    </th>
+                    <th>
+                        Location
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.InstalledDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.InspectionDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.OrderID)
+                    </th>
+                    @*<td>
+                        CAT#
+                    </td>
+                    <td>
+                        LOT#
+                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Comments)
+                    </th>*@
+                    @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
+                {
+                    <th>
+                        Actions
+                    </th>
+            }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BioEquipmentID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EquipmentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EquipmentModel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SerialNumber)
+                    </td>
+                    <td>
+                        @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.LocationID">
+                            @Html.DisplayFor(modelItem => item.Location.NormalizedStr)
+                        </a>
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.Location.NormalizedStr)
+            }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InstalledDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InspectionDate)
+                    </td>
+                    <td>
+                        @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderID">
+                            @Html.DisplayFor(modelItem => item.OrderID)
+                        </a>
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.OrderID)
+            }
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.CAT)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LOT)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comments)
+                    </td>*@
+                    @if (User.IsInRole("Admin") || User.IsInRole("BiologyUser"))
+                {
+                    <td>
+                        <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.BioEquipmentID" class="btn btn-info">
+                            <i class="glyphicon glyphicon-pencil"></i>  Edit
+                        </a>
+                        @if (User.IsInRole("Admin"))
+                    {
+                        <a id="archiveApplicationRoleModel" asp-action="Archive" asp-route-id="@item.BioEquipmentID" class="btn btn-info loc2">
+                            <i class="glyphicon glyphicon-plus"></i>  Archive
+                        </a>
+                        <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.BioEquipmentID" class="btn btn-danger loc3">
+                            <i class="glyphicon glyphicon-trash"></i>  Delete
+                        </a>
+                }
+                        <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.BioEquipmentID" class="btn btn-info loc3">
+                            <i class="glyphicon glyphicon-search"></i>  Details
+                        </a>
+                    </td>
+            }
+                </tr>
+        }
+            </tbody>
+        </table>
+    </div>
     </div>

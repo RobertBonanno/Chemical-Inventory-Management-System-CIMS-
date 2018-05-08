@@ -41,6 +41,7 @@ namespace LMS4Carroll.Controllers
                 if (Int32.TryParse(equipmentString, out forID))
                 {
                     equipments = equipments.Where(s => s.ChemEquipmentID.Equals(forID)
+                                            || s.LocationID.Equals(forID)
                                             || s.OrderID.Equals(forID));
                     return View(await equipments.OrderByDescending(s => s.ChemEquipmentID).ToListAsync());
                 }
@@ -48,21 +49,24 @@ namespace LMS4Carroll.Controllers
                 equipments = equipments.Where(s => s.EquipmentName.Contains(equipmentString)
                                     || s.EquipmentModel.Contains(equipmentString)
                                     || s.SerialNumber.Contains(equipmentString)
-                                    || s.Location.NormalizedStr.Contains(equipmentString)
+                                 // || s.Location.NormalizedStr.Contains(equipmentString)
                                     || s.LOT.Contains(equipmentString)
-                                    || s.CAT.Contains(equipmentString));
+                                    || s.CAT.Contains(equipmentString)
+                                    || s.Type.Contains(equipmentString)
+                                    || s.Comments.Contains(equipmentString));
                 return View(await equipments.OrderByDescending(s => s.ChemEquipmentID).ToListAsync());
             }
 
             else
             {
-                var equipments = from m in _context.ChemicalEquipments.Include(c => c.Location).Include(c => c.Order).Take(300)
+                var equipments = from m in _context.ChemicalEquipments.Include(c => c.Location).Include(c => c.Order).Take(1000)
                                  select m;
                 return View(await equipments.OrderByDescending(s => s.ChemEquipmentID).ToListAsync());
             }
         }
 
         // GET: ChemEquipments/Details/5
+        [Authorize(Roles = "Admin,ChemUser")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -80,6 +84,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemEquipments/Create
+        [Authorize(Roles = "Admin,ChemUser")]
         public IActionResult Create()
         {
             ViewData["LocationName"] = new SelectList(_context.Locations, "LocationID", "NormalizedStr");
@@ -91,7 +96,8 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ChemEquipmentID,SerialNumber,InstalledDate,InspectionDate,LOT,CAT,EquipmentModel,EquipmentName,LocationID,OrderID,Type")] ChemEquipment chemEquipment)
+        [Authorize(Roles = "Admin,ChemUser")]
+        public async Task<IActionResult> Create([Bind("ChemEquipmentID,SerialNumber,InstalledDate,InspectionDate,LOT,CAT,EquipmentModel,EquipmentName,LocationID,OrderID,Type,Comments")] ChemEquipment chemEquipment)
         {
             if (ModelState.IsValid)
             {
@@ -106,6 +112,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemEquipments/Edit/5
+        [Authorize(Roles = "Admin,ChemUser")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -127,7 +134,8 @@ namespace LMS4Carroll.Controllers
         // To protect from overposting attacks, enabled bind properties
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ChemEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type")] ChemEquipment chemEquipment)
+        [Authorize(Roles = "Admin,ChemUser")]
+        public async Task<IActionResult> Edit(int id, [Bind("ChemEquipmentID,SerialNumber,InstalledDate,InspectionDate,CAT,LOT,EquipmentModel,EquipmentName,LocationID,OrderID,Type,Comments")] ChemEquipment chemEquipment)
         {
             if (id != chemEquipment.ChemEquipmentID)
             {
@@ -161,6 +169,7 @@ namespace LMS4Carroll.Controllers
         }
 
         // GET: ChemEquipments/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -180,12 +189,60 @@ namespace LMS4Carroll.Controllers
         // POST: ChemEquipments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var chemEquipment = await _context.ChemicalEquipments.SingleOrDefaultAsync(m => m.ChemEquipmentID == id);
             _context.ChemicalEquipments.Remove(chemEquipment);
             await _context.SaveChangesAsync();
             sp_Logging("3-Remove", "Delete", "User deleted a Chemical Equipment where ID=" + id.ToString(), "Success");
+            return RedirectToAction("Index");
+        }
+
+        // GET: ChemEquipments/Archive/5
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Archive(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var chemEquipment = await _context.ChemicalEquipments.SingleOrDefaultAsync(m => m.ChemEquipmentID == id);
+            if (chemEquipment == null)
+            {
+                return NotFound();
+            }
+
+            return View(chemEquipment);
+        }
+
+        // POST: ChemEquipments/Archive/5
+        [HttpPost, ActionName("Archive")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ArchiveConfirm(int id)
+        {
+            var chemEquipment = await _context.ChemicalEquipments.SingleOrDefaultAsync(m => m.ChemEquipmentID == id);
+            ChemArchive chemArchive = new ChemArchive();
+
+            if (chemArchive != null)
+            {
+
+                chemArchive.OrderID = chemEquipment.OrderID;
+                chemArchive.Type = chemEquipment.Type;
+                chemArchive.SerialNumber = chemEquipment.SerialNumber;
+                chemArchive.InstalledDate = chemEquipment.InstalledDate;
+                chemArchive.ArchiveDate = DateTime.Today;
+                chemArchive.EquipmentName = chemEquipment.EquipmentName;
+                chemArchive.EquipmentModel = chemEquipment.EquipmentModel;
+                chemArchive.Comments = chemEquipment.Comments;
+                _context.ChemArchives.Add(chemArchive);
+                await _context.SaveChangesAsync();
+            }
+            _context.ChemicalEquipments.Remove(chemEquipment);
+            sp_Logging("3-Remove", "Delete", "User deleted a Chemistry Equipment where ID=" + id.ToString(), "Success");
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
