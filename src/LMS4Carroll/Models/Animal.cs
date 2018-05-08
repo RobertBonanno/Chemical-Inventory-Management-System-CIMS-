@@ -32,11 +32,6 @@ namespace LMS4Carroll.Models
 
         [Required]
         [StringLength(50)]
-        [Display(Name = "Cage Designation")]
-        public string Designation { get; set; }
-
-        [Required]
-        [StringLength(50)]
         [Display(Name = "Name")]
         public string Name { get; set; }
 

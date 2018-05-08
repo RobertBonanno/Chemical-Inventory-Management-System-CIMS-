@@ -23,14 +23,6 @@
                     <input type="submit" value="Search" class="btn btn-default" />
                     <a asp-action="Index" class="btn btn-default">Back to Full List</a>
                 </p>
-            <form asp-controller="CageLogs" asp-action="Index">
-                <div class="form-actions no-color">
-                    <p>
-                        <input type="text" name="CagelogString" value="@ViewData["currentFilter"]" />
-                        <input type="submit" value="Search" class="btn btn-default" />  
-                        <a asp-action="Index" class="btn btn-default">Back to Full List</a>
-                    </p>
-                </div>
             </form>
             <table class="table table-bordered table-striped table-condensed">
                 <thead>
@@ -39,16 +31,10 @@
                             @Html.DisplayNameFor(model => model.CageLogId)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Animal.AnimalID)
+                            @Html.DisplayNameFor(model => model.Cage.CageID)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Animal.NormalizedLocation)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Animal.Designation)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Animal.Name)
+                            @Html.DisplayNameFor(model => model.Cage.NormalizedLocation)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Clean)
@@ -60,19 +46,13 @@
                             @Html.DisplayNameFor(model => model.Food)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.FoodComments)
-                        </th>
-                        <th>
                             @Html.DisplayNameFor(model => model.Social)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.SocialComments)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Washed)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.WashComments)
+                            @Html.DisplayNameFor(model => model.NoteworthyComments)
                         </th>
                         @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser"))
                         {
@@ -90,20 +70,14 @@
                                 @Html.DisplayFor(modelItem => item.CageLogId)
                             </td>
                             <td>
-                                <a asp-area="" asp-controller="Animals" asp-action="Details" asp-route-id="@item.Animal.AnimalID">
-                                    @Html.DisplayFor(modelItem => item.AnimalID)
+                                <a asp-area="" asp-controller="Animals" asp-action="Details" asp-route-id="@item.Cage.CageID">
+                                    @Html.DisplayFor(modelItem => item.CageID)
                                 </a>
                             </td>
                             <td>
-                                <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.Animal.LocationID">
-                                    @Html.DisplayFor(modelItem => item.Animal.NormalizedLocation)
+                                <a asp-area="" asp-controller="Locations" asp-action="Details" asp-route-id="@item.Cage.LocationID">
+                                    @Html.DisplayFor(modelItem => item.Cage.NormalizedLocation)
                                 </a>  
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Animal.Designation)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Animal.Name)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Clean)
@@ -115,19 +89,13 @@
                                 @Html.DisplayFor(modelItem => item.Food)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.FoodComments)
-                            </td>
-                            <td>
                                 @Html.DisplayFor(modelItem => item.Social)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SocialComments)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Washed)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.WashComments)
+                                @Html.DisplayFor(modelItem => item.NoteworthyComments)
                             </td>
                     @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser"))
                     {
@@ -149,101 +117,5 @@
                 </tbody>
             </table>
             </div>
-        </form>
-        <table class="table table-bordered table-striped table-condensed">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CageLogId)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CageID)
-                    </th>
-                    <!--
-                    <th>
-                        @Html.DisplayNameFor(model => model.Cage.NormalizedLocation)
-                    </th>
-                    -->
-                    <th>
-                        @Html.DisplayNameFor(model => model.Clean)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DatetimeCreated)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Food)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Social)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Washed)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.NoteworthyComments)
-                    </th>
-                    @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser"))
-                {
-                <th>
-                    Actions
-                </th>
-                }
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CageLogId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CageID)
-                    </td>
-                    <!--
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cage.NormalizedLocation)
-                    </td>
-                    -->
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Clean)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DatetimeCreated)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Food)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Social)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Washed)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NoteworthyComments)
-                    </td>
-                    @if (User.IsInRole("Admin") || User.IsInRole("AnimalUser"))
-                  {
-                <td>
-                    <a id="addEditApplicationRoleModal" asp-action="Edit" asp-route-id="@item.CageLogId" class="btn btn-info">
-                        <i class="glyphicon glyphicon-pencil"></i>Edit
-                    </a>
-                    <a id="deleteApplicationRoleModal" asp-action="Delete" asp-route-id="@item.CageLogId" class="btn btn-danger loc2">
-                        <i class="glyphicon glyphicon-trash"></i>  Delete
-                    </a>
-                    <!--
-    <a id="addEditApplicationRoleModal" asp-action="Details" asp-route-id="@item.CageLogId" class="btn btn-info">
-        <i class="glyphicon glyphicon-pencil"></i>Details
-    </a>-->
-                </td>
-                  }
-                    <td></td>
-                </tr>
-                }
-            </tbody>
-        </table>
     </div>
-</div>
 
